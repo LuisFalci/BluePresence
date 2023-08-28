@@ -16,7 +16,7 @@ interface StudentDAO {
     @Delete
     fun delete(student: StudentModel): Int
     @Query("SELECT * FROM Student WHERE id = :id")
-    fun get(id: Int): StudentModel
+    fun get(id: Long): StudentModel
     @Query("SELECT * FROM Student")
     fun getAll(): List<StudentModel>
 }

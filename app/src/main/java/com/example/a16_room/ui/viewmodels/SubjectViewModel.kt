@@ -39,7 +39,7 @@ class SubjectViewModel(application: Application) : AndroidViewModel(application)
         changes.value = repository.insert(model)
     }
 
-    fun insertStudentSubject(studentId: Int, subjectId: Int) {
+    fun insertStudentSubject(studentId: Long, subjectId: Int) {
         repository.insertStudentSubject(studentId, subjectId)
     }
 

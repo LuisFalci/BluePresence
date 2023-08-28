@@ -13,7 +13,7 @@ class SubjectRepository(context: Context) {
         return subjectDAO.insert(subject)
     }
 
-    fun insertStudentSubject(studentId: Int, subjectId: Int) {
+    fun insertStudentSubject(studentId: Long, subjectId: Int) {
         val studentSubjectCrossRef = StudentSubjectCrossRef(studentId, subjectId)
         subjectDAO.insertStudentSubjectCrossRef(studentSubjectCrossRef)
     }

@@ -3,7 +3,6 @@ package com.example.a16_room.ui.view.student
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a16_room.ui.adapters.StudentAdapter
@@ -32,7 +31,6 @@ class MainActivity : AppCompatActivity() {
 
         if (intent.hasExtra("subject_id")) {
             subjectId = intent.getIntExtra("subject_id", -1)
-            Toast.makeText(this, subjectId.toString(), Toast.LENGTH_SHORT).show()
         }
 
         binding.recyclerStudents.layoutManager = LinearLayoutManager(applicationContext)
@@ -40,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         val Intent = Intent(this, EditStudentActivity::class.java)
         val listener = object : OnStudentListener {
-            override fun OnClick(id: Int, source: ClickSourceStudent) {
+            override fun OnClick(id: Long, source: ClickSourceStudent) {
                 when (source) {
                     ClickSourceStudent.TEXT -> {
                         Intent.putExtra("student_id", id)

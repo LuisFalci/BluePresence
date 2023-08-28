@@ -1,7 +1,7 @@
 package com.example.a16_room.ui.listeners
 
 interface OnStudentListener {
-    fun OnClick(id: Int, source: ClickSourceStudent)
+    fun OnClick(id: Long, source: ClickSourceStudent)
 }
 
 enum class ClickSourceStudent {

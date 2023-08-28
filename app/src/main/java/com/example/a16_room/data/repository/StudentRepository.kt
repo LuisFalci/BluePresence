@@ -20,7 +20,7 @@ class StudentRepository(context: Context) {
         return studenDatabase.delete(student)
     }
 
-    fun get(id: Int): StudentModel {
+    fun get(id: Long): StudentModel {
         return studenDatabase.get(id)
     }
 

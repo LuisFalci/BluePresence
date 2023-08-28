@@ -21,6 +21,7 @@ class CreateStudentActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this)[StudentViewModel::class.java]
+        subjectViewModel = ViewModelProvider(this)[SubjectViewModel::class.java] // Assuming you have a SubjectViewModel
 
         if (intent.hasExtra("subject_id")) {
             subjectId = intent.getIntExtra("subject_id", -1)
@@ -29,10 +30,15 @@ class CreateStudentActivity : AppCompatActivity() {
         binding.buttonInsert.setOnClickListener {
             val name = binding.editName.text.toString()
             val registration = binding.editRegistration.text.toString()
-            viewModel.insert(name, registration)
-//            TODO tentar fazer o insertedStudentId funcionar. O id do student tá dando ruim converter para string e depois int de novo
-//            val insertedStudentId = viewModel.insert(name, registration).toString()
-//            subjectViewModel.insertStudentSubject(insertedStudentId.toInt(), subjectId)
+
+            val insertedStudentId = viewModel.insert(name, registration)
+
+            Toast.makeText(this, insertedStudentId.toString(), Toast.LENGTH_SHORT).show()
+
+            if (insertedStudentId > 0 && subjectId != -1) {
+                subjectViewModel.insertStudentSubject(insertedStudentId, subjectId)
+            }
+
             finish()
         }
     }

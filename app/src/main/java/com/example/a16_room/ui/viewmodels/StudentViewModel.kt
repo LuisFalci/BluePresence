@@ -24,31 +24,35 @@ class StudentViewModel(application: Application) : AndroidViewModel(application)
         listStudents.value = repository.getAll()
     }
 
-    fun get(id: Int) {
+    fun get(id: Long) {
         studentModel.value = repository.get(id)
     }
 
-    fun insert(name: String, registration: String) {
+    fun insert(name: String, registration: String): Long {
         val model = StudentModel().apply {
             this.name = name
             this.registration = registration
         }
-        changes.value = repository.insert(model)
+        return repository.insert(model)
     }
 
-    fun update(id: Int, name: String, registration: String) {
+    fun update(id: Long, name: String, registration: String): Int {
         val model = StudentModel().apply {
             this.id = id
             this.name = name
             this.registration = registration
         }
-        changes.value = repository.update(model).toLong()
+        val affectedRows = repository.update(model)
+        changes.value = affectedRows.toLong()
+        return affectedRows
     }
 
-    fun delete(id: Int) {
+    fun delete(id: Long): Int {
         val model = StudentModel().apply {
             this.id = id
         }
-        changes.value = repository.delete(model).toLong()
+        val affectedRows = repository.delete(model)
+        changes.value = affectedRows.toLong()
+        return affectedRows
     }
 }

@@ -8,7 +8,7 @@ import com.example.a16_room.ui.viewmodels.StudentViewModel
 
 class EditStudentActivity : AppCompatActivity() {
     private lateinit var viewModel: StudentViewModel
-    private var studentId: Int = -1
+    private var studentId: Long = -1
     private lateinit var binding: ActivityEditStudentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +19,7 @@ class EditStudentActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[StudentViewModel::class.java]
 
         if (intent.hasExtra("student_id")) {
-            studentId = intent.getIntExtra("student_id", -1)
+            studentId = intent.getLongExtra(("student_id"), -1)
         }
         if (studentId > 0) {
             viewModel.get(studentId)
