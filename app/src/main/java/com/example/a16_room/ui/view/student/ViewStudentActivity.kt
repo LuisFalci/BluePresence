@@ -8,19 +8,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a16_room.ui.adapters.StudentAdapter
 import com.example.a16_room.ui.listeners.OnStudentListener
 import com.example.a16_room.ui.viewmodels.StudentViewModel
-import com.example.a16_room.databinding.ActivityMainBinding
+import com.example.a16_room.databinding.ActivityViewStudentBinding
 import com.example.a16_room.ui.listeners.ClickSourceStudent
 import com.example.a16_room.ui.viewmodels.SubjectViewModel
 
 class ViewStudentActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityViewStudentBinding
     private lateinit var viewModel: StudentViewModel
     private lateinit var subjectViewModel: SubjectViewModel
     private val adapter = StudentAdapter()
     private var subjectId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityViewStudentBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
