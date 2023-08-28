@@ -46,6 +46,7 @@ class SubjectViewModel(application: Application) : AndroidViewModel(application)
     fun update(id: Int, subjectName: String) {
         val model = SubjectModel().apply {
             this.subjectId = id
+
             this.subjectName = subjectName
         }
         changes.value = repository.update(model).toLong()
