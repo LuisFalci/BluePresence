@@ -21,7 +21,8 @@ class CreateStudentActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this)[StudentViewModel::class.java]
-        subjectViewModel = ViewModelProvider(this)[SubjectViewModel::class.java] // Assuming you have a SubjectViewModel
+        subjectViewModel =
+            ViewModelProvider(this)[SubjectViewModel::class.java] // Assuming you have a SubjectViewModel
 
         if (intent.hasExtra("subject_id")) {
             subjectId = intent.getIntExtra("subject_id", -1)
@@ -32,8 +33,6 @@ class CreateStudentActivity : AppCompatActivity() {
             val registration = binding.editRegistration.text.toString()
 
             val insertedStudentId = viewModel.insert(name, registration)
-
-            Toast.makeText(this, insertedStudentId.toString(), Toast.LENGTH_SHORT).show()
 
             if (insertedStudentId > 0 && subjectId != -1) {
                 subjectViewModel.insertStudentSubject(insertedStudentId, subjectId)

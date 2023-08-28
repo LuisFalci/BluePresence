@@ -11,12 +11,24 @@ import com.example.a16_room.data.models.StudentModel
 interface StudentDAO {
     @Insert
     fun insert(student: StudentModel): Long
+
     @Update
     fun update(student: StudentModel): Int
+
     @Delete
     fun delete(student: StudentModel): Int
+
     @Query("SELECT * FROM Student WHERE id = :id")
     fun get(id: Long): StudentModel
+
     @Query("SELECT * FROM Student")
     fun getAll(): List<StudentModel>
+
+    @Query(
+        "SELECT Student.* FROM Student " +
+                "INNER JOIN StudentSubjectCrossRef ON Student.id = StudentSubjectCrossRef.id " +
+                "WHERE StudentSubjectCrossRef.subjectId = :subjectId"
+    )
+    fun getAllStudentsInSubject(subjectId: Int): List<StudentModel>
+
 }

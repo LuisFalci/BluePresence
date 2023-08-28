@@ -60,14 +60,14 @@ class MainActivity : AppCompatActivity() {
 
         adapter.attachListener(listener)
 
-        viewModel.getAll()
+        viewModel.getAllStudentsInSubject(subjectId)
         observe()
     }
 
     //Garante a atualização da lista quando volta da edição/criação
     override fun onResume() {
         super.onResume()
-        viewModel.getAll()
+        viewModel.getAllStudentsInSubject(subjectId)
     }
 
     private fun observe() {
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
             adapter.updateStudents(it)
         }
         viewModel.newChange.observe(this) {
-            viewModel.getAll()
+            viewModel.getAllStudentsInSubject(subjectId)
         }
     }
 }

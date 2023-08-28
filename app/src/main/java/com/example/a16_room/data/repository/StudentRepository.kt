@@ -27,4 +27,7 @@ class StudentRepository(context: Context) {
     fun getAll(): List<StudentModel> {
         return studenDatabase.getAll()
     }
+    fun getAllStudentsInSubject(subjectId: Int): List<StudentModel> {
+        return studenDatabase.getAllStudentsInSubject(subjectId)
+    }
 }
