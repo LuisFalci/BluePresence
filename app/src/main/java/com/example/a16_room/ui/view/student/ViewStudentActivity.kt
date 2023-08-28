@@ -12,7 +12,7 @@ import com.example.a16_room.databinding.ActivityMainBinding
 import com.example.a16_room.ui.listeners.ClickSourceStudent
 import com.example.a16_room.ui.viewmodels.SubjectViewModel
 
-class MainActivity : AppCompatActivity() {
+class ViewStudentActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: StudentViewModel
     private lateinit var subjectViewModel: SubjectViewModel

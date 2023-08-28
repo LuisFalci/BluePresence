@@ -25,7 +25,7 @@
             android:name=".ui.view.student.EditStudentActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.student.MainActivity"
+            android:name=".ui.view.student.ViewStudentActivity"
             android:exported="false" />
         <activity
             android:name=".ui.view.subject.ViewSubjectActivity"

@@ -3,17 +3,13 @@ package com.example.a16_room.ui.view.subject
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.a16_room.R
 import com.example.a16_room.databinding.ActivityViewSubjectBinding
-import com.example.a16_room.databinding.RowSubjectBinding
 import com.example.a16_room.ui.adapters.SubjectAdapter
 import com.example.a16_room.ui.listeners.ClickSourceSubject
 import com.example.a16_room.ui.listeners.OnSubjectListener
-import com.example.a16_room.ui.view.student.MainActivity
+import com.example.a16_room.ui.view.student.ViewStudentActivity
 import com.example.a16_room.ui.viewmodels.SubjectViewModel
 
 class ViewSubjectActivity : AppCompatActivity() {
@@ -36,7 +32,7 @@ class ViewSubjectActivity : AppCompatActivity() {
             override fun OnClick(subjectId: Int, source: ClickSourceSubject) {
                 when (source) {
                     ClickSourceSubject.OPTION_VIEW_STUDENTS -> {
-                        val intent = Intent(this@ViewSubjectActivity, MainActivity::class.java)
+                        val intent = Intent(this@ViewSubjectActivity, ViewStudentActivity::class.java)
                         intent.putExtra("subject_id", subjectId)
                         startActivity(intent)
                     }
