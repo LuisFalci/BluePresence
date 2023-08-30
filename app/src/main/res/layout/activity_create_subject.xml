@@ -2,23 +2,125 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp"
     tools:context=".ui.view.subject.CreateSubjectActivity">
 
     <EditText
         android:id="@+id/edit_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:gravity="center"
-        android:hint="Matéria" />
+        android:hint="Nome da Matéria" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/label_options_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="1dp"
+            android:text="Escolha o dia:"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/options_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_toEndOf="@+id/label_options_spinner" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="De"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/button_pick_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#AAA9A9"
+            android:onClick="onPickStartTimeClick"
+            android:padding="8dp"
+            android:text="Escolher Hora" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="até"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/button_pick_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#AAA9A9"
+            android:onClick="onPickEndTimeClick"
+            android:padding="8dp"
+            android:text="Escolher Hora" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_insert_day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Adicionar Horário" />
+    <TextView
+        android:id="@+id/text_selected_options_and_times"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text=""
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/text_selected_options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text=""
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Horários:"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        android:background="#A89797" />
 
     <Button
         android:id="@+id/button_insert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:text="Cadastrar" />
 
 </LinearLayout>
