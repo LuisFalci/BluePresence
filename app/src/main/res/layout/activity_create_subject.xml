@@ -16,92 +16,51 @@
         android:gravity="center"
         android:hint="Nome da Matéria" />
 
-    <RelativeLayout
+
+    <TextView
+        android:id="@+id/label_options_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp">
-
-        <TextView
-            android:id="@+id/label_options_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="1dp"
-            android:text="Escolha o dia:"
-            android:textSize="20sp" />
-
-        <Spinner
-            android:id="@+id/options_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_toEndOf="@+id/label_options_spinner" />
-    </RelativeLayout>
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="1dp"
+        android:text="Escolha os dias:"
+        android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
+        <CheckBox
+            android:id="@+id/fragment_createalarm_checkMon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="De"
-            android:textSize="20sp" />
+            android:text="Seg." />
 
-        <Button
-            android:id="@+id/button_pick_start_time"
+        <CheckBox
+            android:id="@+id/fragment_createalarm_checkTue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#AAA9A9"
-            android:onClick="onPickStartTimeClick"
-            android:padding="8dp"
-            android:text="Escolher Hora" />
+            android:text="Ter." />
 
-        <TextView
+        <CheckBox
+            android:id="@+id/fragment_createalarm_checkWed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="até"
-            android:textSize="20sp" />
+            android:text="Qua." />
 
-        <Button
-            android:id="@+id/button_pick_end_time"
+        <CheckBox
+            android:id="@+id/fragment_createalarm_checkThu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#AAA9A9"
-            android:onClick="onPickEndTimeClick"
-            android:padding="8dp"
-            android:text="Escolher Hora" />
+            android:text="Qui." />
+
+        <CheckBox
+            android:id="@+id/fragment_createalarm_checkFri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sex." />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/button_insert_day"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Adicionar Horário" />
-    <TextView
-        android:id="@+id/text_selected_options_and_times"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text=""
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/text_selected_options"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text=""
-        android:textSize="16sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -109,6 +68,17 @@
         android:layout_margin="5dp"
         android:text="Horários:"
         android:textSize="20sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        android:background="#A89797" />
+
+    <ListView
+        android:id="@+id/dayListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <View
         android:layout_width="match_parent"
