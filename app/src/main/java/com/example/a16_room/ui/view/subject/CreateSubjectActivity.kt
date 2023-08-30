@@ -1,21 +1,23 @@
 package com.example.a16_room.ui.view.subject
 
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import android.widget.CheckBox
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_room.R
 import com.example.a16_room.databinding.ActivityCreateSubjectBinding
+import com.example.a16_room.ui.adapters.SelectedDaysAdapter
 import com.example.a16_room.ui.viewmodels.SubjectViewModel
 
 class CreateSubjectActivity : AppCompatActivity() {
     private lateinit var viewModel: SubjectViewModel
     lateinit var binding: ActivityCreateSubjectBinding
     private val selectedOptions = mutableListOf<String>()
-    private lateinit var dayListView: ListView
-    private lateinit var selectedDaysArrayAdapter: ArrayAdapter<String>
+
+    private lateinit var dayRecyclerView: RecyclerView
+    private lateinit var selectedDaysAdapter: SelectedDaysAdapter
 
 
     private val checkBoxes: List<CheckBox> by lazy {
@@ -33,10 +35,19 @@ class CreateSubjectActivity : AppCompatActivity() {
         binding = ActivityCreateSubjectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        dayRecyclerView = findViewById(R.id.dayRecyclerView)
+        selectedDaysAdapter = SelectedDaysAdapter(this, selectedOptions)
+        dayRecyclerView.adapter = selectedDaysAdapter
+        dayRecyclerView.layoutManager = LinearLayoutManager(this)
+
         viewModel = ViewModelProvider(this)[SubjectViewModel::class.java]
 
         binding.buttonInsert.setOnClickListener {
             val name = binding.editName.text.toString()
+
+            // Obtenha os horários selecionados de cada ViewHolder
+//            val selectedTimes = selectedDaysAdapter.getSelectedTimes()
+//            viewModel.insert(name, selectedOptions, selectedTimes)
 
             viewModel.insert(name)
             finish()
@@ -51,12 +62,9 @@ class CreateSubjectActivity : AppCompatActivity() {
                 } else {
                     selectedOptions.remove(day)
                 }
-                dayListView = findViewById(R.id.dayListView)
-                selectedDaysArrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, selectedOptions)
-                dayListView.adapter = selectedDaysArrayAdapter
+                selectedDaysAdapter.notifyDataSetChanged()
             }
         }
-
 
     }
 }

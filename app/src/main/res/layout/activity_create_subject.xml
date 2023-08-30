@@ -75,9 +75,10 @@
         android:layout_margin="5dp"
         android:background="#A89797" />
 
-    <ListView
-        android:id="@+id/dayListView"
-        android:layout_width="wrap_content"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dayRecyclerView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <View

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/day"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="19dp"
+        android:text="Dia"
+        android:textColor="@color/lavender"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="19dp"
+        android:text=": de"
+        android:textColor="@color/lavender"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/button_pick_start_time"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:backgroundTint="#E1E1E1"
+        android:onClick="onPickStartTimeClick"
+        android:text="Escolher Hora"
+        android:textSize="10sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="19dp"
+        android:text=" até"
+        android:textColor="@color/lavender"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/button_pick_end_time"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:backgroundTint="#E1E1E1"
+        android:onClick="onPickEndTimeClick"
+        android:text="Escolher Hora"
+        android:textSize="10sp" />
+</LinearLayout>
