@@ -9,9 +9,11 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_room.R
+import com.example.a16_room.data.models.ScheduleModel
 
-class SelectedDaysAdapter(private val context: Context, private val data: MutableList<String>) :
-        RecyclerView.Adapter<SelectedDaysAdapter.ViewHolder>() {
+class ScheduleAdapter(private val context: Context, private val data: MutableList<String>) :
+        RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
+    private var scheduleModelList: List<ScheduleModel> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)

@@ -8,16 +8,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_room.R
 import com.example.a16_room.databinding.ActivityCreateSubjectBinding
-import com.example.a16_room.ui.adapters.SelectedDaysAdapter
+import com.example.a16_room.ui.adapters.ScheduleAdapter
+import com.example.a16_room.ui.viewmodels.ScheduleViewModel
 import com.example.a16_room.ui.viewmodels.SubjectViewModel
 
 class CreateSubjectActivity : AppCompatActivity() {
-    private lateinit var viewModel: SubjectViewModel
+    private lateinit var subjectVewModel: SubjectViewModel
+    private lateinit var scheduleViewModel: ScheduleViewModel
+
     lateinit var binding: ActivityCreateSubjectBinding
     private val selectedOptions = mutableListOf<String>()
 
     private lateinit var dayRecyclerView: RecyclerView
-    private lateinit var selectedDaysAdapter: SelectedDaysAdapter
+    private lateinit var scheduleAdapter: ScheduleAdapter
 
 
     private val checkBoxes: List<CheckBox> by lazy {
@@ -36,20 +39,19 @@ class CreateSubjectActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         dayRecyclerView = findViewById(R.id.dayRecyclerView)
-        selectedDaysAdapter = SelectedDaysAdapter(this, selectedOptions)
-        dayRecyclerView.adapter = selectedDaysAdapter
+        scheduleAdapter = ScheduleAdapter(this, selectedOptions)
+        dayRecyclerView.adapter = scheduleAdapter
         dayRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        viewModel = ViewModelProvider(this)[SubjectViewModel::class.java]
+        subjectVewModel = ViewModelProvider(this)[SubjectViewModel::class.java]
+        scheduleViewModel =  ViewModelProvider(this)[ScheduleViewModel::class.java]
 
         binding.buttonInsert.setOnClickListener {
             val name = binding.editName.text.toString()
 
-            // Obtenha os horários selecionados de cada ViewHolder
-//            val selectedTimes = selectedDaysAdapter.getSelectedTimes()
-//            viewModel.insert(name, selectedOptions, selectedTimes)
+            subjectVewModel.insert(name)
+//            scheduleViewModel.insert(startTime,  endTime, dayOfWeek)
 
-            viewModel.insert(name)
             finish()
         }
         val options = listOf("Segunda", "Terça", "Quarta", "Quinta", "Sexta")
@@ -62,7 +64,7 @@ class CreateSubjectActivity : AppCompatActivity() {
                 } else {
                     selectedOptions.remove(day)
                 }
-                selectedDaysAdapter.notifyDataSetChanged()
+                scheduleAdapter.notifyDataSetChanged()
             }
         }
 

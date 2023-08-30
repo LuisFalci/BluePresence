@@ -6,18 +6,22 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.a16_room.data.dao.ScheduleDAO
 import com.example.a16_room.data.dao.StudentDAO
 import com.example.a16_room.data.dao.SubjectDAO
+import com.example.a16_room.data.models.ScheduleModel
 import com.example.a16_room.data.models.StudentModel
 import com.example.a16_room.data.models.SubjectModel
 import com.example.a16_room.data.models.relations.StudentSubjectCrossRef
 
-@Database(entities = [StudentModel::class, SubjectModel::class, StudentSubjectCrossRef::class], version = 2)
+@Database(entities = [StudentModel::class, SubjectModel::class, StudentSubjectCrossRef::class, ScheduleModel::class], version = 3)
 abstract class StudentDatabase : RoomDatabase() {
 
     //abstração da interface, temos o acesso via esta instância do banco
     abstract fun studentDAO(): StudentDAO
     abstract fun subjectDAO(): SubjectDAO
+
+    abstract fun scheduleDAO(): ScheduleDAO
 
     //PADRÃO SINGLETON (impedimos instanciar mais de um banco)
     companion object {
