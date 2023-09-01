@@ -19,7 +19,7 @@ class ScheduleModel {
     @PrimaryKey(autoGenerate = true)
     var scheduleId: Long = 0
 
-    var subjectId: Int = 0
+    var subjectId: Long = 0
 
     @ColumnInfo(name = "startTime")
     var startTime: String = ""

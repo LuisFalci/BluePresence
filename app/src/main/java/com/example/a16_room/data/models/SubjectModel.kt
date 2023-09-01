@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 class SubjectModel {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "subject_id")
-    var subjectId: Int = 0
+    var subjectId: Long = 0
 
     @ColumnInfo(name = "subject_name")
     var subjectName: String = ""

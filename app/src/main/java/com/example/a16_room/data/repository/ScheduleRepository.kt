@@ -15,7 +15,7 @@ class ScheduleRepository(context: Context) {
         return scheduleDatabase.get(scheduleId)
     }
 
-    fun getAllSchedulesForSubject(subjectId: Int): List<ScheduleModel> {
+    fun getAllSchedulesForSubject(subjectId: Long): List<ScheduleModel> {
         return scheduleDatabase.getAllSchedulesForSubject(subjectId)
     }
 }

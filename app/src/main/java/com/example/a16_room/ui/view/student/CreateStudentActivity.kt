@@ -1,8 +1,7 @@
 package com.example.a16_room.ui.view.student
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.a16_room.databinding.ActivityCreateStudentBinding
 import com.example.a16_room.ui.viewmodels.StudentViewModel
@@ -13,7 +12,7 @@ class CreateStudentActivity : AppCompatActivity() {
     private lateinit var subjectViewModel: SubjectViewModel
 
     lateinit var binding: ActivityCreateStudentBinding
-    private var subjectId: Int = -1
+    private var subjectId: Long = -1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +24,7 @@ class CreateStudentActivity : AppCompatActivity() {
             ViewModelProvider(this)[SubjectViewModel::class.java] // Assuming you have a SubjectViewModel
 
         if (intent.hasExtra("subject_id")) {
-            subjectId = intent.getIntExtra("subject_id", -1)
+            subjectId = intent.getLongExtra("subject_id", -1L)
         }
 
         binding.buttonInsert.setOnClickListener {
@@ -34,7 +33,7 @@ class CreateStudentActivity : AppCompatActivity() {
 
             val insertedStudentId = viewModel.insert(name, registration)
 
-            if (insertedStudentId > 0 && subjectId != -1) {
+            if (insertedStudentId > 0 && subjectId != -1L) {
                 subjectViewModel.insertStudentSubject(insertedStudentId, subjectId)
             }
 

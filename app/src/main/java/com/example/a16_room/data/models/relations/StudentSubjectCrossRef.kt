@@ -6,5 +6,5 @@ import androidx.room.Entity
 @Entity(primaryKeys = ["id", "subjectId"])
 class StudentSubjectCrossRef(
     val id: Long,
-    val subjectId: Int
+    val subjectId: Long
 )

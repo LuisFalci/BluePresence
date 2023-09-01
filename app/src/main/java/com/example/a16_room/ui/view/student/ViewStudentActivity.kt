@@ -1,16 +1,16 @@
 package com.example.a16_room.ui.view.student
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.a16_room.ui.adapters.StudentAdapter
-import com.example.a16_room.ui.listeners.OnStudentListener
-import com.example.a16_room.ui.viewmodels.StudentViewModel
 import com.example.a16_room.databinding.ActivityViewStudentBinding
+import com.example.a16_room.ui.adapters.StudentAdapter
 import com.example.a16_room.ui.listeners.ClickSourceStudent
+import com.example.a16_room.ui.listeners.OnStudentListener
 import com.example.a16_room.ui.view.RollCallActivity
+import com.example.a16_room.ui.viewmodels.StudentViewModel
 import com.example.a16_room.ui.viewmodels.SubjectViewModel
 
 class ViewStudentActivity : AppCompatActivity() {
@@ -18,7 +18,7 @@ class ViewStudentActivity : AppCompatActivity() {
     private lateinit var viewModel: StudentViewModel
     private lateinit var subjectViewModel: SubjectViewModel
     private val adapter = StudentAdapter()
-    private var subjectId: Int = -1
+    private var subjectId: Long = -1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityViewStudentBinding.inflate(layoutInflater)
@@ -31,7 +31,7 @@ class ViewStudentActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[StudentViewModel::class.java]
 
         if (intent.hasExtra("subject_id")) {
-            subjectId = intent.getIntExtra("subject_id", -1)
+            subjectId = intent.getLongExtra("subject_id", -1L)
         }
 
         binding.recyclerStudents.layoutManager = LinearLayoutManager(applicationContext)

@@ -1,15 +1,14 @@
 package com.example.a16_room.ui.view.subject
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.a16_room.databinding.ActivityEditSubjectBinding
 import com.example.a16_room.ui.viewmodels.SubjectViewModel
 
 class EditSubjectActivity : AppCompatActivity() {
     private lateinit var viewModel: SubjectViewModel
-    private var subjectId: Int = -1
+    private var subjectId: Long = -1L
     private lateinit var binding: ActivityEditSubjectBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +18,7 @@ class EditSubjectActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[SubjectViewModel::class.java]
 
         if (intent.hasExtra("subject_id")) {
-            subjectId = intent.getIntExtra("subject_id", -1)
+            subjectId = intent.getLongExtra("subject_id", -1L)
         }
         if (subjectId > 0) {
             viewModel.get(subjectId)

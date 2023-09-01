@@ -25,10 +25,10 @@ class SubjectViewModel(application: Application) : AndroidViewModel(application)
         listSubjects.value = repository.getAll()
     }
 
-    fun get(id: Int) {
+    fun get(id: Long) {
         subjectModel.value = repository.get(id)
     }
-    fun getAllStudentsInSubject(subjectId: Int): List<StudentModel> {
+    fun getAllStudentsInSubject(subjectId: Long): List<StudentModel> {
         return repository.getAllStudentsInSubject(subjectId)
     }
 
@@ -39,11 +39,11 @@ class SubjectViewModel(application: Application) : AndroidViewModel(application)
         changes.value = repository.insert(model)
     }
 
-    fun insertStudentSubject(studentId: Long, subjectId: Int) {
+    fun insertStudentSubject(studentId: Long, subjectId: Long) {
         repository.insertStudentSubject(studentId, subjectId)
     }
 
-    fun update(id: Int, subjectName: String) {
+    fun update(id: Long, subjectName: String) {
         val model = SubjectModel().apply {
             this.subjectId = id
 
@@ -52,7 +52,7 @@ class SubjectViewModel(application: Application) : AndroidViewModel(application)
         changes.value = repository.update(model).toLong()
     }
 
-    fun delete(id: Int) {
+    fun delete(id: Long) {
         val model = SubjectModel().apply {
             this.subjectId = id
         }

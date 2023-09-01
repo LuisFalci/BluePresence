@@ -24,7 +24,7 @@ interface SubjectDAO {
     fun delete(subject: SubjectModel): Int
 
     @Query("SELECT * FROM Subject WHERE subject_id = :id")
-    fun get(id: Int): SubjectModel
+    fun get(id: Long): SubjectModel
 
     @Query("SELECT * FROM Subject")
     fun getAll(): List<SubjectModel>
@@ -34,7 +34,7 @@ interface SubjectDAO {
                 "INNER JOIN StudentSubjectCrossRef ON Student.id = StudentSubjectCrossRef.id " +
                 "WHERE StudentSubjectCrossRef.subjectId = :subjectId"
     )
-    fun getAllStudentsInSubject(subjectId: Int): List<StudentModel>
+    fun getAllStudentsInSubject(subjectId: Long): List<StudentModel>
 
 
 }

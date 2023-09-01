@@ -13,16 +13,23 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
     private val listSchedules = MutableLiveData<List<ScheduleModel>>()
     val schedules: LiveData<List<ScheduleModel>> = listSchedules
 
-    fun getAllSchedulesForSubject(subjectId: Int) {
+    private val scheduleModel = MutableLiveData<ScheduleModel>()
+    var schedule: LiveData<ScheduleModel> = scheduleModel
+
+    private var changes = MutableLiveData<Long>()
+    var newChange: LiveData<Long> = changes
+
+    fun getAllSchedulesForSubject(subjectId: Long) {
         listSchedules.value = repository.getAllSchedulesForSubject(subjectId)
     }
 
-    fun insert(startTime: String, endTime: String, dayOfWeek: String): Long {
+    fun insert(subjectId: Long, startTime: String, endTime: String, dayOfWeek: String) {
         val model = ScheduleModel().apply {
+            this.subjectId = subjectId
             this.startTime = startTime
             this.endTime = endTime
             this.dayOfWeek = dayOfWeek
         }
-        return repository.insert(model)
+        changes.value = repository.insert(model)
     }
 }

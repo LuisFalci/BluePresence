@@ -29,6 +29,6 @@ interface StudentDAO {
                 "INNER JOIN StudentSubjectCrossRef ON Student.id = StudentSubjectCrossRef.id " +
                 "WHERE StudentSubjectCrossRef.subjectId = :subjectId"
     )
-    fun getAllStudentsInSubject(subjectId: Int): List<StudentModel>
+    fun getAllStudentsInSubject(subjectId: Long): List<StudentModel>
 
 }

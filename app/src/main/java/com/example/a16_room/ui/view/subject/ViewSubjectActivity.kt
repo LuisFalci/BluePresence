@@ -1,8 +1,8 @@
 package com.example.a16_room.ui.view.subject
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a16_room.databinding.ActivityViewSubjectBinding
@@ -16,8 +16,6 @@ class ViewSubjectActivity : AppCompatActivity() {
     private lateinit var binding: ActivityViewSubjectBinding
     private lateinit var viewModel: SubjectViewModel
     private val adapter = SubjectAdapter()
-    private var id = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityViewSubjectBinding.inflate(layoutInflater)
@@ -29,7 +27,7 @@ class ViewSubjectActivity : AppCompatActivity() {
         binding.recyclerSubjects.adapter = adapter
 
         val listener = object : OnSubjectListener {
-            override fun OnClick(subjectId: Int, source: ClickSourceSubject) {
+            override fun OnClick(subjectId: Long, source: ClickSourceSubject) {
                 when (source) {
                     ClickSourceSubject.OPTION_VIEW_STUDENTS -> {
                         val intent = Intent(this@ViewSubjectActivity, ViewStudentActivity::class.java)
@@ -47,7 +45,6 @@ class ViewSubjectActivity : AppCompatActivity() {
                     }
                 }
             }
-
         }
 
         binding.buttonNewSubject.setOnClickListener {

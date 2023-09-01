@@ -13,7 +13,7 @@ class SubjectRepository(context: Context) {
         return subjectDAO.insert(subject)
     }
 
-    fun insertStudentSubject(studentId: Long, subjectId: Int) {
+    fun insertStudentSubject(studentId: Long, subjectId: Long) {
         val studentSubjectCrossRef = StudentSubjectCrossRef(studentId, subjectId)
         subjectDAO.insertStudentSubjectCrossRef(studentSubjectCrossRef)
     }
@@ -26,14 +26,14 @@ class SubjectRepository(context: Context) {
         return subjectDAO.delete(subject)
     }
 
-    fun get(id: Int): SubjectModel {
+    fun get(id: Long): SubjectModel {
         return subjectDAO.get(id)
     }
 
     fun getAll(): List<SubjectModel> {
         return subjectDAO.getAll()
     }
-    fun getAllStudentsInSubject(subjectId: Int): List<StudentModel> {
+    fun getAllStudentsInSubject(subjectId: Long): List<StudentModel> {
         return subjectDAO.getAllStudentsInSubject(subjectId)
     }
 

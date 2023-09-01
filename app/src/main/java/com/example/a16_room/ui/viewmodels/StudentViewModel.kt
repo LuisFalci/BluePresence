@@ -55,7 +55,7 @@ class StudentViewModel(application: Application) : AndroidViewModel(application)
         changes.value = affectedRows.toLong()
         return affectedRows
     }
-    fun getAllStudentsInSubject(subjectId: Int) {
+    fun getAllStudentsInSubject(subjectId: Long) {
         listStudents.value = repository.getAllStudentsInSubject(subjectId)
     }
 }

@@ -1,14 +1,14 @@
 package com.example.a16_room.ui.view.student
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.a16_room.databinding.ActivityEditStudentBinding
 import com.example.a16_room.ui.viewmodels.StudentViewModel
 
 class EditStudentActivity : AppCompatActivity() {
     private lateinit var viewModel: StudentViewModel
-    private var studentId: Long = -1
+    private var studentId: Long = -1L
     private lateinit var binding: ActivityEditStudentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +19,7 @@ class EditStudentActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[StudentViewModel::class.java]
 
         if (intent.hasExtra("student_id")) {
-            studentId = intent.getLongExtra(("student_id"), -1)
+            studentId = intent.getLongExtra(("student_id"), -1L)
         }
         if (studentId > 0) {
             viewModel.get(studentId)
