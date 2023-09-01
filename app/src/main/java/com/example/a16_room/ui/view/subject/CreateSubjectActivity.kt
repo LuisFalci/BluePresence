@@ -20,9 +20,9 @@ class CreateSubjectActivity : AppCompatActivity() {
     lateinit var binding: ActivityCreateSubjectBinding
 
     data class ClassTime(
-        val dayOfWeek: String,
+        val dayOfWeek: String = "",
         var startTime: String = "",
-        var endTime: String = ""
+        var endTime: String = "",
     )
 
     private val classTimesList = mutableListOf<ClassTime>()

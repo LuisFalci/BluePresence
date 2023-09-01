@@ -32,11 +32,11 @@ class SubjectViewModel(application: Application) : AndroidViewModel(application)
         return repository.getAllStudentsInSubject(subjectId)
     }
 
-    fun insert(subjectName: String) {
+    fun insert(subjectName: String): Long {
         val model = SubjectModel().apply {
             this.subjectName = subjectName
         }
-        changes.value = repository.insert(model)
+        return repository.insert(model)
     }
 
     fun insertStudentSubject(studentId: Long, subjectId: Long) {

@@ -8,7 +8,7 @@ import com.example.a16_room.data.models.ScheduleModel
 @Dao
 interface ScheduleDAO {
     @Insert
-    fun insert(scheduleModel: ScheduleModel): Long
+    fun insert(scheduleModel: ScheduleModel)
 
     @Query("SELECT * FROM Schedule WHERE scheduleId = :scheduleId")
     fun get(scheduleId: Long): ScheduleModel

@@ -7,7 +7,12 @@ import com.example.a16_room.data.models.ScheduleModel
 class ScheduleRepository(context: Context) {
     private val scheduleDatabase = StudentDatabase.getDatabase(context).scheduleDAO()
 
-    fun insert(scheduleModel: ScheduleModel): Long {
+    fun insert(subjectId: Long, startTime: String, endTime: String, dayOfWeek: String) {
+        val scheduleModel = ScheduleModel()
+        scheduleModel.subjectId = subjectId
+        scheduleModel.startTime = startTime
+        scheduleModel.endTime = endTime
+        scheduleModel.dayOfWeek = dayOfWeek
         return scheduleDatabase.insert(scheduleModel)
     }
 

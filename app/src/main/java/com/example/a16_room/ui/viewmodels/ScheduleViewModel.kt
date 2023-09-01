@@ -24,12 +24,6 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun insert(subjectId: Long, startTime: String, endTime: String, dayOfWeek: String) {
-        val model = ScheduleModel().apply {
-            this.subjectId = subjectId
-            this.startTime = startTime
-            this.endTime = endTime
-            this.dayOfWeek = dayOfWeek
-        }
-        changes.value = repository.insert(model)
+        repository.insert(subjectId, startTime, endTime, dayOfWeek)
     }
 }
