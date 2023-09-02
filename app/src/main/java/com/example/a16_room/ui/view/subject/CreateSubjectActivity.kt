@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.a16_room.R
 import com.example.a16_room.databinding.ActivityCreateSubjectBinding
 import com.example.a16_room.ui.viewmodels.ScheduleViewModel
 import com.example.a16_room.ui.viewmodels.SubjectViewModel
@@ -104,21 +103,26 @@ class CreateSubjectActivity : AppCompatActivity() {
         val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
         val currentMinute = calendar.get(Calendar.MINUTE)
 
+        // Verifique se a lista contém o dia, se não, adicione-o
+        val classTime = classTimesList.find { it.dayOfWeek == day }
+        if (classTime == null) {
+            classTimesList.add(ClassTime(day))
+        }
+
         val timePickerDialog = TimePickerDialog(
             this,
             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                 val formattedTime = String.format("%02d:%02d", hourOfDay, minute)
                 button.text = formattedTime
 
-                // Encontre o objeto ClassTime correspondente e atualize o horário
-                val classTime = classTimesList.find { it.dayOfWeek == day }
-                classTime?.let {
-                    if (button.id == R.id.mondayStart) {
+                // Atualize o horário no objeto ClassTime correspondente
+                val updatedClassTime = classTimesList.find { it.dayOfWeek == day }
+                updatedClassTime?.let {
+                    if (it.startTime.isEmpty()) {
                         it.startTime = formattedTime
-                    } else if (button.id == R.id.mondayEnd) {
+                    } else if (it.endTime.isEmpty()) {
                         it.endTime = formattedTime
                     }
-                    // Continue esse padrão para os outros dias da semana
                 }
             },
             currentHour,
@@ -127,5 +131,8 @@ class CreateSubjectActivity : AppCompatActivity() {
         )
         timePickerDialog.show()
     }
+
+
+
 
 }
