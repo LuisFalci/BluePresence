@@ -109,6 +109,9 @@ class CreateSubjectActivity : AppCompatActivity() {
             classTimesList.add(ClassTime(day))
         }
 
+        val buttonName = resources.getResourceEntryName(button.id)
+        val isStartButton = buttonName.contains("Start")
+
         val timePickerDialog = TimePickerDialog(
             this,
             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
@@ -118,9 +121,10 @@ class CreateSubjectActivity : AppCompatActivity() {
                 // Atualize o horário no objeto ClassTime correspondente
                 val updatedClassTime = classTimesList.find { it.dayOfWeek == day }
                 updatedClassTime?.let {
-                    if (it.startTime.isEmpty()) {
+                    if (isStartButton) {
                         it.startTime = formattedTime
-                    } else if (it.endTime.isEmpty()) {
+                    }
+                    if (!isStartButton) {
                         it.endTime = formattedTime
                     }
                 }
