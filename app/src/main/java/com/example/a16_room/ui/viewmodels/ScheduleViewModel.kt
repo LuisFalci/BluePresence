@@ -19,11 +19,40 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
     private var changes = MutableLiveData<Long>()
     var newChange: LiveData<Long> = changes
 
-    fun getAllSchedulesForSubject(subjectId: Long) {
-        listSchedules.value = repository.getAllSchedulesForSubject(subjectId)
+    fun getAllSchedulesForSubject(subjectId: Long): List<ScheduleModel> {
+        return repository.getAllSchedulesForSubject(subjectId)
+    }
+
+    fun get(id: Long) {
+        scheduleModel.value = repository.get(id)
     }
 
     fun insert(subjectId: Long, startTime: String, endTime: String, dayOfWeek: String) {
         repository.insert(subjectId, startTime, endTime, dayOfWeek)
+    }
+
+
+    fun update(
+        scheduleId: Long,
+        subjectId: Long,
+        startTime: String,
+        endTime: String,
+        dayOfWeek: String,
+    ) {
+        val model = ScheduleModel().apply {
+            this.scheduleId = scheduleId
+            this.subjectId = subjectId
+            this.startTime = startTime
+            this.endTime = endTime
+            this.dayOfWeek = dayOfWeek
+        }
+        changes.value = repository.update(model).toLong()
+    }
+
+    fun delete(scheduleId: Long) {
+        val model = ScheduleModel().apply {
+            this.scheduleId = scheduleId
+        }
+        changes.value = repository.delete(model).toLong()
     }
 }

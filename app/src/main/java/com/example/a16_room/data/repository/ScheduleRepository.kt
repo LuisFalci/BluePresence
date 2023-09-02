@@ -5,7 +5,7 @@ import com.example.a16_room.data.database.StudentDatabase
 import com.example.a16_room.data.models.ScheduleModel
 
 class ScheduleRepository(context: Context) {
-    private val scheduleDatabase = StudentDatabase.getDatabase(context).scheduleDAO()
+    private val scheduleDAO = StudentDatabase.getDatabase(context).scheduleDAO()
 
     fun insert(subjectId: Long, startTime: String, endTime: String, dayOfWeek: String) {
         val scheduleModel = ScheduleModel()
@@ -13,14 +13,22 @@ class ScheduleRepository(context: Context) {
         scheduleModel.startTime = startTime
         scheduleModel.endTime = endTime
         scheduleModel.dayOfWeek = dayOfWeek
-        return scheduleDatabase.insert(scheduleModel)
+        return scheduleDAO.insert(scheduleModel)
+    }
+
+    fun update(schedule: ScheduleModel): Int {
+        return scheduleDAO.update(schedule)
+    }
+
+    fun delete(schedule: ScheduleModel): Int {
+        return scheduleDAO.delete(schedule)
     }
 
     fun get(scheduleId: Long): ScheduleModel {
-        return scheduleDatabase.get(scheduleId)
+        return scheduleDAO.get(scheduleId)
     }
 
     fun getAllSchedulesForSubject(subjectId: Long): List<ScheduleModel> {
-        return scheduleDatabase.getAllSchedulesForSubject(subjectId)
+        return scheduleDAO.getAllSchedulesForSubject(subjectId)
     }
 }
