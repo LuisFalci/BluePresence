@@ -13,28 +13,32 @@
         android:theme="@style/Theme.16_ROOM"
         tools:targetApi="31">
         <activity
-            android:name=".ui.view.RollCallActivity"
+            android:name=".ui.view.AttendanceActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.view.SubjectMenuActivity"/>
+        <activity
+            android:name=".ui.view.SubjectMenuActivity"
             android:exported="false" />
         <activity
             android:name=".ui.view.subject.CreateSubjectActivity"
             android:exported="false"
-            android:parentActivityName=".ui.view.subject.ViewSubjectActivity"/>
+            android:parentActivityName=".ui.view.subject.ViewSubjectActivity" />
         <activity
             android:name=".ui.view.subject.EditSubjectActivity"
             android:exported="false"
-            android:parentActivityName=".ui.view.subject.ViewSubjectActivity"/>
+            android:parentActivityName=".ui.view.subject.ViewSubjectActivity" />
         <activity
             android:name=".ui.view.student.CreateStudentActivity"
             android:exported="false"
-            android:parentActivityName=".ui.view.student.ViewStudentActivity"/>
+            android:parentActivityName=".ui.view.student.ViewStudentActivity" />
         <activity
             android:name=".ui.view.student.EditStudentActivity"
             android:exported="false"
-            android:parentActivityName=".ui.view.student.ViewStudentActivity"/>
+            android:parentActivityName=".ui.view.student.ViewStudentActivity" />
         <activity
             android:name=".ui.view.student.ViewStudentActivity"
             android:exported="false"
-            android:parentActivityName=".ui.view.subject.ViewSubjectActivity"/>
+            android:parentActivityName=".ui.view.SubjectMenuActivity" />
         <activity
             android:name=".ui.view.subject.ViewSubjectActivity"
             android:exported="true">

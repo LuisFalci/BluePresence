@@ -9,7 +9,6 @@ import com.example.a16_room.databinding.ActivityViewStudentBinding
 import com.example.a16_room.ui.adapters.StudentAdapter
 import com.example.a16_room.ui.listeners.ClickSourceStudent
 import com.example.a16_room.ui.listeners.OnStudentListener
-import com.example.a16_room.ui.view.RollCallActivity
 import com.example.a16_room.ui.viewmodels.StudentViewModel
 import com.example.a16_room.ui.viewmodels.SubjectViewModel
 
@@ -63,10 +62,6 @@ class ViewStudentActivity : AppCompatActivity() {
 
         viewModel.getAllStudentsInSubject(subjectId)
         observe()
-
-        binding.goToRollCall.setOnClickListener{
-            startActivity(Intent(this, RollCallActivity::class.java))
-        }
     }
 
     //Garante a atualização da lista quando volta da edição/criação

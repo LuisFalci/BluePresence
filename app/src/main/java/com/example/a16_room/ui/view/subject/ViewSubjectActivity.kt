@@ -9,7 +9,7 @@ import com.example.a16_room.databinding.ActivityViewSubjectBinding
 import com.example.a16_room.ui.adapters.SubjectAdapter
 import com.example.a16_room.ui.listeners.ClickSourceSubject
 import com.example.a16_room.ui.listeners.OnSubjectListener
-import com.example.a16_room.ui.view.student.ViewStudentActivity
+import com.example.a16_room.ui.view.SubjectMenuActivity
 import com.example.a16_room.ui.viewmodels.SubjectViewModel
 
 class ViewSubjectActivity : AppCompatActivity() {
@@ -30,7 +30,8 @@ class ViewSubjectActivity : AppCompatActivity() {
             override fun OnClick(subjectId: Long, source: ClickSourceSubject) {
                 when (source) {
                     ClickSourceSubject.OPTION_VIEW_STUDENTS -> {
-                        val intent = Intent(this@ViewSubjectActivity, ViewStudentActivity::class.java)
+//                        val intent = Intent(this@ViewSubjectActivity, ViewStudentActivity::class.java)
+                        val intent = Intent(this@ViewSubjectActivity, SubjectMenuActivity::class.java)
                         intent.putExtra("subject_id", subjectId)
                         startActivity(intent)
                     }
