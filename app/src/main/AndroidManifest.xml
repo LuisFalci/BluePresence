@@ -17,19 +17,24 @@
             android:exported="false" />
         <activity
             android:name=".ui.view.subject.CreateSubjectActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.view.subject.ViewSubjectActivity"/>
         <activity
             android:name=".ui.view.subject.EditSubjectActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.view.subject.ViewSubjectActivity"/>
         <activity
             android:name=".ui.view.student.CreateStudentActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.view.student.ViewStudentActivity"/>
         <activity
             android:name=".ui.view.student.EditStudentActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.view.student.ViewStudentActivity"/>
         <activity
             android:name=".ui.view.student.ViewStudentActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.view.subject.ViewSubjectActivity"/>
         <activity
             android:name=".ui.view.subject.ViewSubjectActivity"
             android:exported="true">
