@@ -21,6 +21,7 @@ class SubjectMenuActivity : AppCompatActivity() {
 
         binding.attendance.setOnClickListener{
             val intent = Intent(this@SubjectMenuActivity, AttendanceActivity::class.java)
+            intent.putExtra("subject_id", subjectId)
             startActivity(intent)
         }
         binding.student.setOnClickListener{

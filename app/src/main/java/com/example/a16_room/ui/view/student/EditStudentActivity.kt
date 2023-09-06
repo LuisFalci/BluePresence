@@ -10,7 +10,7 @@ class EditStudentActivity : AppCompatActivity() {
     private lateinit var viewModel: StudentViewModel
     private var studentId: Long = -1L
     private lateinit var binding: ActivityEditStudentBinding
-
+    private var macAddress: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditStudentBinding.inflate(layoutInflater)
@@ -33,7 +33,7 @@ class EditStudentActivity : AppCompatActivity() {
         binding.buttonEdit.setOnClickListener {
             val name = binding.editName.text.toString()
             val registration = binding.editRegistration.text.toString()
-            viewModel.update(studentId, name, registration)
+            viewModel.update(studentId, name, registration, macAddress)
 
             finish()
         }

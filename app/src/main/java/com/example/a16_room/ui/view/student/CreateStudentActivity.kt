@@ -28,8 +28,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_room.databinding.ActivityCreateStudentBinding
 import com.example.a16_room.ui.adapters.DeviceAdapter
-import com.example.a16_room.ui.broadcastreceiver.BluetoothReceiver
-import com.example.a16_room.ui.broadcastreceiver.DiscoverabilityReceiver
 import com.example.a16_room.ui.listeners.OnDeviceClickListener
 import com.example.a16_room.ui.viewmodels.StudentViewModel
 import com.example.a16_room.ui.viewmodels.SubjectViewModel
@@ -43,14 +41,14 @@ class CreateStudentActivity : AppCompatActivity() {
 
     lateinit var bluetoothAdapter: BluetoothAdapter
     lateinit var bluetoothManager: BluetoothManager
-    lateinit var receiver: BluetoothReceiver
-    lateinit var receiver2: DiscoverabilityReceiver
+
     var permission: Boolean = false
     val REQUEST_ACCESS_COARSE_LOCATION = 101
 
     private lateinit var deviceAdapter: DeviceAdapter
     private val devicesList = ArrayList<String>()
     private var pairedDevicesList = ArrayList<String>()
+    private var macAddress: String = ""
 
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +68,7 @@ class CreateStudentActivity : AppCompatActivity() {
             val name = binding.editName.text.toString()
             val registration = binding.editRegistration.text.toString()
 
-            val insertedStudentId = viewModel.insert(name, registration)
+            val insertedStudentId = viewModel.insert(name, registration, macAddress)
 
             if (insertedStudentId > 0 && subjectId != -1L) {
                 subjectViewModel.insertStudentSubject(insertedStudentId, subjectId)
@@ -81,8 +79,6 @@ class CreateStudentActivity : AppCompatActivity() {
 
         bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         bluetoothAdapter = bluetoothManager.adapter
-        receiver = BluetoothReceiver()
-        receiver2 = DiscoverabilityReceiver()
 
         binding.btDiscoverDevices.setOnClickListener {
             //ToDo -> Garantir que enableDisableBluetooth foi rodado antes de proseguir com o fluxo
@@ -114,10 +110,6 @@ class CreateStudentActivity : AppCompatActivity() {
                         .show()
                         .findViewById<TextView>(androidx.appcompat.R.id.message)!!.movementMethod =
                         LinkMovementMethod.getInstance()
-
-                    PackageManager.PERMISSION_GRANTED -> {
-                        Log.d("discoverDevices", "Permission Granted")
-                    }
                 }
             }
             discoverDevices()
@@ -135,6 +127,9 @@ class CreateStudentActivity : AppCompatActivity() {
         }
 
         deviceAdapter.attachListener(listener)
+
+        val bondStateFilter = IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED)
+        registerReceiver(bondStateChangedReceiver, bondStateFilter)
     }
 
     @SuppressLint("MissingPermission")
@@ -156,18 +151,6 @@ class CreateStudentActivity : AppCompatActivity() {
                 action = intent.action.toString()
             }
             when (action) {
-                BluetoothAdapter.ACTION_STATE_CHANGED -> {
-                    Log.d("discoverDevices1", "STATE CHANGED")
-                }
-
-                BluetoothAdapter.ACTION_DISCOVERY_STARTED -> {
-                    Log.d("discoverDevices2", "Discovery Started")
-                }
-
-                BluetoothAdapter.ACTION_DISCOVERY_FINISHED -> {
-                    Log.d("discoverDevices3", "Disvcoery Fininshed")
-                }
-
                 BluetoothDevice.ACTION_FOUND -> {
                     val device =
                         intent?.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
@@ -175,20 +158,6 @@ class CreateStudentActivity : AppCompatActivity() {
                         Log.d("discoverDevices4", "${device.name}  ${device.address}")
                         devicesList.add("${device.name}->${device.address}")
                         deviceAdapter.notifyDataSetChanged()
-
-                        when (device.bondState) {
-                            BluetoothDevice.BOND_NONE -> {
-                                Log.d("Bluetooth bond status", "${device.name} bond none")
-                            }
-
-                            BluetoothDevice.BOND_BONDING -> {
-                                Log.d("Bluetooth bond status", "${device.name} bond bonding")
-                            }
-
-                            BluetoothDevice.BOND_BONDED -> {
-                                Log.d("Bluetooth bond status", "${device.name} bonded")
-                            }
-                        }
                     }
                 }
             }
@@ -196,8 +165,34 @@ class CreateStudentActivity : AppCompatActivity() {
 
     }
 
+    private val bondStateChangedReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val action = intent?.action
+            if (BluetoothDevice.ACTION_BOND_STATE_CHANGED == action) {
+                val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
+                val bondState = intent.getIntExtra(BluetoothDevice.EXTRA_BOND_STATE, BluetoothDevice.ERROR)
+
+                when (bondState) {
+                    BluetoothDevice.BOND_BONDED -> {
+                        // O dispositivo foi pareado com sucesso
+                        macAddress = device?.address.toString()
+                        Log.d("BluetoothReceiver", "Dispositivo pareado com sucesso: ${device?.name} - ${macAddress}")
+                    }
+                    BluetoothDevice.BOND_BONDING -> {
+                        // O dispositivo está atualmente em processo de pareamento
+                        Log.d("BluetoothReceiver", "Pareando dispositivo: ${device?.name} - ${device?.address}")
+                    }
+                    BluetoothDevice.BOND_NONE -> {
+                        // O dispositivo não está pareado
+                        Log.d("BluetoothReceiver", "Dispositivo não pareado: ${device?.name} - ${device?.address}")
+                    }
+                }
+            }
+        }
+    }
+
     @SuppressLint("MissingPermission")
-    private fun getPairedDevices() {
+    fun getPairedDevices() {
         var arr = bluetoothAdapter.bondedDevices
         Log.d("bondedDevices", arr.size.toString())
         Log.d("bondedDevices", arr.toString())
@@ -215,9 +210,6 @@ class CreateStudentActivity : AppCompatActivity() {
         if (!bluetoothAdapter.isEnabled) {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             btActivityResultLauncher.launch(enableBtIntent)
-
-            val intentFilter = IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED)
-            registerReceiver(receiver, intentFilter)
         }
     }
 
@@ -249,10 +241,12 @@ class CreateStudentActivity : AppCompatActivity() {
     )
 
     private fun checkPermissions() {
-        val permission1 = ActivityCompat.checkSelfPermission(this,
+        val permission1 = ActivityCompat.checkSelfPermission(
+            this,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
-        val permission2 = ActivityCompat.checkSelfPermission(this,
+        val permission2 = ActivityCompat.checkSelfPermission(
+            this,
             Manifest.permission.BLUETOOTH_SCAN
         )
         if (permission1 != PackageManager.PERMISSION_GRANTED) {
@@ -269,16 +263,13 @@ class CreateStudentActivity : AppCompatActivity() {
         try {
             remoteDevice.createBond()
             Log.d("pairStatus", "pair succes")
-            getPairedDevices()
         } catch (e: Exception) {
             e.printStackTrace()
             Log.d("pairStatus", "pair failed")
         }
     }
-
-
     override fun onDestroy() {
         super.onDestroy()
-        unregisterReceiver(receiver)
+        unregisterReceiver(bondStateChangedReceiver)
     }
 }
