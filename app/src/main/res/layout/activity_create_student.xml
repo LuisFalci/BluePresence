@@ -29,4 +29,18 @@
         android:layout_height="wrap_content"
         android:text="Cadastrar" />
 
+    <Button
+        android:id="@+id/btDiscoverDevices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text ="Get Scanned Devices"
+        android:textSize="20sp"
+        android:background="@color/teal_200"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/device_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>
