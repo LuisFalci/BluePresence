@@ -56,6 +56,9 @@ class CreateStudentActivity : AppCompatActivity() {
         binding = ActivityCreateStudentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        var action = supportActionBar
+        action!!.title = "Criar Aluno"
+
         viewModel = ViewModelProvider(this)[StudentViewModel::class.java]
         subjectViewModel =
             ViewModelProvider(this)[SubjectViewModel::class.java] // Assuming you have a SubjectViewModel

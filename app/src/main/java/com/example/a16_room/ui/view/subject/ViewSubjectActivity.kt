@@ -21,6 +21,9 @@ class ViewSubjectActivity : AppCompatActivity() {
         binding = ActivityViewSubjectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        var action = supportActionBar
+        action!!.title = "Turmas"
+
         viewModel = ViewModelProvider(this)[SubjectViewModel::class.java]
 
         binding.recyclerSubjects.layoutManager = LinearLayoutManager(applicationContext)

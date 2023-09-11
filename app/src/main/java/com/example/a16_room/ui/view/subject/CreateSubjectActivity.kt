@@ -32,6 +32,8 @@ class CreateSubjectActivity : AppCompatActivity() {
         binding = ActivityCreateSubjectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        var action = supportActionBar
+        action!!.title = "Criar Turma"
 
         binding.mondayStart.setOnClickListener {
             selectedButton = binding.mondayStart

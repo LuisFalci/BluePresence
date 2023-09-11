@@ -34,6 +34,9 @@ class EditSubjectActivity : AppCompatActivity() {
         binding = ActivityEditSubjectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        var action = supportActionBar
+        action!!.title = "Editar Turma"
+
         subjectViewModel = ViewModelProvider(this).get(SubjectViewModel::class.java)
         scheduleViewModel = ViewModelProvider(this).get(ScheduleViewModel::class.java)
 

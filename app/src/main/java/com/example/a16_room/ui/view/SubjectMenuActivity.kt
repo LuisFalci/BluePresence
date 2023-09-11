@@ -15,6 +15,9 @@ class SubjectMenuActivity : AppCompatActivity() {
         binding = ActivitySubjectMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        var action = supportActionBar
+        action!!.title = "Menu"
+
         if (intent.hasExtra("subject_id")) {
             subjectId = intent.getLongExtra("subject_id", -1L)
         }

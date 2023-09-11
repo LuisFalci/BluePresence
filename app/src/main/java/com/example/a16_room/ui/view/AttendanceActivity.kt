@@ -49,6 +49,8 @@ class AttendanceActivity : AppCompatActivity() {
     private var bluetoothDevicesFound = mutableListOf<String>()
     private val bluetoothDevicesFoundLiveData = MutableLiveData<List<String>>()
 
+    private var subjectId: Long = -1L
+
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,9 +60,13 @@ class AttendanceActivity : AppCompatActivity() {
         var action = supportActionBar
         action!!.title = "Chamada"
 
+        if (intent.hasExtra("subject_id")) {
+            subjectId = intent.getLongExtra("subject_id", -1L)
+        }
+
         studentViewModel = ViewModelProvider(this).get(StudentViewModel::class.java)
 
-        studentViewModel.getAll()
+        studentViewModel.getAllStudentsInSubject(subjectId)
 
         studentViewModel.students.observe(this) { students ->
             studentList.clear()

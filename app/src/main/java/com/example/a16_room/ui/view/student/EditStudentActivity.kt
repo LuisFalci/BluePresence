@@ -16,6 +16,9 @@ class EditStudentActivity : AppCompatActivity() {
         binding = ActivityEditStudentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        var action = supportActionBar
+        action!!.title = "Editar Aluno"
+
         viewModel = ViewModelProvider(this)[StudentViewModel::class.java]
 
         if (intent.hasExtra("student_id")) {
