@@ -5,24 +5,28 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/nomeAlunoTextView"
-        android:layout_width="wrap_content"
+        android:id="@+id/studentNameTextView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Rogerinho piroca de foice"
         android:layout_gravity="center_vertical"
+        android:layout_weight="2"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
+        android:text="João"
         android:textSize="18sp" />
 
     <CheckBox
-        android:id="@+id/checkBoxPresente"
-        android:layout_width="wrap_content"
+        android:id="@+id/checkBoxPresent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:text="Presente" />
 
     <CheckBox
-        android:id="@+id/checkBoxAusente"
-        android:layout_width="wrap_content"
+        android:id="@+id/checkBoxAbsent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:text="Ausente" />
+
 </LinearLayout>
