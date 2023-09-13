@@ -11,7 +11,7 @@ import com.example.a16_room.ui.viewmodels.SubjectViewModel
 import java.util.Calendar
 
 class CreateSubjectActivity : AppCompatActivity() {
-    private lateinit var subjectVewModel: SubjectViewModel
+    private lateinit var subjectViewModel: SubjectViewModel
     private lateinit var scheduleViewModel: ScheduleViewModel
 
     private lateinit var selectedButton: Button
@@ -76,14 +76,14 @@ class CreateSubjectActivity : AppCompatActivity() {
             showTimePicker(selectedButton, "Sexta")
         }
 
-        subjectVewModel = ViewModelProvider(this)[SubjectViewModel::class.java]
+        subjectViewModel = ViewModelProvider(this)[SubjectViewModel::class.java]
         scheduleViewModel = ViewModelProvider(this)[ScheduleViewModel::class.java]
 
         binding.buttonInsert.setOnClickListener {
             val name = binding.editName.text.toString()
 
             // Insira a matéria e obtenha o ID
-            val subjectId = subjectVewModel.insert(name)
+            val subjectId = subjectViewModel.insert(name)
 
             // Agora, insira os horários na tabela Schedules
             for (classTime in classTimesList) {
@@ -93,7 +93,6 @@ class CreateSubjectActivity : AppCompatActivity() {
 
                 scheduleViewModel.insert(subjectId, startTime, endTime, dayOfWeek)
             }
-
             finish()
         }
 
