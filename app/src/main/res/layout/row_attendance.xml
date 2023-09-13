@@ -15,18 +15,24 @@
         android:text="João"
         android:textSize="18sp" />
 
-    <CheckBox
-        android:id="@+id/checkBoxPresent"
+    <RadioGroup
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Presente" />
+        android:layout_weight="2"
+        android:orientation="horizontal">
 
-    <CheckBox
-        android:id="@+id/checkBoxAbsent"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Ausente" />
+        <RadioButton
+            android:id="@+id/radioPresent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Presente" />
+
+        <RadioButton
+            android:id="@+id/radioAbsent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ausente" />
+
+    </RadioGroup>
 
 </LinearLayout>

@@ -21,8 +21,8 @@ class AttendanceAdapter(
     inner class AttendanceViewHolder(binding: RowAttendanceBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val studentName = binding.studentNameTextView
-        val studentPresent = binding.checkBoxPresent
-        val studentAbsent = binding.checkBoxAbsent
+        val studentPresent = binding.radioPresent
+        val studentAbsent = binding.radioAbsent
     }
 
     override fun onCreateViewHolder(

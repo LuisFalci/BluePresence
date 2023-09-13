@@ -52,6 +52,8 @@ class AttendanceActivity : AppCompatActivity() {
 
     private var subjectId: Long = -1L
 
+    private val studentAttendanceMap = mutableMapOf<Long, Boolean>()
+
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +66,8 @@ class AttendanceActivity : AppCompatActivity() {
         if (intent.hasExtra("subject_id")) {
             subjectId = intent.getLongExtra("subject_id", -1L)
         }
+
+        attendanceViewModel = ViewModelProvider(this)[AttendanceViewModel::class.java]
 
         studentViewModel = ViewModelProvider(this).get(StudentViewModel::class.java)
 
@@ -135,6 +139,14 @@ class AttendanceActivity : AppCompatActivity() {
             discoverDevices()
         }
         binding.seveAttendance.setOnClickListener {
+//            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+//            val current = LocalDateTime.now().format(formatter)
+//
+            attendanceViewModel.insert(1, "3243432", true)
+
+//            for ((studentId, isPresent) in studentAttendanceMap) {
+//                attendanceViewModel.insert(studentId, current, isPresent)
+//            }
         }
 
         //bottom navigation
@@ -152,7 +164,8 @@ class AttendanceActivity : AppCompatActivity() {
 
         val listener = object : OnAttendanceListener {
             override fun onStudentClick(studentId: Long, isPresent: Boolean) {
-                Log.d("presente", "${studentId} está ${isPresent}")
+                studentAttendanceMap[studentId] = isPresent
+                Log.d("presente", "${studentAttendanceMap}")
             }
         }
         attendanceAdapter.attachListener(listener)
