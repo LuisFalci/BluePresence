@@ -32,13 +32,11 @@ import com.example.a16_room.databinding.ActivityAttendanceBinding
 import com.example.a16_room.ui.adapters.AttendanceAdapter
 import com.example.a16_room.ui.listeners.OnAttendanceListener
 import com.example.a16_room.ui.view.student.ViewStudentActivity
-import com.example.a16_room.ui.viewmodels.AttendanceViewModel
 import com.example.a16_room.ui.viewmodels.StudentViewModel
 
 class AttendanceActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAttendanceBinding
     private lateinit var studentViewModel: StudentViewModel
-    private lateinit var attendanceViewModel: AttendanceViewModel
     private lateinit var attendanceAdapter: AttendanceAdapter
     private val studentList: MutableList<StudentModel> = mutableListOf()
 
@@ -66,8 +64,6 @@ class AttendanceActivity : AppCompatActivity() {
         if (intent.hasExtra("subject_id")) {
             subjectId = intent.getLongExtra("subject_id", -1L)
         }
-
-        attendanceViewModel = ViewModelProvider(this)[AttendanceViewModel::class.java]
 
         studentViewModel = ViewModelProvider(this).get(StudentViewModel::class.java)
 
@@ -142,7 +138,7 @@ class AttendanceActivity : AppCompatActivity() {
 //            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 //            val current = LocalDateTime.now().format(formatter)
 //
-            attendanceViewModel.insert(1, "3243432", true)
+//            attendanceViewModel.insert(1, "3243432", true)
 
 //            for ((studentId, isPresent) in studentAttendanceMap) {
 //                attendanceViewModel.insert(studentId, current, isPresent)
