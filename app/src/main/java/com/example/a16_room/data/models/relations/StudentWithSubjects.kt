@@ -11,7 +11,7 @@ class StudentWithSubjects {
     lateinit var student: StudentModel
 
     @Relation(
-        parentColumn = "id",
+        parentColumn = "studentId",
         entityColumn = "subjectId",
         associateBy = Junction(StudentSubjectCrossRef::class)
     )

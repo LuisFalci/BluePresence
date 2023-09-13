@@ -1,10 +1,10 @@
 package com.example.a16_room.ui.viewholders
 
 import androidx.recyclerview.widget.RecyclerView
-import com.example.a16_room.ui.listeners.OnStudentListener
 import com.example.a16_room.data.models.StudentModel
 import com.example.a16_room.databinding.RowStudentBinding
 import com.example.a16_room.ui.listeners.ClickSourceStudent
+import com.example.a16_room.ui.listeners.OnStudentListener
 
 class StudentViewHolder(
     private val bind: RowStudentBinding,
@@ -15,10 +15,10 @@ class StudentViewHolder(
         bind.textStudent.text = student.name
 
         bind.textStudent.setOnClickListener{
-            listener.OnClick(student.id, ClickSourceStudent.TEXT)
+            listener.OnClick(student.studentId, ClickSourceStudent.TEXT)
         }
         bind.buttonRemove.setOnClickListener{
-            listener.OnClick(student.id, ClickSourceStudent.BUTTON_REMOVE)
+            listener.OnClick(student.studentId, ClickSourceStudent.BUTTON_REMOVE)
         }
     }
 }

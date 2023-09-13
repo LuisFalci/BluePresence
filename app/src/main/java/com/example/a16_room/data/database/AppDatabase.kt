@@ -15,7 +15,7 @@ import com.example.a16_room.data.models.SubjectModel
 import com.example.a16_room.data.models.relations.StudentSubjectCrossRef
 
 @Database(entities = [StudentModel::class, SubjectModel::class, StudentSubjectCrossRef::class, ScheduleModel::class], version = 1)
-abstract class StudentDatabase : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
 
     abstract fun studentDAO(): StudentDAO
     abstract fun subjectDAO(): SubjectDAO
@@ -24,13 +24,13 @@ abstract class StudentDatabase : RoomDatabase() {
 
     //PADRÃO SINGLETON (impedimos instanciar mais de um banco)
     companion object {
-        private lateinit var INSTANCE: StudentDatabase
+        private lateinit var INSTANCE: AppDatabase
 
-        fun getDatabase(context: Context): StudentDatabase {
+        fun getDatabase(context: Context): AppDatabase {
             if (!Companion::INSTANCE.isInitialized) {
-                synchronized(StudentDatabase::class.java) {
+                synchronized(AppDatabase::class.java) {
                     INSTANCE =
-                        Room.databaseBuilder(context, StudentDatabase::class.java, "bluePresenceDB")
+                        Room.databaseBuilder(context, AppDatabase::class.java, "bluePresenceDB")
                             .addMigrations(MIGRATION)
                             .allowMainThreadQueries()
                             .build()

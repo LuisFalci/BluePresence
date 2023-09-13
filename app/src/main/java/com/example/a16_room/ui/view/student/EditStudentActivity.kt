@@ -27,7 +27,7 @@ class EditStudentActivity : AppCompatActivity() {
         if (studentId > 0) {
             viewModel.get(studentId)
             viewModel.student.observe(this) { student ->
-                studentId = student.id
+                studentId = student.studentId
                 binding.editName.setText(student.name)
                 binding.editRegistration.setText(student.registration)
             }

@@ -39,7 +39,7 @@ class StudentViewModel(application: Application) : AndroidViewModel(application)
 
     fun update(id: Long, name: String, registration: String, macAddress: String): Int {
         val model = StudentModel().apply {
-            this.id = id
+            this.studentId = id
             this.name = name
             this.registration = registration
             this.macAddress = macAddress
@@ -51,7 +51,7 @@ class StudentViewModel(application: Application) : AndroidViewModel(application)
 
     fun delete(id: Long): Int {
         val model = StudentModel().apply {
-            this.id = id
+            this.studentId = id
         }
         val affectedRows = repository.delete(model)
         changes.value = affectedRows.toLong()

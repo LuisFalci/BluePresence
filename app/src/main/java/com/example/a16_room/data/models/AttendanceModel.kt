@@ -10,22 +10,18 @@ import java.time.LocalDateTime
     tableName = "Attendance",
     foreignKeys = [ForeignKey(
         entity = StudentModel::class,
-        parentColumns = ["id"],
-        childColumns = ["id"],
+        parentColumns = ["studentId"],
+        childColumns = ["student_id"],
         onDelete = ForeignKey.CASCADE // Defina o comportamento de exclusão desejado
     )]
 )
 class AttendanceModel {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "attendanceId")
     var attendanceId: Long = 0
 
-    @ColumnInfo(name = "id")
-    var id: Long = 0
+    var student_id: Long = 0
 
-    @ColumnInfo(name = "presence")
     var presence: Boolean = false
 
-    @ColumnInfo(name = "attendanceTimestamp")
     var dateTime: LocalDateTime = LocalDateTime.now()
 }

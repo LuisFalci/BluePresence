@@ -3,8 +3,8 @@ package com.example.a16_room.data.models.relations
 import androidx.room.Entity
 
 
-@Entity(primaryKeys = ["id", "subjectId"])
+@Entity(primaryKeys = ["studentId", "subjectId"])
 class StudentSubjectCrossRef(
-    val id: Long,
+    val studentId: Long,
     val subjectId: Long
 )

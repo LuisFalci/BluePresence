@@ -12,7 +12,7 @@ class SubjectWithStudents {
 
     @Relation(
         parentColumn = "subjectId",
-        entityColumn = "id",
+        entityColumn = "studentId",
         associateBy = Junction(StudentSubjectCrossRef::class)
     )
     lateinit var student: List<StudentModel>

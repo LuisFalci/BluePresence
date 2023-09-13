@@ -1,15 +1,15 @@
 package com.example.a16_room.data.repository
 
 import android.content.Context
-import com.example.a16_room.data.database.StudentDatabase
+import com.example.a16_room.data.database.AppDatabase
 import com.example.a16_room.data.models.ScheduleModel
 
 class ScheduleRepository(context: Context) {
-    private val scheduleDAO = StudentDatabase.getDatabase(context).scheduleDAO()
+    private val scheduleDAO = AppDatabase.getDatabase(context).scheduleDAO()
 
     fun insert(subjectId: Long, startTime: String, endTime: String, dayOfWeek: String) {
         val scheduleModel = ScheduleModel()
-        scheduleModel.subjectId = subjectId
+        scheduleModel.subject_id = subjectId
         scheduleModel.startTime = startTime
         scheduleModel.endTime = endTime
         scheduleModel.dayOfWeek = dayOfWeek
