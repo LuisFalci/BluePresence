@@ -30,6 +30,7 @@ import com.example.a16_room.R
 import com.example.a16_room.data.models.StudentModel
 import com.example.a16_room.databinding.ActivityAttendanceBinding
 import com.example.a16_room.ui.adapters.AttendanceAdapter
+import com.example.a16_room.ui.listeners.OnAttendanceListener
 import com.example.a16_room.ui.view.student.ViewStudentActivity
 import com.example.a16_room.ui.viewmodels.AttendanceViewModel
 import com.example.a16_room.ui.viewmodels.StudentViewModel
@@ -149,6 +150,12 @@ class AttendanceActivity : AppCompatActivity() {
             }
         }
 
+        val listener = object : OnAttendanceListener {
+            override fun onStudentClick(studentId: Long, isPresent: Boolean) {
+                Log.d("presente", "${studentId} está ${isPresent}")
+            }
+        }
+        attendanceAdapter.attachListener(listener)
     }
 
     @SuppressLint("MissingPermission")

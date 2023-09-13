@@ -38,6 +38,13 @@ class AttendanceAdapter(
         holder.studentName.text = student.name
         val studentMacAddress = student.macAddress
         holder.studentPresent.isChecked = bluetoothDevicesFound.contains(studentMacAddress)
+        holder.studentPresent.setOnClickListener {
+            listener.onStudentClick(student.id, true)
+        }
+        holder.studentAbsent.setOnClickListener {
+            listener.onStudentClick(student.id, false)
+        }
+
         Log.d("erro", "${student.macAddress} e ${student.name}")
     }
 
@@ -56,4 +63,7 @@ class AttendanceAdapter(
             .format(currentTimeMillis)
     }
 
+    fun attachListener(attendanceListener: OnAttendanceListener) {
+        listener = attendanceListener
+    }
 }
