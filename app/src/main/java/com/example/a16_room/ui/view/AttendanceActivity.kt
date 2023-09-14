@@ -32,12 +32,16 @@ import com.example.a16_room.databinding.ActivityAttendanceBinding
 import com.example.a16_room.ui.adapters.AttendanceAdapter
 import com.example.a16_room.ui.listeners.OnAttendanceListener
 import com.example.a16_room.ui.view.student.ViewStudentActivity
+import com.example.a16_room.ui.viewmodels.AttendanceViewModel
 import com.example.a16_room.ui.viewmodels.StudentViewModel
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class AttendanceActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAttendanceBinding
     private lateinit var studentViewModel: StudentViewModel
     private lateinit var attendanceAdapter: AttendanceAdapter
+    private lateinit var attendanceViewModel: AttendanceViewModel
     private val studentList: MutableList<StudentModel> = mutableListOf()
 
     lateinit var bluetoothAdapter: BluetoothAdapter
@@ -65,7 +69,8 @@ class AttendanceActivity : AppCompatActivity() {
             subjectId = intent.getLongExtra("subject_id", -1L)
         }
 
-        studentViewModel = ViewModelProvider(this).get(StudentViewModel::class.java)
+        studentViewModel = ViewModelProvider(this)[StudentViewModel::class.java]
+        attendanceViewModel = ViewModelProvider(this)[AttendanceViewModel::class.java]
 
         studentViewModel.getAllStudentsInSubject(subjectId)
 
@@ -135,14 +140,12 @@ class AttendanceActivity : AppCompatActivity() {
             discoverDevices()
         }
         binding.seveAttendance.setOnClickListener {
-//            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-//            val current = LocalDateTime.now().format(formatter)
-//
-//            attendanceViewModel.insert(1, "3243432", true)
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+            val current = LocalDateTime.now().format(formatter)
 
-//            for ((studentId, isPresent) in studentAttendanceMap) {
-//                attendanceViewModel.insert(studentId, current, isPresent)
-//            }
+            for ((studentId, isPresent) in studentAttendanceMap) {
+                attendanceViewModel.insert(studentId, isPresent, current)
+            }
         }
 
         //bottom navigation

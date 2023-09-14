@@ -1,18 +1,15 @@
 package com.example.a16_room.data.models
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import java.time.LocalDateTime
 
-@Entity(
-    tableName = "Attendance",
+@Entity(tableName = "Attendance",
     foreignKeys = [ForeignKey(
         entity = StudentModel::class,
         parentColumns = ["studentId"],
         childColumns = ["student_id"],
-        onDelete = ForeignKey.CASCADE // Defina o comportamento de exclusão desejado
+        onDelete = ForeignKey.CASCADE
     )]
 )
 class AttendanceModel {
@@ -23,5 +20,5 @@ class AttendanceModel {
 
     var presence: Boolean = false
 
-    var dateTime: LocalDateTime = LocalDateTime.now()
+    var dateTime: String = ""
 }
