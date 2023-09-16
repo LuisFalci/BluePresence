@@ -12,35 +12,36 @@
         android:id="@+id/edit_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="start"
         android:hint="Nome" />
 
     <EditText
         android:id="@+id/edit_registration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:inputType="number"
-        android:hint="Matrícula" />
+        android:gravity="start"
+        android:hint="Matrícula"
+        android:inputType="number" />
 
     <Button
         android:id="@+id/button_insert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cadastrar" />
+        android:text="Cadastrar"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/btDiscoverDevices"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text ="Get Scanned Devices"
-        android:textSize="20sp"
         android:background="@color/teal_200"
-        />
+        android:text="Get Scanned Devices"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/device_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

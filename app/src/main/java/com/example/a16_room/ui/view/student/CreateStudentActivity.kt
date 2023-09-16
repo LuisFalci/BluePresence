@@ -84,7 +84,7 @@ class CreateStudentActivity : AppCompatActivity() {
         bluetoothAdapter = bluetoothManager.adapter
 
         binding.btDiscoverDevices.setOnClickListener {
-            //ToDo -> Garantir que enableDisableBluetooth foi rodado antes de proseguir com o fluxo
+            devicesList.clear()
             enableDisableBluetooth()
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

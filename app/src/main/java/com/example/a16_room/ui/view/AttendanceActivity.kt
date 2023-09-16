@@ -26,12 +26,10 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.a16_room.R
 import com.example.a16_room.data.models.StudentModel
 import com.example.a16_room.databinding.ActivityAttendanceBinding
 import com.example.a16_room.ui.adapters.AttendanceAdapter
 import com.example.a16_room.ui.listeners.OnAttendanceListener
-import com.example.a16_room.ui.view.student.ViewStudentActivity
 import com.example.a16_room.ui.viewmodels.AttendanceViewModel
 import com.example.a16_room.ui.viewmodels.StudentViewModel
 import java.time.LocalDateTime
@@ -147,20 +145,6 @@ class AttendanceActivity : AppCompatActivity() {
                 attendanceViewModel.insert(studentId, isPresent, current)
             }
         }
-
-        //bottom navigation
-        binding.bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.menu_students -> {
-                    // Carregar a StudentsActivity
-                    startActivity(Intent(this, ViewStudentActivity::class.java))
-                    return@setOnNavigationItemSelectedListener true
-                }
-
-                else -> return@setOnNavigationItemSelectedListener false
-            }
-        }
-
         val listener = object : OnAttendanceListener {
             override fun onStudentClick(studentId: Long, isPresent: Boolean) {
                 studentAttendanceMap[studentId] = isPresent

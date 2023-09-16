@@ -11,7 +11,8 @@
         android:id="@+id/startBluetoothAttendance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chamada Bluetooth" />
+        android:text="Chamada Bluetooth"
+        android:textColor="@color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,27 +44,21 @@
         android:id="@+id/layout_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity"
+        android:padding="5dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/studentsAttendance"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/seveAttendance"/>
+            android:layout_above="@+id/seveAttendance" />
 
         <Button
             android:id="@+id/seveAttendance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Salvar Chamada"
-            android:layout_above="@+id/bottomNavigationView"/>
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigationView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            app:menu="@menu/attendance_menu" />
-
+            android:text="Salvar Chamada"
+            android:textColor="@color/white" />
     </RelativeLayout>
 </LinearLayout>

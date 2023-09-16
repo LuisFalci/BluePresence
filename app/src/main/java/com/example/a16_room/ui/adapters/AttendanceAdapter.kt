@@ -37,13 +37,18 @@ class AttendanceAdapter(
         val student = studentList[position]
         holder.studentName.text = student.name
         val studentMacAddress = student.macAddress
+
+        holder.studentPresent.setOnCheckedChangeListener { buttonView, isChecked ->
+            listener.onStudentClick(student.studentId, isChecked)
+        }
+
+        holder.studentAbsent.setOnCheckedChangeListener { buttonView, isChecked ->
+            listener.onStudentClick(student.studentId, !isChecked)
+        }
+
+        // Defina o estado inicial dos radio buttons com base nos dispositivos Bluetooth encontrados.
         holder.studentPresent.isChecked = bluetoothDevicesFound.contains(studentMacAddress)
-        holder.studentPresent.setOnClickListener {
-            listener.onStudentClick(student.studentId, true)
-        }
-        holder.studentAbsent.setOnClickListener {
-            listener.onStudentClick(student.studentId, false)
-        }
+        holder.studentAbsent.isChecked = !bluetoothDevicesFound.contains(studentMacAddress)
 
         Log.d("erro", "${student.macAddress} e ${student.name}")
     }
