@@ -37,15 +37,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:src="@drawable/ic_absent" />
-
     </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/layout_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".MainActivity"
-        android:padding="5dp">
+        android:padding="5dp"
+        tools:context=".MainActivity">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/studentsAttendance"

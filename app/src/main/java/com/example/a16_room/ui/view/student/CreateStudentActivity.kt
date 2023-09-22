@@ -179,6 +179,7 @@ class CreateStudentActivity : AppCompatActivity() {
                     BluetoothDevice.BOND_BONDED -> {
                         // O dispositivo foi pareado com sucesso
                         macAddress = device?.address.toString()
+                        binding.deviceFound.text = "Pareado"
                         Log.d("BluetoothReceiver", "Dispositivo pareado com sucesso: ${device?.name} - ${macAddress}")
                     }
                     BluetoothDevice.BOND_BONDING -> {
