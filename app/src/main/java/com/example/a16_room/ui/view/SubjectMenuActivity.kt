@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.a16_room.databinding.ActivitySubjectMenuBinding
+import com.example.a16_room.ui.view.history.HistoryActivity
 import com.example.a16_room.ui.view.student.ViewStudentActivity
 
 class SubjectMenuActivity : AppCompatActivity() {
@@ -34,7 +35,9 @@ class SubjectMenuActivity : AppCompatActivity() {
         }
 
         binding.history.setOnClickListener{
-
+            val intent = Intent(this@SubjectMenuActivity, HistoryActivity::class.java)
+            intent.putExtra("subject_id", subjectId)
+            startActivity(intent)
         }
 
 
