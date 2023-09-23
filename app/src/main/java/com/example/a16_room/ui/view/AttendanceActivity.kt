@@ -11,6 +11,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
@@ -54,6 +55,8 @@ class AttendanceActivity : AppCompatActivity() {
 
     private val studentAttendanceMap = mutableMapOf<Long, Boolean>()
 
+    private var isButtonClicked = false
+
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,50 +95,50 @@ class AttendanceActivity : AppCompatActivity() {
         bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         bluetoothAdapter = bluetoothManager.adapter
 
-        binding.startBluetoothAttendance.setOnClickListener {
-//            studentViewModel.insert("Luis", "1", "1")
-//            studentViewModel.insert("Adailton", "2", "2")
-//            studentViewModel.insert("Hammer", "3", "3")
-//            studentViewModel.insert("Bleisson", "4", "4")
-//            studentViewModel.insert("Jamer", "5", "5")
-//            studentViewModel.insert("Kleiton", "6", "6")
-//            studentViewModel.insert("Luis", "7", "7")
-//            studentViewModel.insert("Bob", "12", "12")
-//            studentViewModel.insert("Kreb", "120", "12")
-//            studentViewModel.insert("Glub", "120", "120")
-//            studentViewModel.insert("Brawle", "120", "2C:15:BF:8F:7D:BC")
-//            studentViewModel.delete(1)
-            enableDisableBluetooth()
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                when (ContextCompat.checkSelfPermission(
-                    baseContext, Manifest.permission.ACCESS_COARSE_LOCATION
-                )) {
-                    PackageManager.PERMISSION_DENIED -> AlertDialog.Builder(
-                        this
-                    )
-                        .setTitle("Runtime Permission")
-                        .setMessage("Give Permission")
-                        .setNeutralButton("Okay", DialogInterface.OnClickListener { dialog, which ->
-                            if (ContextCompat.checkSelfPermission(
-                                    baseContext,
-                                    Manifest.permission.ACCESS_COARSE_LOCATION
-                                ) !=
-                                PackageManager.PERMISSION_GRANTED
-                            ) {
-                                ActivityCompat.requestPermissions(
-                                    this,
-                                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                                    REQUEST_ACCESS_COARSE_LOCATION
-                                )
-                            }
-                        })
-                        .show()
-                        .findViewById<TextView>(androidx.appcompat.R.id.message)!!.movementMethod =
-                        LinkMovementMethod.getInstance()
+        binding.startBluetoothAttendance.setOnClickListener {
+            enableDisableBluetooth()
+            if (isButtonClicked) {
+                binding.startBluetoothAttendance.setBackgroundColor(Color.rgb(80, 163, 237))
+                binding.startBluetoothAttendance.text = "Ativar Chamada"
+                isButtonClicked = false
+            } else {
+                binding.startBluetoothAttendance.setBackgroundColor(Color.rgb(239, 27, 44))
+                binding.startBluetoothAttendance.text = "Desativar Chamada"
+                isButtonClicked = true
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    when (ContextCompat.checkSelfPermission(
+                        baseContext, Manifest.permission.ACCESS_COARSE_LOCATION
+                    )) {
+                        PackageManager.PERMISSION_DENIED -> AlertDialog.Builder(
+                            this
+                        )
+                            .setTitle("Runtime Permission")
+                            .setMessage("Give Permission")
+                            .setNeutralButton(
+                                "Okay",
+                                DialogInterface.OnClickListener { dialog, which ->
+                                    if (ContextCompat.checkSelfPermission(
+                                            baseContext,
+                                            Manifest.permission.ACCESS_COARSE_LOCATION
+                                        ) !=
+                                        PackageManager.PERMISSION_GRANTED
+                                    ) {
+                                        ActivityCompat.requestPermissions(
+                                            this,
+                                            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                                            REQUEST_ACCESS_COARSE_LOCATION
+                                        )
+                                    }
+                                })
+                            .show()
+                            .findViewById<TextView>(androidx.appcompat.R.id.message)!!.movementMethod =
+                            LinkMovementMethod.getInstance()
+                    }
                 }
+                discoverDevices()
             }
-            discoverDevices()
         }
         binding.seveAttendance.setOnClickListener {
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
@@ -144,6 +147,7 @@ class AttendanceActivity : AppCompatActivity() {
             for ((studentId, isPresent) in studentAttendanceMap) {
                 attendanceViewModel.insert(studentId, isPresent, current)
             }
+            finish()
         }
         val listener = object : OnAttendanceListener {
             override fun onStudentClick(studentId: Long, isPresent: Boolean) {
@@ -174,16 +178,18 @@ class AttendanceActivity : AppCompatActivity() {
             }
             when (action) {
                 BluetoothAdapter.ACTION_STATE_CHANGED -> {
-                    Log.d("discoverDevices1", "STATE CHANGED")
+                    Log.d("discoverDevices", "STATE CHANGED")
                 }
 
                 BluetoothAdapter.ACTION_DISCOVERY_STARTED -> {
-                    Log.d("discoverDevices2", "Discovery Started")
+                    Log.d("discoverDevices", "Discovery Started")
                 }
 
                 BluetoothAdapter.ACTION_DISCOVERY_FINISHED -> {
-                    Log.d("discoverDevices3", "Disvcoery Fininshed")
-                    discoverDevices()
+                    Log.d("discoverDevices", "${isButtonClicked}")
+                    if (isButtonClicked === false) {
+                        discoverDevices()
+                    }
                 }
 
                 BluetoothDevice.ACTION_FOUND -> {
@@ -207,6 +213,7 @@ class AttendanceActivity : AppCompatActivity() {
         if (!bluetoothAdapter.isEnabled) {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             btActivityResultLauncher.launch(enableBtIntent)
+            isButtonClicked = true
         }
     }
 
