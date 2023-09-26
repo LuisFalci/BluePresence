@@ -74,5 +74,4 @@ class ViewSubjectActivity : AppCompatActivity() {
             viewModel.getAll()
         }
     }
-
 }

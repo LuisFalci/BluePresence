@@ -84,7 +84,6 @@ class CreateStudentActivity : AppCompatActivity() {
         bluetoothAdapter = bluetoothManager.adapter
 
         binding.btDiscoverDevices.setOnClickListener {
-            devicesList.clear()
             enableDisableBluetooth()
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -159,7 +158,11 @@ class CreateStudentActivity : AppCompatActivity() {
                         intent?.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
                     if (device != null) {
                         Log.d("discoverDevices4", "${device.name}  ${device.address}")
-                        devicesList.add("${device.name}->${device.address}")
+                        if (device.name != null &&  !devicesList.contains(device.name)) {
+                            devicesList.add("${device.name}")
+                        } else if(device.address != null &&  !devicesList.contains(device.address)) {
+                            devicesList.add("${device.address}")
+                        }
                         deviceAdapter.notifyDataSetChanged()
                     }
                 }
@@ -172,23 +175,36 @@ class CreateStudentActivity : AppCompatActivity() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val action = intent?.action
             if (BluetoothDevice.ACTION_BOND_STATE_CHANGED == action) {
-                val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
-                val bondState = intent.getIntExtra(BluetoothDevice.EXTRA_BOND_STATE, BluetoothDevice.ERROR)
+                val device =
+                    intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
+                val bondState =
+                    intent.getIntExtra(BluetoothDevice.EXTRA_BOND_STATE, BluetoothDevice.ERROR)
 
                 when (bondState) {
                     BluetoothDevice.BOND_BONDED -> {
                         // O dispositivo foi pareado com sucesso
                         macAddress = device?.address.toString()
                         binding.deviceFound.text = "Pareado"
-                        Log.d("BluetoothReceiver", "Dispositivo pareado com sucesso: ${device?.name} - ${macAddress}")
+                        Log.d(
+                            "BluetoothReceiver",
+                            "Dispositivo pareado com sucesso: ${device?.name} - ${macAddress}"
+                        )
                     }
+
                     BluetoothDevice.BOND_BONDING -> {
                         // O dispositivo está atualmente em processo de pareamento
-                        Log.d("BluetoothReceiver", "Pareando dispositivo: ${device?.name} - ${device?.address}")
+                        Log.d(
+                            "BluetoothReceiver",
+                            "Pareando dispositivo: ${device?.name} - ${device?.address}"
+                        )
                     }
+
                     BluetoothDevice.BOND_NONE -> {
                         // O dispositivo não está pareado
-                        Log.d("BluetoothReceiver", "Dispositivo não pareado: ${device?.name} - ${device?.address}")
+                        Log.d(
+                            "BluetoothReceiver",
+                            "Dispositivo não pareado: ${device?.name} - ${device?.address}"
+                        )
                     }
                 }
             }
@@ -272,6 +288,7 @@ class CreateStudentActivity : AppCompatActivity() {
             Log.d("pairStatus", "pair failed")
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(bondStateChangedReceiver)

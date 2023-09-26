@@ -187,7 +187,7 @@ class AttendanceActivity : AppCompatActivity() {
 
                 BluetoothAdapter.ACTION_DISCOVERY_FINISHED -> {
                     Log.d("discoverDevices", "${isButtonClicked}")
-                    if (isButtonClicked === false) {
+                    if (isButtonClicked === true) {
                         discoverDevices()
                     }
                 }
@@ -214,7 +214,9 @@ class AttendanceActivity : AppCompatActivity() {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             btActivityResultLauncher.launch(enableBtIntent)
             isButtonClicked = true
+            Log.d("discoverDevices", "enableDisableBluetooth ${isButtonClicked}")
         }
+
     }
 
     private val btActivityResultLauncher = registerForActivityResult(
