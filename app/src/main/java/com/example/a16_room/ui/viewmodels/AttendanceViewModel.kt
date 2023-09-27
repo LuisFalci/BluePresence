@@ -2,6 +2,7 @@ package com.example.a16_room.ui.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.a16_room.data.models.AttendanceModel
 import com.example.a16_room.data.repository.AttendanceRepository
@@ -10,10 +11,12 @@ class AttendanceViewModel(application: Application) : AndroidViewModel(applicati
     private val repository = AttendanceRepository(application.applicationContext)
 
     private val listAttendances = MutableLiveData<List<AttendanceModel>>()
+    val attendances: LiveData<List<AttendanceModel>> = listAttendances
 
     private val attendance = MutableLiveData<AttendanceModel>()
 
     private var changes = MutableLiveData<Long>()
+    var newChange: LiveData<Long> = changes
 
     fun insert(studentId: Long, presence: Boolean, dateTime: String) {
         val model = AttendanceModel().apply {
