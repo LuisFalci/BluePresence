@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_room.R
 import com.example.a16_room.data.models.AttendanceModel
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>()  {
     private var attendanceList: List<AttendanceModel> = listOf()
@@ -29,8 +31,11 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>()  {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val history = attendanceList[position]
         count++
-        holder.historyText.text = history.presence.toString()
-        Log.d("fdjsflksjdfls", history.presence.toString())
+        val date = Date(history.dateTime)
+        val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+        val formattedDate = sdf.format(date)
+        holder.historyText.text = formattedDate
+        Log.d("fdjsflksjdfls", "${history.dateTime}")
 //        holder.historyText.setOnClickListener {
 //            listener.onDeviceClick(device.split("->")[1])
 //        }

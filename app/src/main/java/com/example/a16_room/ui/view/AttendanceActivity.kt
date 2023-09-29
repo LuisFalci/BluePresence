@@ -33,8 +33,6 @@ import com.example.a16_room.ui.adapters.AttendanceAdapter
 import com.example.a16_room.ui.listeners.OnAttendanceListener
 import com.example.a16_room.ui.viewmodels.AttendanceViewModel
 import com.example.a16_room.ui.viewmodels.StudentViewModel
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class AttendanceActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAttendanceBinding
@@ -141,11 +139,11 @@ class AttendanceActivity : AppCompatActivity() {
             }
         }
         binding.seveAttendance.setOnClickListener {
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-            val current = LocalDateTime.now().format(formatter)
-
+            var dateTime: Long = System.currentTimeMillis()
+//            var attendanceId = attendanceViewModel.insert(dateTime)
+            attendanceViewModel.insert(dateTime)
             for ((studentId, isPresent) in studentAttendanceMap) {
-                attendanceViewModel.insert(studentId, isPresent, current)
+                //studentAttendanceViewModel.insert(attendanceId, studentId, isPresent)
             }
             finish()
         }
