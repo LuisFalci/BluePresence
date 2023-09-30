@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a16_room.databinding.ActivityHistoryBinding
 import com.example.a16_room.ui.adapters.HistoryAdapter
-import com.example.a16_room.ui.viewmodels.AttendanceViewModel
+import com.example.a16_room.ui.viewmodels.StudentAttendanceViewModel
 
 class HistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistoryBinding
-    private lateinit var viewModel: AttendanceViewModel
+    private lateinit var studentAttendanceViewModel: StudentAttendanceViewModel
     private val adapter = HistoryAdapter()
 
     private var subjectId: Long = -1L
@@ -25,20 +25,20 @@ class HistoryActivity : AppCompatActivity() {
             subjectId = intent.getLongExtra("subject_id", -1L)
         }
 
-        viewModel = ViewModelProvider(this)[AttendanceViewModel::class.java]
+        studentAttendanceViewModel = ViewModelProvider(this)[StudentAttendanceViewModel::class.java]
 
         binding.historyRecyclerView.layoutManager = LinearLayoutManager(applicationContext)
         binding.historyRecyclerView.adapter = adapter
 
-        viewModel.getAll()
+        studentAttendanceViewModel.getAllAttendancesFromSubject(subjectId)
         observe()
     }
     private fun observe() {
-        viewModel.attendances.observe(this) {
+        studentAttendanceViewModel.attendances.observe(this) {
             adapter.updateHistory(it)
         }
-        viewModel.newChange.observe(this) {
-            viewModel.getAll()
+        studentAttendanceViewModel.newChange.observe(this) {
+            studentAttendanceViewModel.getAllAttendancesFromSubject(subjectId)
         }
     }
 }

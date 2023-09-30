@@ -1,4 +1,4 @@
-package com.example.a16_room.ui.view
+package com.example.a16_room.ui.view.history
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -32,6 +32,7 @@ import com.example.a16_room.databinding.ActivityAttendanceBinding
 import com.example.a16_room.ui.adapters.AttendanceAdapter
 import com.example.a16_room.ui.listeners.OnAttendanceListener
 import com.example.a16_room.ui.viewmodels.AttendanceViewModel
+import com.example.a16_room.ui.viewmodels.StudentAttendanceViewModel
 import com.example.a16_room.ui.viewmodels.StudentViewModel
 
 class AttendanceActivity : AppCompatActivity() {
@@ -39,6 +40,8 @@ class AttendanceActivity : AppCompatActivity() {
     private lateinit var studentViewModel: StudentViewModel
     private lateinit var attendanceAdapter: AttendanceAdapter
     private lateinit var attendanceViewModel: AttendanceViewModel
+    private lateinit var studentAttendanceViewModel: StudentAttendanceViewModel
+
     private val studentList: MutableList<StudentModel> = mutableListOf()
 
     lateinit var bluetoothAdapter: BluetoothAdapter
@@ -70,6 +73,7 @@ class AttendanceActivity : AppCompatActivity() {
 
         studentViewModel = ViewModelProvider(this)[StudentViewModel::class.java]
         attendanceViewModel = ViewModelProvider(this)[AttendanceViewModel::class.java]
+        studentAttendanceViewModel = ViewModelProvider(this)[StudentAttendanceViewModel::class.java]
 
         studentViewModel.getAllStudentsInSubject(subjectId)
 
@@ -140,10 +144,10 @@ class AttendanceActivity : AppCompatActivity() {
         }
         binding.seveAttendance.setOnClickListener {
             var dateTime: Long = System.currentTimeMillis()
-//            var attendanceId = attendanceViewModel.insert(dateTime)
-            attendanceViewModel.insert(dateTime)
+            val attendanceId = attendanceViewModel.insert(subjectId, dateTime)
+
             for ((studentId, isPresent) in studentAttendanceMap) {
-                //studentAttendanceViewModel.insert(attendanceId, studentId, isPresent)
+                studentAttendanceViewModel.insert(attendanceId, subjectId, studentId, isPresent)
             }
             finish()
         }

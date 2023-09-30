@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.view.AttendanceActivity">
+    tools:context=".ui.view.history.AttendanceActivity">
 
     <Button
         android:id="@+id/startBluetoothAttendance"

@@ -4,7 +4,7 @@ import android.content.Context
 import com.example.a16_room.data.database.AppDatabase
 import com.example.a16_room.data.models.StudentModel
 import com.example.a16_room.data.models.SubjectModel
-import com.example.a16_room.data.models.relations.StudentSubjectCrossRef
+import com.example.a16_room.data.models.relations.studentsubject.StudentSubjectCrossRef
 
 class SubjectRepository(context: Context) {
     private val subjectDAO = AppDatabase.getDatabase(context).subjectDAO()

@@ -7,10 +7,11 @@ import com.example.a16_room.data.models.AttendanceModel
 class AttendanceRepository(context: Context) {
     private val attendanceDAO = AppDatabase.getDatabase(context).attendanceDAO()
 
-    fun insert(attendanceModel: AttendanceModel){
+    fun insert(attendanceModel: AttendanceModel): Long {
         return attendanceDAO.insert(attendanceModel)
     }
-//    fun update(attendance: AttendanceModel): Int {
+
+    //    fun update(attendance: AttendanceModel): Int {
 //        return attendanceDAO.update(attendance)
 //    }
 //

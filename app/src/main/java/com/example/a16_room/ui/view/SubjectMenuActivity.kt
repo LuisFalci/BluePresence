@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.a16_room.databinding.ActivitySubjectMenuBinding
+import com.example.a16_room.ui.view.history.AttendanceActivity
 import com.example.a16_room.ui.view.history.HistoryActivity
 import com.example.a16_room.ui.view.student.ViewStudentActivity
 

@@ -7,7 +7,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.a16_room.data.models.StudentModel
 import com.example.a16_room.data.models.SubjectModel
-import com.example.a16_room.data.models.relations.StudentSubjectCrossRef
+import com.example.a16_room.data.models.relations.studentsubject.StudentSubjectCrossRef
 
 @Dao
 interface SubjectDAO {

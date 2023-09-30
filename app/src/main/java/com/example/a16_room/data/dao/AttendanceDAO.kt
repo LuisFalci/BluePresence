@@ -8,7 +8,7 @@ import com.example.a16_room.data.models.AttendanceModel
 @Dao
 interface AttendanceDAO {
     @Insert
-    fun insert(attendanceModel: AttendanceModel)
+    fun insert(attendanceModel: AttendanceModel): Long
 
 //    @Update
 //    fun update(attendance: AttendanceModel): Int

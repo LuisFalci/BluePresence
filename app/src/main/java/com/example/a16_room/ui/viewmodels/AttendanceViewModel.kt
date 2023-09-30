@@ -18,11 +18,12 @@ class AttendanceViewModel(application: Application) : AndroidViewModel(applicati
     private var changes = MutableLiveData<Long>()
     var newChange: LiveData<Long> = changes
 
-    fun insert(dateTime: Long) {
+    fun insert(subjectId: Long, dateTime: Long): Long {
         val model = AttendanceModel().apply {
+            this.subjectId = subjectId
             this.dateTime = dateTime
         }
-        repository.insert(model)
+        return repository.insert(model)
     }
 
     fun getAll() {
