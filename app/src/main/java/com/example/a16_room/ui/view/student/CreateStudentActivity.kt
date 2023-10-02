@@ -47,6 +47,8 @@ class CreateStudentActivity : AppCompatActivity() {
 
     private lateinit var deviceAdapter: DeviceAdapter
     private val devicesList = ArrayList<String>()
+    private val devicesNameList = ArrayList<String>()
+    private val devicesAddressList = ArrayList<String>()
     private var pairedDevicesList = ArrayList<String>()
     private var macAddress: String = ""
 
@@ -84,6 +86,9 @@ class CreateStudentActivity : AppCompatActivity() {
         bluetoothAdapter = bluetoothManager.adapter
 
         binding.btDiscoverDevices.setOnClickListener {
+
+            binding.btDiscoverDevices.isEnabled = false
+
             enableDisableBluetooth()
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -157,14 +162,25 @@ class CreateStudentActivity : AppCompatActivity() {
                     val device =
                         intent?.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
                     if (device != null) {
-                        Log.d("discoverDevices4", "${device.name}  ${device.address}")
-                        if (device.name != null &&  !devicesList.contains(device.name)) {
-                            devicesList.add("${device.name}")
-                        } else if(device.address != null &&  !devicesList.contains(device.address)) {
+//                        Log.d("discoverDevices5", "${!devicesList.contains("${device.name}->${device.address}")}")
+
+
+                        if (device.name != null && !devicesNameList.contains(device.name)) {
+                            devicesNameList.add("${device.name}")
+                            devicesList.add("${device.name}->${device.address}")
+                        } else if (device.name == null && device.address != null && !devicesAddressList.contains(
+                                device.address
+                            )
+                        ) {
+                            devicesAddressList.add("${device.address}")
                             devicesList.add("${device.address}")
                         }
                         deviceAdapter.notifyDataSetChanged()
                     }
+                }
+
+                BluetoothAdapter.ACTION_DISCOVERY_FINISHED -> {
+                    binding.btDiscoverDevices.isEnabled = true
                 }
             }
         }
