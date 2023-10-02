@@ -27,4 +27,7 @@ class StudentAttendanceRepository(context: Context) {
     fun getAllAttendancesFromSubject(subjectId: Long): List<AttendanceModel>{
         return studentAttendanceDAO.getAllAttendancesFromSubject(subjectId)
     }
+    fun getPresences(attendanceId: Long, subjectId: Long): List<StudentAttendanceCrossRef>{
+        return studentAttendanceDAO.getPresences(attendanceId, subjectId)
+    }
 }

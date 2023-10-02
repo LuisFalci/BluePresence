@@ -14,7 +14,7 @@ class StudentViewHolder(
     fun bind(student: StudentModel){
         bind.textStudent.text = student.name
 
-        bind.textStudent.setOnClickListener{
+        bind.buttonEdit.setOnClickListener{
             listener.OnClick(student.studentId, ClickSourceStudent.TEXT)
         }
         bind.buttonRemove.setOnClickListener{

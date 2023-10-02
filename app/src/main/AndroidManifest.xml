@@ -33,7 +33,7 @@
             android:name=".ui.view.history.HistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.history.AttendanceActivity"
+            android:name=".ui.view.AttendanceActivity"
             android:exported="false" />
         <activity
             android:name=".ui.view.SubjectMenuActivity"

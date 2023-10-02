@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.a16_room.data.models.AttendanceModel
 import com.example.a16_room.data.models.StudentModel
+import com.example.a16_room.data.models.relations.studentattendance.StudentAttendanceCrossRef
 import com.example.a16_room.data.repository.StudentAttendanceRepository
 
 class StudentAttendanceViewModel(application: Application) : AndroidViewModel(application) {
@@ -17,6 +18,9 @@ class StudentAttendanceViewModel(application: Application) : AndroidViewModel(ap
 
     private val listAttendances = MutableLiveData<List<AttendanceModel>>()
     val attendances: LiveData<List<AttendanceModel>> = listAttendances
+
+    private val listStudentsAttendance = MutableLiveData<List<StudentAttendanceCrossRef>>()
+    val studentsAttendance: LiveData<List<StudentAttendanceCrossRef>> = listStudentsAttendance
 
     private val studentModel = MutableLiveData<StudentModel>()
     var student: LiveData<StudentModel> = studentModel
@@ -34,7 +38,12 @@ class StudentAttendanceViewModel(application: Application) : AndroidViewModel(ap
     fun getAllAttendancesFromSubject(subjectId: Long) {
         listAttendances.value = repository.getAllAttendancesFromSubject(subjectId)
     }
+
+    fun getPresences(attendanceId: Long, subjectId: Long) {
+        listStudentsAttendance.value = repository.getPresences(attendanceId, subjectId)
+    }
+
     fun insert(attendanceId: Long, subjectId: Long, studentId: Long, isPresent: Boolean) {
-         repository.insert(attendanceId, subjectId, studentId, isPresent)
+        repository.insert(attendanceId, subjectId, studentId, isPresent)
     }
 }

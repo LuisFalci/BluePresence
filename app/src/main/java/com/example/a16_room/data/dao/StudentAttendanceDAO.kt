@@ -27,11 +27,10 @@ interface StudentAttendanceDAO {
     )
     fun getAllStudentsFromAttendance(attendanceId: Long): List<StudentModel>
 
-    @Query(
-        "SELECT Attendance.* FROM Attendance " +
-                "INNER JOIN StudentAttendanceCrossRef ON Attendance.attendanceId = StudentAttendanceCrossRef.attendanceId " +
-                "WHERE StudentAttendanceCrossRef.subjectId = :subjectId"
-    )
+    @Query("SELECT * FROM Attendance WHERE attendanceId IN (SELECT attendanceId FROM StudentAttendanceCrossRef WHERE subjectId = :subjectId)")
     fun getAllAttendancesFromSubject(subjectId: Long): List<AttendanceModel>
+
+    @Query("SELECT * FROM StudentAttendanceCrossRef WHERE attendanceId = :attendanceId AND subjectId = :subjectId")
+    fun getPresences(attendanceId: Long, subjectId: Long): List<StudentAttendanceCrossRef>
 
 }

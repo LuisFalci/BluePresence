@@ -21,7 +21,4 @@ interface AttendanceDAO {
 //
     @Query("SELECT * FROM Attendance")
     fun getAll(): List<AttendanceModel>
-//
-//    @Query("SELECT * FROM Attendance WHERE student_id = :studentId")
-//    fun getAllAttendancesForStudent(studentId: Long): List<AttendanceModel>
 }

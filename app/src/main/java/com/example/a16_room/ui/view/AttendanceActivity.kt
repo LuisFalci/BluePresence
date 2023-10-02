@@ -1,4 +1,4 @@
-package com.example.a16_room.ui.view.history
+package com.example.a16_room.ui.view
 
 import android.Manifest
 import android.annotation.SuppressLint

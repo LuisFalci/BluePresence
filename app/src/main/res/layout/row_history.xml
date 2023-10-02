@@ -25,6 +25,15 @@
             android:text="History"
             android:textColor="@color/lavender"
             android:textSize="20sp" />
+        <TextView
+            android:id="@+id/attendancePercentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:padding="10dp"
+            android:text="78%"
+            android:textColor="#8BC34A"
+            android:textSize="20sp" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
