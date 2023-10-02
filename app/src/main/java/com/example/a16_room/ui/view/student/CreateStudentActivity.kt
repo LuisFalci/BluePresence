@@ -162,8 +162,6 @@ class CreateStudentActivity : AppCompatActivity() {
                     val device =
                         intent?.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
                     if (device != null) {
-//                        Log.d("discoverDevices5", "${!devicesList.contains("${device.name}->${device.address}")}")
-
 
                         if (device.name != null && !devicesNameList.contains(device.name)) {
                             devicesNameList.add("${device.name}")
