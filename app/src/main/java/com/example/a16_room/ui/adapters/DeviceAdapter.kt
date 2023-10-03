@@ -1,5 +1,6 @@
 package com.example.a16_room.ui.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,8 +26,9 @@ class DeviceAdapter(private var devicesList: List<String>) : RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val device = devicesList[position]
-        holder.deviceTextView.text = device
+        holder.deviceTextView.text = device.split("->")[0]
         holder.deviceTextView.setOnClickListener {
+            Log.d("glauber", device )
             listener.onDeviceClick(device.split("->")[1])
         }
     }

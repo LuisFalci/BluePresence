@@ -1,8 +1,11 @@
 package com.example.a16_room.ui.view.subject
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a16_room.databinding.ActivityViewSubjectBinding
@@ -34,15 +37,19 @@ class ViewSubjectActivity : AppCompatActivity() {
                 when (source) {
                     ClickSourceSubject.OPTION_VIEW_STUDENTS -> {
 //                        val intent = Intent(this@ViewSubjectActivity, ViewStudentActivity::class.java)
-                        val intent = Intent(this@ViewSubjectActivity, SubjectMenuActivity::class.java)
+                        val intent =
+                            Intent(this@ViewSubjectActivity, SubjectMenuActivity::class.java)
                         intent.putExtra("subject_id", subjectId)
                         startActivity(intent)
                     }
+
                     ClickSourceSubject.OPTION_EDIT -> {
-                        val intent = Intent(this@ViewSubjectActivity, EditSubjectActivity::class.java)
+                        val intent =
+                            Intent(this@ViewSubjectActivity, EditSubjectActivity::class.java)
                         intent.putExtra("subject_id", subjectId)
                         startActivity(intent)
                     }
+
                     ClickSourceSubject.OPTION_REMOVE -> {
                         // Handle delete action directly here
                         viewModel.delete(subjectId)
@@ -60,7 +67,9 @@ class ViewSubjectActivity : AppCompatActivity() {
         viewModel.getAll()
         observe()
 
+        checkPermissions()
     }
+
     override fun onResume() {
         super.onResume()
         viewModel.getAll()
@@ -72,6 +81,41 @@ class ViewSubjectActivity : AppCompatActivity() {
         }
         viewModel.newChange.observe(this) {
             viewModel.getAll()
+        }
+    }
+
+    private val PERMISSIONS_STORAGE = arrayOf(
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+        Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS,
+        Manifest.permission.BLUETOOTH_SCAN,
+        Manifest.permission.BLUETOOTH_CONNECT,
+        Manifest.permission.BLUETOOTH_PRIVILEGED
+    )
+    private val PERMISSIONS_LOCATION = arrayOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+        Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS,
+        Manifest.permission.BLUETOOTH_SCAN,
+        Manifest.permission.BLUETOOTH_CONNECT,
+        Manifest.permission.BLUETOOTH_PRIVILEGED
+    )
+    private fun checkPermissions() {
+        val permission1 = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+        val permission2 = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.BLUETOOTH_SCAN
+        )
+        if (permission1 != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, 1)
+        } else if (permission2 != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, PERMISSIONS_LOCATION, 1)
         }
     }
 }

@@ -90,9 +90,6 @@ class EditStudentActivity : AppCompatActivity() {
         bluetoothAdapter = bluetoothManager.adapter
 
         binding.btDiscoverDevices.setOnClickListener {
-
-            binding.btDiscoverDevices.isEnabled = false
-
             enableDisableBluetooth()
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -143,7 +140,9 @@ class EditStudentActivity : AppCompatActivity() {
         val bondStateFilter = IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED)
         registerReceiver(bondStateChangedReceiver, bondStateFilter)
 
+        checkPermissions()
     }
+
     @SuppressLint("MissingPermission")
     private fun discoverDevices() {
         val filter = IntentFilter()
@@ -180,6 +179,10 @@ class EditStudentActivity : AppCompatActivity() {
                         }
                         deviceAdapter.notifyDataSetChanged()
                     }
+                }
+
+                BluetoothAdapter.ACTION_DISCOVERY_STARTED -> {
+                    binding.btDiscoverDevices.isEnabled = false
                 }
 
                 BluetoothAdapter.ACTION_DISCOVERY_FINISHED -> {
@@ -245,7 +248,6 @@ class EditStudentActivity : AppCompatActivity() {
     @SuppressLint("MissingPermission")
     @RequiresApi(Build.VERSION_CODES.S)
     private fun enableDisableBluetooth() {
-        checkPermissions()
         if (!bluetoothAdapter.isEnabled) {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             btActivityResultLauncher.launch(enableBtIntent)

@@ -141,6 +141,7 @@ class AttendanceActivity : AppCompatActivity() {
                 }
                 discoverDevices()
             }
+            checkPermissions()
         }
         binding.seveAttendance.setOnClickListener {
             var dateTime: Long = System.currentTimeMillis()
@@ -211,7 +212,6 @@ class AttendanceActivity : AppCompatActivity() {
     @SuppressLint("MissingPermission")
     @RequiresApi(Build.VERSION_CODES.S)
     private fun enableDisableBluetooth() {
-        checkPermissions()
         if (!bluetoothAdapter.isEnabled) {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             btActivityResultLauncher.launch(enableBtIntent)
