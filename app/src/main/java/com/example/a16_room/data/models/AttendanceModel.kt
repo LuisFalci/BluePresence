@@ -16,4 +16,6 @@ class AttendanceModel() {
     var attendanceId: Long = 0
     var subjectId: Long = 0
     var dateTime: Long = 0
+    var totalStudents: Int = 0
+    var totalPresents: Int = 0
 }

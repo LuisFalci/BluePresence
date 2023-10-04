@@ -145,7 +145,9 @@ class AttendanceActivity : AppCompatActivity() {
         }
         binding.seveAttendance.setOnClickListener {
             var dateTime: Long = System.currentTimeMillis()
-            val attendanceId = attendanceViewModel.insert(subjectId, dateTime)
+            val totalStudents = studentAttendanceMap.size
+            val totalPresents = calculateTotalStudentsPresent()
+            val attendanceId = attendanceViewModel.insert(subjectId, dateTime, totalStudents, totalPresents)
 
             for ((studentId, isPresent) in studentAttendanceMap) {
                 studentAttendanceViewModel.insert(attendanceId, subjectId, studentId, isPresent)
@@ -160,6 +162,16 @@ class AttendanceActivity : AppCompatActivity() {
         }
         attendanceAdapter.attachListener(listener)
     }
+    private fun calculateTotalStudentsPresent(): Int {
+        var numeroAlunosPresentes = 0
+        for (isPresent in studentAttendanceMap.values) {
+            if (isPresent) {
+                numeroAlunosPresentes++
+            }
+        }
+        return numeroAlunosPresentes
+    }
+
 
     @SuppressLint("MissingPermission")
     private fun discoverDevices() {

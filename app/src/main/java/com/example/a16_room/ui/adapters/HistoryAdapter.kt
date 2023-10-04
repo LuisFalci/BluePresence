@@ -36,7 +36,8 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>()  {
         val sdf = SimpleDateFormat("dd/MM/yyyy")
         val formattedDate = sdf.format(date)
         holder.historyText.text = formattedDate
-//        holder.attendancePercentage.text = "COLOCAR O PERCENTUAL DE PRESENTES"
+        val percentagePresents = (history.totalPresents.toDouble() / history.totalStudents.toDouble()) * 100
+        holder.attendancePercentage.text = percentagePresents.toString()+"%"
         holder.historyText.setOnClickListener {
             listener.onHistoryClick(history.attendanceId)
         }
