@@ -18,8 +18,15 @@ interface AttendanceDAO {
     @Delete
     fun delete(attendance: AttendanceModel): Int
 
+    @Query("DELETE FROM StudentAttendanceCrossRef WHERE attendanceId = :attendanceId")
+    fun deleteStudentAttendanceCrossRefByAttendanceId(attendanceId: Long)
+
     @Query("SELECT * FROM Attendance")
     fun getAll(): List<AttendanceModel>
+
+    @Query("SELECT * FROM Attendance WHERE attendanceId IN (SELECT attendanceId FROM StudentAttendanceCrossRef WHERE subjectId = :subjectId)")
+    fun getAllAttendancesFromSubject(subjectId: Long): List<AttendanceModel>
+
     @Query("SELECT * FROM Attendance WHERE attendanceId = :attendanceId")
     fun getAttendance(attendanceId: Long): AttendanceModel
 }

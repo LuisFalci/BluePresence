@@ -2,18 +2,20 @@ package com.example.a16_room.ui.view.history
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a16_room.databinding.ActivityHistoryBinding
 import com.example.a16_room.ui.adapters.HistoryAdapter
 import com.example.a16_room.ui.listeners.OnHistoryListener
+import com.example.a16_room.ui.viewmodels.AttendanceViewModel
 import com.example.a16_room.ui.viewmodels.StudentAttendanceViewModel
 
 class HistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistoryBinding
     private lateinit var studentAttendanceViewModel: StudentAttendanceViewModel
+    private lateinit var attendanceViewModel: AttendanceViewModel
+
     private val adapter = HistoryAdapter()
     private val EDIT_HISTORY_REQUEST_CODE = 1
 
@@ -30,6 +32,7 @@ class HistoryActivity : AppCompatActivity() {
         }
 
         studentAttendanceViewModel = ViewModelProvider(this)[StudentAttendanceViewModel::class.java]
+        attendanceViewModel = ViewModelProvider(this)[AttendanceViewModel::class.java]
 
         binding.historyRecyclerView.layoutManager = LinearLayoutManager(applicationContext)
         binding.historyRecyclerView.adapter = adapter
@@ -43,12 +46,13 @@ class HistoryActivity : AppCompatActivity() {
             }
 
             override fun onRemoveClick(attendanceId: Long) {
-                Log.d("deleteido", "Deletado ${attendanceId}")
+                attendanceViewModel.deleteStudentAttendanceCrossRefByAttendanceId(attendanceId)
+                attendanceViewModel.delete(attendanceId)
             }
         }
         adapter.attachListener(listener)
 
-        studentAttendanceViewModel.getAllAttendancesFromSubject(subjectId)
+        attendanceViewModel.getAllAttendancesFromSubject(subjectId)
         observe()
     }
 
@@ -56,19 +60,16 @@ class HistoryActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == EDIT_HISTORY_REQUEST_CODE && resultCode == RESULT_OK) {
             // Atualize a lista de histórico após a edição
-            studentAttendanceViewModel.getAllAttendancesFromSubject(subjectId)
+            attendanceViewModel.getAllAttendancesFromSubject(subjectId)
         }
     }
 
     private fun observe() {
-        studentAttendanceViewModel.attendances.observe(this) {
+        attendanceViewModel.attendances.observe(this) {
             adapter.updateHistory(it)
         }
-        studentAttendanceViewModel.students.observe(this) { students ->
-            Log.d("Alunos", "${students[0].name}")
-        }
-        studentAttendanceViewModel.newChange.observe(this) {
-            studentAttendanceViewModel.getAllAttendancesFromSubject(subjectId)
+        attendanceViewModel.newChange.observe(this) {
+            attendanceViewModel.getAllAttendancesFromSubject(subjectId)
         }
     }
 }

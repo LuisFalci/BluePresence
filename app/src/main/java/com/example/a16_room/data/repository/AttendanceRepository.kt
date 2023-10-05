@@ -15,12 +15,21 @@ class AttendanceRepository(context: Context) {
         return attendanceDAO.update(attendance)
     }
 
-    fun delete(attendance: AttendanceModel): Int {
-        return attendanceDAO.delete(attendance)
+    fun delete(attendanceId: Long): Int {
+        val attendanceModel = getAttendance(attendanceId)
+        return attendanceDAO.delete(attendanceModel)
+    }
+
+    fun deleteStudentAttendanceCrossRefByAttendanceId(attendanceId: Long) {
+        attendanceDAO.deleteStudentAttendanceCrossRefByAttendanceId(attendanceId)
     }
 
     fun getAll(): List<AttendanceModel> {
         return attendanceDAO.getAll()
+    }
+
+    fun getAllAttendancesFromSubject(subjectId: Long): List<AttendanceModel> {
+        return attendanceDAO.getAllAttendancesFromSubject(subjectId)
     }
 
     fun getAttendance(attendanceId: Long): AttendanceModel {

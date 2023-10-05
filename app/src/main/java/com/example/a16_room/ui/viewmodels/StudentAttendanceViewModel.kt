@@ -35,10 +35,6 @@ class StudentAttendanceViewModel(application: Application) : AndroidViewModel(ap
         listStudents.value = repository.getAllStudentsFromAttendance(attendanceId)
     }
 
-    fun getAllAttendancesFromSubject(subjectId: Long) {
-        listAttendances.value = repository.getAllAttendancesFromSubject(subjectId)
-    }
-
     fun getPresences(attendanceId: Long, subjectId: Long) {
         listStudentsAttendance.value = repository.getPresences(attendanceId, subjectId)
     }

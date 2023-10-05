@@ -37,6 +37,10 @@ class AttendanceViewModel(application: Application) : AndroidViewModel(applicati
         attendanceModel.value = repository.getAttendance(attendanceId)
     }
 
+    fun getAllAttendancesFromSubject(subjectId: Long) {
+        listAttendances.value = repository.getAllAttendancesFromSubject(subjectId)
+    }
+
     fun update(
         attendanceId: Long,
         subjectId: Long,
@@ -56,11 +60,11 @@ class AttendanceViewModel(application: Application) : AndroidViewModel(applicati
         return affectedRows
     }
 
+    fun deleteStudentAttendanceCrossRefByAttendanceId(attendanceId: Long) {
+        repository.deleteStudentAttendanceCrossRefByAttendanceId(attendanceId)
+    }
     fun delete(attendanceId: Long): Int {
-        val model = AttendanceModel().apply {
-            this.attendanceId = attendanceId
-        }
-        val affectedRows = repository.delete(model)
+        val affectedRows = repository.delete(attendanceId)
         changes.value = affectedRows.toLong()
         return affectedRows
     }

@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
         ForeignKey(entity = SubjectModel::class,
             parentColumns = ["subjectId"],
             childColumns = ["subjectId"],
-            onDelete = ForeignKey.CASCADE)
+            onDelete = ForeignKey.CASCADE) // Adicione esta linha para realizar a exclusão em cascata
     ])
 class AttendanceModel() {
     @PrimaryKey(autoGenerate = true)
