@@ -3,6 +3,7 @@ package com.example.a16_room.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_room.R
@@ -17,6 +18,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>()  {
     var count = 0
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var historyText: TextView = view.findViewById(R.id.historyText)
+        var historyEdit: ImageView = view.findViewById(R.id.button_edit)
         var attendancePercentage: TextView = view.findViewById(R.id.attendancePercentage)
     }
 
@@ -38,7 +40,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>()  {
         holder.historyText.text = formattedDate
         val percentagePresents = (history.totalPresents.toDouble() / history.totalStudents.toDouble()) * 100
         holder.attendancePercentage.text = percentagePresents.toString()+"%"
-        holder.historyText.setOnClickListener {
+        holder.historyEdit.setOnClickListener {
             listener.onHistoryClick(history.attendanceId)
         }
     }

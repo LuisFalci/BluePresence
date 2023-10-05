@@ -36,22 +36,17 @@ class AttendanceViewModel(application: Application) : AndroidViewModel(applicati
 //        attendance.value = repository.get(studentId)
 //    }
 //
-//    fun update(
-//        attendanceId: Long,
-//        studentId: Long,
-//        dateTime: String,
-//        presence: Boolean
-//    ): Int {
-//        val model = AttendanceModel().apply {
-//            this.attendanceId = attendanceId
-//            this.student_id = studentId
-//            this.dateTime = dateTime
-//            this.presence = presence
-//        }
-//        val affectedRows = repository.update(model)
-//        changes.value = affectedRows.toLong()
-//        return affectedRows
-//    }
+    fun update(attendanceId: Long, dateTime: Long, totalStudents: Int, totalPresents: Int): Int {
+        val model = AttendanceModel().apply {
+            this.attendanceId = attendanceId
+            this.dateTime = dateTime
+            this.totalStudents = totalStudents
+            this.totalPresents = totalPresents
+        }
+        val affectedRows = repository.update(model)
+        changes.value = affectedRows.toLong()
+        return affectedRows
+    }
 //
 //    fun delete(attendanceId: Long): Int {
 //        val model = AttendanceModel().apply {

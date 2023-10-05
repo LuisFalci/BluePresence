@@ -1,5 +1,6 @@
 package com.example.a16_room.ui.view.history
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -32,11 +33,12 @@ class HistoryActivity : AppCompatActivity() {
         binding.historyRecyclerView.layoutManager = LinearLayoutManager(applicationContext)
         binding.historyRecyclerView.adapter = adapter
 
-        //Quando usuário clica no card da chamada este evento trigga:
+        val Intent = Intent(this, EditHistoryActivity::class.java)
         val listener = object : OnHistoryListener {
             override fun onHistoryClick(attendanceId: Long) {
-                //val students = studentAttendanceViewModel.getAllStudentsFromAttendance(attendanceId)
-                //studentAttendanceViewModel.getPresences(attendanceId, subjectId)
+                Intent.putExtra("attendanceId", attendanceId)
+                Intent.putExtra("subjectId", subjectId)
+                startActivity(Intent)
             }
         }
 

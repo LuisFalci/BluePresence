@@ -11,9 +11,9 @@ class AttendanceRepository(context: Context) {
         return attendanceDAO.insert(attendanceModel)
     }
 
-    //    fun update(attendance: AttendanceModel): Int {
-//        return attendanceDAO.update(attendance)
-//    }
+        fun update(attendance: AttendanceModel): Int {
+        return attendanceDAO.update(attendance)
+    }
 //
 //    fun delete(attendance: AttendanceModel): Int {
 //        return attendanceDAO.delete(attendance)
