@@ -39,8 +39,11 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>()  {
         val sdf = SimpleDateFormat("dd/MM/yyyy")
         val formattedDate = sdf.format(date)
         holder.historyText.text = formattedDate
+
         val percentagePresents = (history.totalPresents.toDouble() / history.totalStudents.toDouble()) * 100
-        holder.attendancePercentage.text = percentagePresents.toString()+"%"
+        val formattedPercentage = String.format("%.2f%%", percentagePresents)
+        holder.attendancePercentage.text = formattedPercentage
+
         holder.historyEdit.setOnClickListener {
             listener.onHistoryClick(history.attendanceId)
         }
@@ -48,6 +51,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>()  {
             listener.onRemoveClick(history.attendanceId)
         }
     }
+
     fun updateHistory(list: List<AttendanceModel>) {
         attendanceList = list
         notifyDataSetChanged()
