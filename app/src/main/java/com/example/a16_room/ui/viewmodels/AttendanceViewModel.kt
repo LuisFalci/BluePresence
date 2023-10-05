@@ -13,7 +13,8 @@ class AttendanceViewModel(application: Application) : AndroidViewModel(applicati
     private val listAttendances = MutableLiveData<List<AttendanceModel>>()
     val attendances: LiveData<List<AttendanceModel>> = listAttendances
 
-    private val attendance = MutableLiveData<AttendanceModel>()
+    private val attendanceModel = MutableLiveData<AttendanceModel>()
+    var attendance: LiveData<AttendanceModel> = attendanceModel
 
     private var changes = MutableLiveData<Long>()
     var newChange: LiveData<Long> = changes
@@ -31,14 +32,21 @@ class AttendanceViewModel(application: Application) : AndroidViewModel(applicati
     fun getAll() {
         listAttendances.value = repository.getAll()
     }
-//
-//    fun get(studentId: Long) {
-//        attendance.value = repository.get(studentId)
-//    }
-//
-    fun update(attendanceId: Long, dateTime: Long, totalStudents: Int, totalPresents: Int): Int {
+
+    fun getAttendance(attendanceId: Long) {
+        attendanceModel.value = repository.getAttendance(attendanceId)
+    }
+
+    fun update(
+        attendanceId: Long,
+        subjectId: Long,
+        dateTime: Long,
+        totalStudents: Int,
+        totalPresents: Int
+    ): Int {
         val model = AttendanceModel().apply {
             this.attendanceId = attendanceId
+            this.subjectId = subjectId
             this.dateTime = dateTime
             this.totalStudents = totalStudents
             this.totalPresents = totalPresents
@@ -47,17 +55,13 @@ class AttendanceViewModel(application: Application) : AndroidViewModel(applicati
         changes.value = affectedRows.toLong()
         return affectedRows
     }
-//
-//    fun delete(attendanceId: Long): Int {
-//        val model = AttendanceModel().apply {
-//            this.attendanceId = attendanceId
-//        }
-//        val affectedRows = repository.delete(model)
-//        changes.value = affectedRows.toLong()
-//        return affectedRows
-//    }
-//
-//    fun getAllAttendancesForStudent(studentId: Long) {
-//        listAttendances.value = repository.getAllAttendancesForStudent(studentId)
-//    }
+
+    fun delete(attendanceId: Long): Int {
+        val model = AttendanceModel().apply {
+            this.attendanceId = attendanceId
+        }
+        val affectedRows = repository.delete(model)
+        changes.value = affectedRows.toLong()
+        return affectedRows
+    }
 }

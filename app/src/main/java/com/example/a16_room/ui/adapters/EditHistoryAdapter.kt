@@ -13,7 +13,8 @@ import java.util.Locale
 
 class EditHistoryAdapter(
     private val context: Context,
-    private val studentList: List<StudentModel>
+    private val studentList: List<StudentModel>,
+    private val studentAttendanceMap: MutableMap<Long, Boolean>
 ) : RecyclerView.Adapter<EditHistoryAdapter.EditHistoryViewHolder>() {
     private lateinit var listener: OnAttendanceListener
     inner class EditHistoryViewHolder(binding: RowAttendanceBinding) :
@@ -31,22 +32,23 @@ class EditHistoryAdapter(
     }
 
     override fun onBindViewHolder(holder: EditHistoryAdapter.EditHistoryViewHolder, position: Int) {
-//        val studentAttendance = studentAttendanceList[position]
         val student = studentList[position]
+        val studentId = student.studentId
+        val studentAttendance = studentAttendanceMap[studentId]
 
-        Log.d("fdskjfsdlkf", "${student.studentId}")
+        Log.d("fdskjfsdlkf", "$studentId")
 
         holder.studentName.text = student.name
-//        holder.studentPresent.isChecked = studentAttendance.isPresent
-//        holder.studentAbsent.isChecked = !studentAttendance.isPresent
-//
-//        holder.studentPresent.setOnCheckedChangeListener { buttonView, isChecked ->
-//            listener.onStudentClick(studentAttendance.studentId, isChecked)
-//        }
-//
-//        holder.studentAbsent.setOnCheckedChangeListener { buttonView, isChecked ->
-//            listener.onStudentClick(studentAttendance.studentId, !isChecked)
-//        }
+        holder.studentPresent.isChecked = studentAttendance == true
+        holder.studentAbsent.isChecked = studentAttendance == false
+
+        holder.studentPresent.setOnCheckedChangeListener { buttonView, isChecked ->
+            listener.onStudentClick(studentId, isChecked)
+        }
+
+        holder.studentAbsent.setOnCheckedChangeListener { buttonView, isChecked ->
+            listener.onStudentClick(studentId, !isChecked)
+        }
     }
     override fun getItemCount(): Int {
         return studentList.size

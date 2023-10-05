@@ -11,22 +11,19 @@ class AttendanceRepository(context: Context) {
         return attendanceDAO.insert(attendanceModel)
     }
 
-        fun update(attendance: AttendanceModel): Int {
+    fun update(attendance: AttendanceModel): Int {
         return attendanceDAO.update(attendance)
     }
-//
-//    fun delete(attendance: AttendanceModel): Int {
-//        return attendanceDAO.delete(attendance)
-//    }
-//
-//    fun get(attendanceId: Long): AttendanceModel {
-//        return attendanceDAO.get(attendanceId)
-//    }
-//
+
+    fun delete(attendance: AttendanceModel): Int {
+        return attendanceDAO.delete(attendance)
+    }
+
     fun getAll(): List<AttendanceModel> {
         return attendanceDAO.getAll()
     }
-//    fun getAllAttendancesForStudent(studentId: Long): List<AttendanceModel> {
-//        return attendanceDAO.getAllAttendancesForStudent(studentId)
-//    }
+
+    fun getAttendance(attendanceId: Long): AttendanceModel {
+        return attendanceDAO.getAttendance(attendanceId)
+    }
 }

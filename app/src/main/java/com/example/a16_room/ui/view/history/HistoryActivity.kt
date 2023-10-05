@@ -15,6 +15,7 @@ class HistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistoryBinding
     private lateinit var studentAttendanceViewModel: StudentAttendanceViewModel
     private val adapter = HistoryAdapter()
+    private val EDIT_HISTORY_REQUEST_CODE = 1
 
     private var subjectId: Long = -1L
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,19 +34,26 @@ class HistoryActivity : AppCompatActivity() {
         binding.historyRecyclerView.layoutManager = LinearLayoutManager(applicationContext)
         binding.historyRecyclerView.adapter = adapter
 
-        val Intent = Intent(this, EditHistoryActivity::class.java)
         val listener = object : OnHistoryListener {
             override fun onHistoryClick(attendanceId: Long) {
-                Intent.putExtra("attendanceId", attendanceId)
-                Intent.putExtra("subjectId", subjectId)
-                startActivity(Intent)
+                val intent = Intent(this@HistoryActivity, EditHistoryActivity::class.java)
+                intent.putExtra("attendanceId", attendanceId)
+                intent.putExtra("subjectId", subjectId)
+                startActivityForResult(intent, EDIT_HISTORY_REQUEST_CODE)
             }
         }
-
         adapter.attachListener(listener)
 
         studentAttendanceViewModel.getAllAttendancesFromSubject(subjectId)
         observe()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == EDIT_HISTORY_REQUEST_CODE && resultCode == RESULT_OK) {
+            // Atualize a lista de histórico após a edição
+            studentAttendanceViewModel.getAllAttendancesFromSubject(subjectId)
+        }
     }
 
     private fun observe() {

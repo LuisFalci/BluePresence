@@ -46,4 +46,8 @@ class StudentAttendanceViewModel(application: Application) : AndroidViewModel(ap
     fun insert(attendanceId: Long, subjectId: Long, studentId: Long, isPresent: Boolean) {
         repository.insert(attendanceId, subjectId, studentId, isPresent)
     }
+    fun update(attendanceId: Long, subjectId: Long, studentId: Long, isPresent: Boolean) {
+        repository.update(attendanceId, subjectId, studentId, isPresent)
+    }
+
 }

@@ -12,7 +12,8 @@ class StudentAttendanceRepository(context: Context) {
         val studentAttendanceCrossRef = StudentAttendanceCrossRef(attendanceId, subjectId, studentId, isPresent)
          studentAttendanceDAO.insert(studentAttendanceCrossRef)
     }
-    fun update(studentAttendanceCrossRef: StudentAttendanceCrossRef): Int{
+    fun update(attendanceId: Long, subjectId: Long, studentId: Long, isPresent: Boolean): Int{
+        val studentAttendanceCrossRef = StudentAttendanceCrossRef(attendanceId, subjectId, studentId, isPresent)
         return studentAttendanceDAO.update(studentAttendanceCrossRef)
     }
 
