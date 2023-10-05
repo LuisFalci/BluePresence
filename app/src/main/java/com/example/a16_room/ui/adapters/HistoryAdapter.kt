@@ -19,6 +19,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>()  {
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var historyText: TextView = view.findViewById(R.id.historyText)
         var historyEdit: ImageView = view.findViewById(R.id.button_edit)
+        var historyRemove: ImageView = view.findViewById(R.id.button_remove)
         var attendancePercentage: TextView = view.findViewById(R.id.attendancePercentage)
     }
 
@@ -42,6 +43,9 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>()  {
         holder.attendancePercentage.text = percentagePresents.toString()+"%"
         holder.historyEdit.setOnClickListener {
             listener.onHistoryClick(history.attendanceId)
+        }
+        holder.historyRemove.setOnClickListener {
+            listener.onRemoveClick(history.attendanceId)
         }
     }
     fun updateHistory(list: List<AttendanceModel>) {

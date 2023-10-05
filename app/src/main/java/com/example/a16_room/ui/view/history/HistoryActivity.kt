@@ -41,6 +41,10 @@ class HistoryActivity : AppCompatActivity() {
                 intent.putExtra("subjectId", subjectId)
                 startActivityForResult(intent, EDIT_HISTORY_REQUEST_CODE)
             }
+
+            override fun onRemoveClick(attendanceId: Long) {
+                Log.d("deleteido", "Deletado ${attendanceId}")
+            }
         }
         adapter.attachListener(listener)
 

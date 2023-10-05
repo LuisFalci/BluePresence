@@ -16,11 +16,6 @@ class StudentAttendanceRepository(context: Context) {
         val studentAttendanceCrossRef = StudentAttendanceCrossRef(attendanceId, subjectId, studentId, isPresent)
         return studentAttendanceDAO.update(studentAttendanceCrossRef)
     }
-
-    fun delete(studentAttendanceCrossRef: StudentAttendanceCrossRef): Int{
-        return studentAttendanceDAO.delete(studentAttendanceCrossRef)
-    }
-
     fun getAllStudentsFromAttendance(attendanceId: Long): List<StudentModel>{
         return studentAttendanceDAO.getAllStudentsFromAttendance(attendanceId)
     }

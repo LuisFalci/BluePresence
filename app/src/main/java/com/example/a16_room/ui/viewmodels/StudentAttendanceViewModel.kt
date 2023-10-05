@@ -49,5 +49,4 @@ class StudentAttendanceViewModel(application: Application) : AndroidViewModel(ap
     fun update(attendanceId: Long, subjectId: Long, studentId: Long, isPresent: Boolean) {
         repository.update(attendanceId, subjectId, studentId, isPresent)
     }
-
 }
