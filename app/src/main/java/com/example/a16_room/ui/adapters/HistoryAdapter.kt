@@ -1,5 +1,6 @@
 package com.example.a16_room.ui.adapters
 
+import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +13,11 @@ import com.example.a16_room.ui.listeners.OnHistoryListener
 import java.text.SimpleDateFormat
 import java.util.Date
 
-class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>()  {
+class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
     private var attendanceList: List<AttendanceModel> = listOf()
     private lateinit var listener: OnHistoryListener
     var count = 0
+
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var historyText: TextView = view.findViewById(R.id.historyText)
         var historyEdit: ImageView = view.findViewById(R.id.button_edit)
@@ -24,7 +26,8 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>()  {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val history = LayoutInflater.from(parent.context).inflate(R.layout.row_history, parent, false)
+        val history =
+            LayoutInflater.from(parent.context).inflate(R.layout.row_history, parent, false)
         return ViewHolder(history)
     }
 
@@ -40,7 +43,8 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>()  {
         val formattedDate = sdf.format(date)
         holder.historyText.text = formattedDate
 
-        val percentagePresents = (history.totalPresents.toDouble() / history.totalStudents.toDouble()) * 100
+        val percentagePresents =
+            (history.totalPresents.toDouble() / history.totalStudents.toDouble()) * 100
         val formattedPercentage = String.format("%.2f%%", percentagePresents)
         holder.attendancePercentage.text = formattedPercentage
 
@@ -48,7 +52,17 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>()  {
             listener.onHistoryClick(history.attendanceId)
         }
         holder.historyRemove.setOnClickListener {
-            listener.onRemoveClick(history.attendanceId)
+            val context = holder.itemView.context
+            AlertDialog.Builder(context)
+                .setTitle("Remover Chamada ${formattedDate}")
+                .setMessage("Tem certeza que deseja remover?")
+                .setPositiveButton("Sim") { dialog, which ->
+                    listener.onRemoveClick(history.attendanceId)
+                }
+                .setNegativeButton("Não", null)
+                .create()
+                .show()
+            true
         }
     }
 
@@ -56,6 +70,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>()  {
         attendanceList = list
         notifyDataSetChanged()
     }
+
     fun attachListener(historyListener: OnHistoryListener) {
         listener = historyListener
     }

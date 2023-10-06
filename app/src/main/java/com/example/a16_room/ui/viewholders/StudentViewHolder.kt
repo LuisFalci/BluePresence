@@ -1,5 +1,6 @@
 package com.example.a16_room.ui.viewholders
 
+import android.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_room.data.models.StudentModel
 import com.example.a16_room.databinding.RowStudentBinding
@@ -11,14 +12,23 @@ class StudentViewHolder(
     private val listener: OnStudentListener
 ) : RecyclerView.ViewHolder(bind.root) {
 
-    fun bind(student: StudentModel){
+    fun bind(student: StudentModel) {
         bind.textStudent.text = student.name
 
-        bind.buttonEdit.setOnClickListener{
+        bind.buttonEdit.setOnClickListener {
             listener.OnClick(student.studentId, ClickSourceStudent.TEXT)
         }
-        bind.buttonRemove.setOnClickListener{
-            listener.OnClick(student.studentId, ClickSourceStudent.BUTTON_REMOVE)
+        bind.buttonRemove.setOnClickListener {
+            AlertDialog.Builder(itemView.context)
+                .setTitle("Remover Aluno ${student.name}")
+                .setMessage("Tem certeza que deseja remover?")
+                .setPositiveButton("Sim") { dialog, which ->
+                    listener.OnClick(student.studentId, ClickSourceStudent.BUTTON_REMOVE)
+                }
+                .setNegativeButton("Não", null)
+                .create()
+                .show()
+            true
         }
     }
 }
