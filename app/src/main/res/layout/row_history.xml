@@ -23,7 +23,7 @@
             android:layout_weight="7"
             android:padding="3dp"
             android:text="20/20/2022"
-            android:textColor="@color/lavender"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
@@ -33,7 +33,7 @@
             android:layout_weight="7"
             android:padding="3dp"
             android:text="78.0%"
-            android:textColor="#03A9F4"
+            android:textColor="@color/bluetooth_blue"
             android:textSize="20sp" />
 
         <ImageView
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/ic_edit"
-            android:textColor="@color/lavender"
+            android:textColor="@color/black"
             android:paddingRight="20dp"/>
 
         <ImageView
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/ic_trash"
-            android:textColor="@color/lavender" />
+            android:textColor="@color/black" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

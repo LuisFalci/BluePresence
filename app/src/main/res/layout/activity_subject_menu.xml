@@ -26,7 +26,7 @@
             android:layout_weight="1"
             android:padding="8dp"
             android:src="@drawable/ic_attendance"
-            app:tint="#8C8787" />
+            app:tint="@color/grey" />
 
         <TextView
             android:id="@+id/attendance"
@@ -58,7 +58,7 @@
             android:layout_weight="1"
             android:padding="8dp"
             android:src="@drawable/ic_students"
-            app:tint="#8C8787" />
+            app:tint="@color/grey" />
 
         <TextView
             android:id="@+id/student"
@@ -89,7 +89,7 @@
             android:layout_weight="1"
             android:padding="8dp"
             android:src="@drawable/ic_history"
-            app:tint="#8C8787" />
+            app:tint="@color/grey" />
 
         <TextView
             android:id="@+id/history"

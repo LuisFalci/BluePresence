@@ -78,12 +78,14 @@ class EditStudentActivity : AppCompatActivity() {
         }
 
         binding.buttonEdit.setOnClickListener {
-            val name = binding.editName.text.toString()
-            val registration = binding.editRegistration.text.toString()
+            if(!validateForm()){
+                val name = binding.editName.text.toString()
+                val registration = binding.editRegistration.text.toString()
 
-            viewModel.update(studentId, name, registration, macAddress)
+                viewModel.update(studentId, name, registration, macAddress)
 
-            finish()
+                finish()
+            }
         }
 
         bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
@@ -141,6 +143,21 @@ class EditStudentActivity : AppCompatActivity() {
         registerReceiver(bondStateChangedReceiver, bondStateFilter)
 
         checkPermissions()
+    }
+
+    private fun validateForm(): Boolean {
+        var error = false
+        Log.d("fkdlsjfsdkjfsld", "${binding.editName.text.length}")
+        if (binding.editName.text.isEmpty()) {
+            binding.editName.error = "Campo nome precisa ser preenchido"
+            error = true
+        }
+        if (binding.editName.text.length >= 20) {
+            Log.d("fkdlsjfsdkjfsld", "${binding.editName.text.length}")
+            binding.editName.error = "Campo nome deve ter menos de 20 caracteres"
+            error = true
+        }
+        return error
     }
 
     @SuppressLint("MissingPermission")

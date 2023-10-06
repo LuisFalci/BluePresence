@@ -23,7 +23,7 @@
             android:layout_weight="7"
             android:padding="10dp"
             android:text="Dispositivo"
-            android:textColor="@color/lavender"
+            android:textColor="@color/black"
             android:textSize="20sp" />
     </LinearLayout>
 

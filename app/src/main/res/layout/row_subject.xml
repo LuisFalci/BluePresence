@@ -24,7 +24,7 @@
             android:layout_weight="7"
             android:padding="10dp"
             android:text="Turma"
-            android:textColor="@color/lavender"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <ImageView
@@ -34,7 +34,7 @@
             android:layout_weight="1"
             android:padding="8dp"
             android:src="@drawable/ic_popup_menu"
-            android:textColor="@color/lavender" />
+            android:textColor="@color/black" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
