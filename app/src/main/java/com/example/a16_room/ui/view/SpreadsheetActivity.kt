@@ -37,7 +37,7 @@ class SpreadsheetActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         var action = supportActionBar
-        action!!.title = "Gerar Planilha"
+        action!!.title = "Relatório da Turma"
 
         if (intent.hasExtra("subject_id")) {
             subjectId = intent.getLongExtra("subject_id", -1L)

@@ -37,7 +37,7 @@ class AttendanceAdapter(
     override fun onBindViewHolder(holder: AttendanceAdapter.AttendanceViewHolder, position: Int) {
         val student = studentList[position]
         holder.studentName.text = student.name
-        val studentMacAddress = student.macAddress
+
 
         holder.studentPresent.setOnCheckedChangeListener(null)
         holder.studentAbsent.setOnCheckedChangeListener(null)

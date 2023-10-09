@@ -54,7 +54,7 @@ class AttendanceActivity : AppCompatActivity() {
 
     private var subjectId: Long = -1L
 
-    private val studentAttendanceMap = mutableMapOf<Long, Boolean>()
+    private var studentAttendanceMap = mutableMapOf<Long, Boolean>()
 
     private var isButtonClicked = false
 
@@ -80,6 +80,10 @@ class AttendanceActivity : AppCompatActivity() {
         studentViewModel.students.observe(this) { students ->
             studentList.clear()
             studentList.addAll(students)
+            studentAttendanceMap.clear()
+            studentList.forEach { student ->
+                studentAttendanceMap[student.studentId] = false
+            }
             binding.totalStudents.text = "Total de alunos: " + studentList.size.toString()
             attendanceAdapter.notifyDataSetChanged()
         }
@@ -88,7 +92,6 @@ class AttendanceActivity : AppCompatActivity() {
             bluetoothDevicesFound = updatedBluetoothDevicesFound.toMutableList()
             attendanceAdapter.updateBluetoothDevicesFound(bluetoothDevicesFound)
         }
-
 
         val recyclerViewStudent = binding.studentsAttendance
         recyclerViewStudent.layoutManager = LinearLayoutManager(this)
@@ -143,17 +146,23 @@ class AttendanceActivity : AppCompatActivity() {
             }
             checkPermissions()
         }
-        binding.seveAttendance.setOnClickListener {
-            var dateTime: Long = System.currentTimeMillis()
-            val totalStudents = studentAttendanceMap.size
-            val totalPresents = calculateTotalStudentsPresent()
-            val attendanceId = attendanceViewModel.insert(subjectId, dateTime, totalStudents, totalPresents)
 
-            for ((studentId, isPresent) in studentAttendanceMap) {
-                studentAttendanceViewModel.insert(attendanceId, subjectId, studentId, isPresent)
+        binding.seveAttendance.setOnClickListener {
+            if (!studentAttendanceMap.isEmpty()) {
+                var dateTime: Long = System.currentTimeMillis()
+                val totalStudents = studentAttendanceMap.size
+                val totalPresents = calculateTotalStudentsPresent()
+                val attendanceId =
+                    attendanceViewModel.insert(subjectId, dateTime, totalStudents, totalPresents)
+                for ((studentId, isPresent) in studentAttendanceMap) {
+                    Log.d("ausenteNulos", "${isPresent} -> ${totalStudents}")
+                    studentAttendanceViewModel.insert(attendanceId, subjectId, studentId, isPresent)
+                }
+                finish()
             }
-            finish()
+
         }
+
         val listener = object : OnAttendanceListener {
             override fun onStudentClick(studentId: Long, isPresent: Boolean) {
                 studentAttendanceMap[studentId] = isPresent
@@ -162,6 +171,7 @@ class AttendanceActivity : AppCompatActivity() {
         }
         attendanceAdapter.attachListener(listener)
     }
+
     private fun calculateTotalStudentsPresent(): Int {
         var numeroAlunosPresentes = 0
         for (isPresent in studentAttendanceMap.values) {
