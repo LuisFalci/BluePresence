@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bordered_background">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:gravity="center_horizontal"
+        android:padding="10sp"
+        android:text="Luis"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/absences"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center_horizontal"
+        android:padding="10sp"
+        android:text="3"
+        android:textColor="@color/red"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/presences"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center_horizontal"
+        android:padding="10sp"
+        android:text="435435"
+        android:textColor="@color/light_green"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/totalStudents"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center_horizontal"
+        android:padding="10sp"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/percentage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center_horizontal"
+        android:padding="10sp"
+        android:text="76"
+        android:textColor="@color/bluetooth_blue"
+        android:textSize="12sp" />
+</TableRow>

@@ -30,6 +30,9 @@
         android:theme="@style/Theme.16_ROOM"
         tools:targetApi="31">
         <activity
+            android:name=".ui.view.SpreadsheetActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.view.history.EditHistoryActivity"
             android:exported="false" />
         <activity

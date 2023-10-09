@@ -7,10 +7,7 @@ import androidx.room.PrimaryKey
 class StudentModel {
     @PrimaryKey(autoGenerate = true)
     var studentId: Long = 0
-
     var name: String = ""
-
     var registration: String = ""
-
     var macAddress: String = ""
 }

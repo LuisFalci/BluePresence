@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.view.SpreadsheetActivity">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@android:color/white">
+
+        <TableRow android:background="@drawable/bordered_background">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="3"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="Nome"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center_horizontal"
+                android:text="Ausênc."
+                android:textColor="@color/red"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center_horizontal"
+                android:text="Presen."
+                android:textColor="@color/light_green"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center_horizontal"
+                android:text="Total"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center_horizontal"
+                android:text="Frquên."
+                android:textColor="@color/bluetooth_blue"
+                android:textSize="14sp" />
+        </TableRow>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/studentInfoRecyclerView"
+            android:layout_marginBottom="30dp" />
+    </TableLayout>
+
+    <Button
+        android:id="@+id/createExcelFile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Gerar Planilha"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"/>
+
+</RelativeLayout>

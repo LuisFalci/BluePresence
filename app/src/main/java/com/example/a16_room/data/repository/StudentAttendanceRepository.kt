@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.a16_room.data.database.AppDatabase
 import com.example.a16_room.data.models.StudentModel
 import com.example.a16_room.data.models.relations.studentattendance.StudentAttendanceCrossRef
+import com.example.a16_room.data.models.utils.StudentAttendanceInfo
 
 class StudentAttendanceRepository(context: Context) {
     private val studentAttendanceDAO = AppDatabase.getDatabase(context).studentAttendance()
@@ -25,5 +26,8 @@ class StudentAttendanceRepository(context: Context) {
 
     fun getPresences(attendanceId: Long, subjectId: Long): List<StudentAttendanceCrossRef> {
         return studentAttendanceDAO.getPresences(attendanceId, subjectId)
+    }
+    fun getStudentAttendanceInfo(subjectId: Long): List<StudentAttendanceInfo>{
+        return studentAttendanceDAO.getStudentAttendanceInfo(subjectId)
     }
 }

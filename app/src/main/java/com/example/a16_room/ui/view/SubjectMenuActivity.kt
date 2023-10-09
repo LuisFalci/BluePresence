@@ -23,23 +23,27 @@ class SubjectMenuActivity : AppCompatActivity() {
             subjectId = intent.getLongExtra("subject_id", -1L)
         }
 
-        binding.attendance.setOnClickListener{
+        binding.attendance.setOnClickListener {
             val intent = Intent(this@SubjectMenuActivity, AttendanceActivity::class.java)
             intent.putExtra("subject_id", subjectId)
             startActivity(intent)
         }
-        binding.student.setOnClickListener{
+        binding.student.setOnClickListener {
             val intent = Intent(this@SubjectMenuActivity, ViewStudentActivity::class.java)
             intent.putExtra("subject_id", subjectId)
             startActivity(intent)
         }
 
-        binding.history.setOnClickListener{
+        binding.history.setOnClickListener {
             val intent = Intent(this@SubjectMenuActivity, HistoryActivity::class.java)
             intent.putExtra("subject_id", subjectId)
             startActivity(intent)
         }
 
-
+        binding.spreadsheet.setOnClickListener {
+            val intent = Intent(this@SubjectMenuActivity, SpreadsheetActivity::class.java)
+            intent.putExtra("subject_id", subjectId)
+            startActivity(intent)
+        }
     }
 }
