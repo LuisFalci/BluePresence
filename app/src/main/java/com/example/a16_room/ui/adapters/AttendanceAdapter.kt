@@ -17,6 +17,7 @@ class AttendanceAdapter(
     private var bluetoothDevicesFound: List<String>
 ) : RecyclerView.Adapter<AttendanceAdapter.AttendanceViewHolder>() {
     private lateinit var listener: OnAttendanceListener
+    private val studentRadioButtonStateMap = mutableMapOf<Long, Boolean>()
 
     inner class AttendanceViewHolder(binding: RowAttendanceBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -38,20 +39,27 @@ class AttendanceAdapter(
         holder.studentName.text = student.name
         val studentMacAddress = student.macAddress
 
+        holder.studentPresent.setOnCheckedChangeListener(null)
+        holder.studentAbsent.setOnCheckedChangeListener(null)
+
+        // Defina o estado inicial dos radio buttons com base nos dispositivos Bluetooth encontrados.
+        val isPresent = studentRadioButtonStateMap.getOrDefault(student.studentId, false)
+        holder.studentPresent.isChecked = isPresent
+        holder.studentAbsent.isChecked = !isPresent
+
         holder.studentPresent.setOnCheckedChangeListener { buttonView, isChecked ->
+            studentRadioButtonStateMap[student.studentId] = isChecked
             listener.onStudentClick(student.studentId, isChecked)
         }
 
         holder.studentAbsent.setOnCheckedChangeListener { buttonView, isChecked ->
+            studentRadioButtonStateMap[student.studentId] = !isChecked
             listener.onStudentClick(student.studentId, !isChecked)
         }
 
-        // Defina o estado inicial dos radio buttons com base nos dispositivos Bluetooth encontrados.
-        holder.studentPresent.isChecked = bluetoothDevicesFound.contains(studentMacAddress)
-        holder.studentAbsent.isChecked = !bluetoothDevicesFound.contains(studentMacAddress)
-
         Log.d("erro", "${student.macAddress} e ${student.name}")
     }
+
 
     override fun getItemCount(): Int {
         return studentList.size
