@@ -62,8 +62,7 @@ class CreateStudentActivity : AppCompatActivity() {
         action!!.title = "Criar Aluno"
 
         viewModel = ViewModelProvider(this)[StudentViewModel::class.java]
-        subjectViewModel =
-            ViewModelProvider(this)[SubjectViewModel::class.java] // Assuming you have a SubjectViewModel
+        subjectViewModel = ViewModelProvider(this)[SubjectViewModel::class.java]
 
         if (intent.hasExtra("subject_id")) {
             subjectId = intent.getLongExtra("subject_id", -1L)

@@ -16,6 +16,8 @@ class ViewStudentActivity : AppCompatActivity() {
     private lateinit var binding: ActivityViewStudentBinding
     private lateinit var viewModel: StudentViewModel
     private lateinit var subjectViewModel: SubjectViewModel
+
+    private lateinit var subjectName: String
     private val adapter = StudentAdapter()
     private var subjectId: Long = -1L
 
@@ -24,15 +26,20 @@ class ViewStudentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        var action = supportActionBar
-        action!!.title = "Alunos"
-
         subjectViewModel = ViewModelProvider(this)[SubjectViewModel::class.java]
 
         viewModel = ViewModelProvider(this)[StudentViewModel::class.java]
 
         if (intent.hasExtra("subject_id")) {
             subjectId = intent.getLongExtra("subject_id", -1L)
+        }
+
+        subjectViewModel = ViewModelProvider(this)[SubjectViewModel::class.java]
+        subjectViewModel.get(subjectId)
+        subjectViewModel.subject.observe(this) { subject ->
+            subjectName = subject.subjectName
+            var action = supportActionBar
+            action!!.title = subjectName.uppercase() + " - Alunos"
         }
 
         binding.recyclerStudents.layoutManager = LinearLayoutManager(applicationContext)

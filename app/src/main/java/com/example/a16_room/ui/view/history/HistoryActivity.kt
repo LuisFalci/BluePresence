@@ -10,11 +10,15 @@ import com.example.a16_room.ui.adapters.HistoryAdapter
 import com.example.a16_room.ui.listeners.OnHistoryListener
 import com.example.a16_room.ui.viewmodels.AttendanceViewModel
 import com.example.a16_room.ui.viewmodels.StudentAttendanceViewModel
+import com.example.a16_room.ui.viewmodels.SubjectViewModel
 
 class HistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistoryBinding
     private lateinit var studentAttendanceViewModel: StudentAttendanceViewModel
     private lateinit var attendanceViewModel: AttendanceViewModel
+    private lateinit var subjectViewModel: SubjectViewModel
+
+    private lateinit var subjectName: String
 
     private val adapter = HistoryAdapter()
     private val EDIT_HISTORY_REQUEST_CODE = 1
@@ -24,11 +28,17 @@ class HistoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        var action = supportActionBar
-        action!!.title = "Histórico de Chamadas"
 
         if (intent.hasExtra("subject_id")) {
             subjectId = intent.getLongExtra("subject_id", -1L)
+        }
+
+        subjectViewModel = ViewModelProvider(this)[SubjectViewModel::class.java]
+        subjectViewModel.get(subjectId)
+        subjectViewModel.subject.observe(this) { subject ->
+            subjectName = subject.subjectName
+            var action = supportActionBar
+            action!!.title = subjectName.uppercase() + " - Histórico"
         }
 
         studentAttendanceViewModel = ViewModelProvider(this)[StudentAttendanceViewModel::class.java]

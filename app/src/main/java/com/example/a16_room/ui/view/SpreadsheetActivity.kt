@@ -11,6 +11,7 @@ import com.example.a16_room.data.models.utils.StudentAttendanceInfo
 import com.example.a16_room.databinding.ActivitySpreadsheetBinding
 import com.example.a16_room.ui.viewmodels.AttendanceViewModel
 import com.example.a16_room.ui.viewmodels.StudentAttendanceViewModel
+import com.example.a16_room.ui.viewmodels.SubjectViewModel
 import org.apache.poi.hssf.usermodel.HSSFCell
 import org.apache.poi.hssf.usermodel.HSSFRow
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
@@ -25,6 +26,9 @@ class SpreadsheetActivity : AppCompatActivity() {
     private lateinit var studentNameArray: Array<String>
     private lateinit var attendanceViewModel: AttendanceViewModel
     private lateinit var studentAttendanceViewModel: StudentAttendanceViewModel
+    private lateinit var subjectViewModel: SubjectViewModel
+
+    private lateinit var subjectName: String
 
     private lateinit var studentInfoRecyclerView: StudentInfoAdapter
 
@@ -36,11 +40,16 @@ class SpreadsheetActivity : AppCompatActivity() {
         binding = ActivitySpreadsheetBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var action = supportActionBar
-        action!!.title = "Relatório da Turma"
-
         if (intent.hasExtra("subject_id")) {
             subjectId = intent.getLongExtra("subject_id", -1L)
+        }
+
+        subjectViewModel = ViewModelProvider(this)[SubjectViewModel::class.java]
+        subjectViewModel.get(subjectId)
+        subjectViewModel.subject.observe(this) { subject ->
+            subjectName = subject.subjectName
+            var action = supportActionBar
+            action!!.title = subjectName.uppercase() + " - Relatório"
         }
 
         attendanceViewModel = ViewModelProvider(this)[AttendanceViewModel::class.java]

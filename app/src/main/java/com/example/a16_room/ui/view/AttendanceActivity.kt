@@ -34,6 +34,7 @@ import com.example.a16_room.ui.listeners.OnAttendanceListener
 import com.example.a16_room.ui.viewmodels.AttendanceViewModel
 import com.example.a16_room.ui.viewmodels.StudentAttendanceViewModel
 import com.example.a16_room.ui.viewmodels.StudentViewModel
+import com.example.a16_room.ui.viewmodels.SubjectViewModel
 
 class AttendanceActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAttendanceBinding
@@ -41,6 +42,10 @@ class AttendanceActivity : AppCompatActivity() {
     private lateinit var attendanceAdapter: AttendanceAdapter
     private lateinit var attendanceViewModel: AttendanceViewModel
     private lateinit var studentAttendanceViewModel: StudentAttendanceViewModel
+    private lateinit var subjectViewModel: SubjectViewModel
+
+    private lateinit var subjectName: String
+
 
     private val studentList: MutableList<StudentModel> = mutableListOf()
 
@@ -65,11 +70,16 @@ class AttendanceActivity : AppCompatActivity() {
         binding = ActivityAttendanceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var action = supportActionBar
-        action!!.title = "Chamada"
-
         if (intent.hasExtra("subject_id")) {
             subjectId = intent.getLongExtra("subject_id", -1L)
+        }
+
+        subjectViewModel = ViewModelProvider(this)[SubjectViewModel::class.java]
+        subjectViewModel.get(subjectId)
+        subjectViewModel.subject.observe(this) { subject ->
+            subjectName = subject.subjectName
+            var action = supportActionBar
+            action!!.title = subjectName.uppercase() + " - Chamada"
         }
 
         studentViewModel = ViewModelProvider(this)[StudentViewModel::class.java]
@@ -147,8 +157,6 @@ class AttendanceActivity : AppCompatActivity() {
             checkPermissions()
         }
 
-
-
         binding.seveAttendance.setOnClickListener {
             if (!studentAttendanceMap.isEmpty()) {
                 var dateTime: Long = System.currentTimeMillis()
@@ -157,11 +165,16 @@ class AttendanceActivity : AppCompatActivity() {
                 val attendanceId =
                     attendanceViewModel.insert(subjectId, dateTime, totalStudents, totalPresents)
                 for ((studentId, isPresent) in studentAttendanceMap) {
-                    if(bluetoothDevicesFound.contains(studentWithDeviceMap[studentId])){
+                    if (bluetoothDevicesFound.contains(studentWithDeviceMap[studentId])) {
                         Log.d("presentedfshjfdhskfjd", "${studentWithDeviceMap[studentId]}")
                         studentAttendanceViewModel.insert(attendanceId, subjectId, studentId, true)
-                    }else{
-                        studentAttendanceViewModel.insert(attendanceId, subjectId, studentId, isPresent)
+                    } else {
+                        studentAttendanceViewModel.insert(
+                            attendanceId,
+                            subjectId,
+                            studentId,
+                            isPresent
+                        )
                     }
                 }
                 finish()
