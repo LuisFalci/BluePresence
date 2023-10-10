@@ -17,12 +17,13 @@ import org.apache.poi.hssf.usermodel.HSSFRow
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import java.io.File
 import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class SpreadsheetActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySpreadsheetBinding
     private var subjectId: Long = -1L
 
-    private lateinit var dateTimeArray: Array<String>
     private lateinit var studentNameArray: Array<String>
     private lateinit var attendanceViewModel: AttendanceViewModel
     private lateinit var studentAttendanceViewModel: StudentAttendanceViewModel
@@ -40,21 +41,19 @@ class SpreadsheetActivity : AppCompatActivity() {
         binding = ActivitySpreadsheetBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        subjectViewModel = ViewModelProvider(this)[SubjectViewModel::class.java]
         if (intent.hasExtra("subject_id")) {
             subjectId = intent.getLongExtra("subject_id", -1L)
-        }
-
-        subjectViewModel = ViewModelProvider(this)[SubjectViewModel::class.java]
-        subjectViewModel.get(subjectId)
-        subjectViewModel.subject.observe(this) { subject ->
-            subjectName = subject.subjectName
-            var action = supportActionBar
-            action!!.title = subjectName.uppercase() + " - Relatório"
+            subjectViewModel.get(subjectId)
+            subjectViewModel.subject.observe(this) { subject ->
+                subjectName = subject.subjectName
+                var action = supportActionBar
+                action!!.title = subjectName.uppercase() + " - Relatório"
+            }
         }
 
         attendanceViewModel = ViewModelProvider(this)[AttendanceViewModel::class.java]
         studentAttendanceViewModel = ViewModelProvider(this)[StudentAttendanceViewModel::class.java]
-
 
         studentAttendanceViewModel.getStudentAttendanceInfo(subjectId)
 
@@ -77,7 +76,6 @@ class SpreadsheetActivity : AppCompatActivity() {
 
         attendanceViewModel.getAllAttendancesFromSubject(subjectId)
         val attendances = attendanceViewModel.attendances.value
-        dateTimeArray = attendances?.map { it.dateTime.toString() }?.toTypedArray() ?: emptyArray()
 
         binding.createExcelFile.setOnClickListener {
             createExcelFile(studentInfoList)
@@ -110,21 +108,22 @@ class SpreadsheetActivity : AppCompatActivity() {
             totalStudentsCell.setCellValue(studentInfo.totalPresences.toDouble())
 
             val presencesCell: HSSFCell = dataRow.createCell(3)
-            presencesCell.setCellValue(studentInfo.totalAbsences.toDouble() + studentInfo.totalPresences.toDouble())
+            presencesCell.setCellValue(studentInfo.totalStudents.toDouble())
 
-            val formattedPercentage = String.format("%.2f", studentInfo.attendancePercentage)
             val attendancePercentageCell: HSSFCell = dataRow.createCell(4)
-            attendancePercentageCell.setCellValue(formattedPercentage)
+            attendancePercentageCell.setCellValue(studentInfo.attendancePercentage)
         }
 
-        saveWorkBook(hssfWorkbook)
-    }
+        val cleanedSubjectName = subjectName.replace("[^a-zA-Z0-9-_]".toRegex(), "_")
 
+        val currentTime = System.currentTimeMillis()
+        val sdf = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss")
+        val formattedTime = sdf.format(Date(currentTime))
+        val fileName = "${cleanedSubjectName}_$formattedTime.xls"
 
-    private fun saveWorkBook(hssfWorkbook: HSSFWorkbook) {
         val directory =
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-        val fileOutput = File(directory, "Chamada.xls")
+        val fileOutput = File(directory, fileName)
 
         try {
             val fileOutputStream = FileOutputStream(fileOutput)
@@ -139,4 +138,5 @@ class SpreadsheetActivity : AppCompatActivity() {
             throw RuntimeException(e)
         }
     }
+
 }
