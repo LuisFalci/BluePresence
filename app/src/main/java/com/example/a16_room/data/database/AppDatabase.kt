@@ -7,26 +7,23 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.a16_room.data.dao.AttendanceDAO
-import com.example.a16_room.data.dao.ScheduleDAO
 import com.example.a16_room.data.dao.StudentAttendanceDAO
 import com.example.a16_room.data.dao.StudentDAO
 import com.example.a16_room.data.dao.SubjectDAO
 import com.example.a16_room.data.models.AttendanceModel
-import com.example.a16_room.data.models.ScheduleModel
 import com.example.a16_room.data.models.StudentModel
 import com.example.a16_room.data.models.SubjectModel
 import com.example.a16_room.data.models.relations.studentattendance.StudentAttendanceCrossRef
 import com.example.a16_room.data.models.relations.studentsubject.StudentSubjectCrossRef
 
 @Database(
-    entities = [StudentModel::class, SubjectModel::class, StudentSubjectCrossRef::class, ScheduleModel::class, AttendanceModel::class, StudentAttendanceCrossRef::class],
+    entities = [StudentModel::class, SubjectModel::class, StudentSubjectCrossRef::class, AttendanceModel::class, StudentAttendanceCrossRef::class],
     version = 1
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun studentDAO(): StudentDAO
     abstract fun subjectDAO(): SubjectDAO
-    abstract fun scheduleDAO(): ScheduleDAO
     abstract fun attendanceDAO(): AttendanceDAO
     abstract fun studentAttendance(): StudentAttendanceDAO
 

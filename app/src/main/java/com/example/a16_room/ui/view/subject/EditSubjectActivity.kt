@@ -5,15 +5,11 @@ import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.a16_room.data.models.ScheduleModel
 import com.example.a16_room.databinding.ActivityEditSubjectBinding
-import com.example.a16_room.ui.viewmodels.ScheduleViewModel
 import com.example.a16_room.ui.viewmodels.SubjectViewModel
 
 class EditSubjectActivity : AppCompatActivity() {
     private lateinit var subjectViewModel: SubjectViewModel
-    private lateinit var scheduleViewModel: ScheduleViewModel
-
     private lateinit var selectedButton: Button
 
     private lateinit var binding: ActivityEditSubjectBinding
@@ -24,9 +20,6 @@ class EditSubjectActivity : AppCompatActivity() {
         var startTime: String = "",
         var endTime: String = "",
     )
-
-    private lateinit var scheduleDataList: List<ScheduleModel>
-    private val classTimesList = mutableListOf<CreateSubjectActivity.ClassTime>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +43,7 @@ class EditSubjectActivity : AppCompatActivity() {
         }
 
         binding.buttonEdit.setOnClickListener {
-            if(!validateForm()) {
+            if (!validateForm()) {
                 val name = binding.editName.text.toString()
                 subjectViewModel.update(subjectId, name)
 
@@ -58,6 +51,7 @@ class EditSubjectActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun validateForm(): Boolean {
         var error = false
         Log.d("fkdlsjfsdkjfsld", "${binding.editName.text.length}")

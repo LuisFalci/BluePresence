@@ -6,13 +6,10 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.a16_room.databinding.ActivityCreateSubjectBinding
-import com.example.a16_room.ui.viewmodels.ScheduleViewModel
 import com.example.a16_room.ui.viewmodels.SubjectViewModel
 
 class CreateSubjectActivity : AppCompatActivity() {
     private lateinit var subjectViewModel: SubjectViewModel
-    private lateinit var scheduleViewModel: ScheduleViewModel
-
     private lateinit var selectedButton: Button
 
     lateinit var binding: ActivityCreateSubjectBinding
@@ -35,7 +32,7 @@ class CreateSubjectActivity : AppCompatActivity() {
         subjectViewModel = ViewModelProvider(this)[SubjectViewModel::class.java]
 
         binding.buttonInsert.setOnClickListener {
-            if(!validateForm()){
+            if (!validateForm()) {
                 val name = binding.editName.text.toString()
                 subjectViewModel.insert(name)
 
@@ -43,6 +40,7 @@ class CreateSubjectActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun validateForm(): Boolean {
         var error = false
         Log.d("fkdlsjfsdkjfsld", "${binding.editName.text.length}")
