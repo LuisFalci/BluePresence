@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_room.data.models.StudentModel
 import com.example.a16_room.databinding.RowAttendanceBinding
 import com.example.a16_room.ui.listeners.OnAttendanceListener
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class AttendanceAdapter(
     private val context: Context,
@@ -69,12 +67,6 @@ class AttendanceAdapter(
     fun updateBluetoothDevicesFound(updatedBluetoothDevicesFound: List<String>) {
         bluetoothDevicesFound = updatedBluetoothDevicesFound.toMutableList()
         notifyDataSetChanged()
-    }
-
-    private fun getCurrentTimestamp(): String {
-        val currentTimeMillis = System.currentTimeMillis()
-        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-            .format(currentTimeMillis)
     }
 
     fun attachListener(attendanceListener: OnAttendanceListener) {

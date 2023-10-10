@@ -16,7 +16,6 @@ import java.util.Date
 class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
     private var attendanceList: List<AttendanceModel> = listOf()
     private lateinit var listener: OnHistoryListener
-    var count = 0
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var historyText: TextView = view.findViewById(R.id.historyText)
@@ -37,7 +36,6 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val history = attendanceList[position]
-        count++
         val date = Date(history.dateTime)
         val sdf = SimpleDateFormat("dd/MM/yyyy")
         val formattedDate = sdf.format(date)
