@@ -172,7 +172,7 @@ class AttendanceActivity : AppCompatActivity() {
                     attendanceViewModel.insert(subjectId, dateTime, totalStudents, totalPresents)
                 for ((studentId, isPresent) in studentAttendanceMap) {
                     if (bluetoothDevicesFound.contains(studentWithDeviceMap[studentId])) {
-                        Log.d("presentedfshjfdhskfjd", "${studentWithDeviceMap[studentId]}")
+                        studentAttendanceMap[studentId] = true
                         studentAttendanceViewModel.insert(attendanceId, subjectId, studentId, true)
                     } else {
                         studentAttendanceViewModel.insert(
@@ -203,11 +203,15 @@ class AttendanceActivity : AppCompatActivity() {
 
     private fun calculateTotalStudentsPresent(): Int {
         var numeroAlunosPresentes = 0
-        for (isPresent in studentAttendanceMap.values) {
-            if (isPresent) {
+        for ((studentId, isPresent) in studentAttendanceMap) {
+            if (bluetoothDevicesFound.contains(studentWithDeviceMap[studentId])) {
+                numeroAlunosPresentes++
+            }
+            if (isPresent == true) {
                 numeroAlunosPresentes++
             }
         }
+        Log.d("fdskjfhskdfhskjfd", "${numeroAlunosPresentes}")
         return numeroAlunosPresentes
     }
 
