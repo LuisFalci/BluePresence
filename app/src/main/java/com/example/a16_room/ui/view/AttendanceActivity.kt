@@ -55,6 +55,7 @@ class AttendanceActivity : AppCompatActivity() {
     private var subjectId: Long = -1L
 
     private var studentAttendanceMap = mutableMapOf<Long, Boolean>()
+    private var studentWithDeviceMap = mutableMapOf<Long, String>()
 
     private var isButtonClicked = false
 
@@ -75,22 +76,22 @@ class AttendanceActivity : AppCompatActivity() {
         attendanceViewModel = ViewModelProvider(this)[AttendanceViewModel::class.java]
         studentAttendanceViewModel = ViewModelProvider(this)[StudentAttendanceViewModel::class.java]
 
-        studentViewModel.getAllStudentsInSubject(subjectId)
+        bluetoothDevicesFoundLiveData.observe(this) { updatedBluetoothDevicesFound ->
+            bluetoothDevicesFound = updatedBluetoothDevicesFound.toMutableList()
+            attendanceAdapter.updateBluetoothDevicesFound(bluetoothDevicesFound)
+        }
 
+        studentViewModel.getAllStudentsInSubject(subjectId)
         studentViewModel.students.observe(this) { students ->
             studentList.clear()
             studentList.addAll(students)
             studentAttendanceMap.clear()
             studentList.forEach { student ->
                 studentAttendanceMap[student.studentId] = false
+                studentWithDeviceMap[student.studentId] = student.macAddress
             }
             binding.totalStudents.text = "Total de alunos: " + studentList.size.toString()
             attendanceAdapter.notifyDataSetChanged()
-        }
-
-        bluetoothDevicesFoundLiveData.observe(this) { updatedBluetoothDevicesFound ->
-            bluetoothDevicesFound = updatedBluetoothDevicesFound.toMutableList()
-            attendanceAdapter.updateBluetoothDevicesFound(bluetoothDevicesFound)
         }
 
         val recyclerViewStudent = binding.studentsAttendance
@@ -99,7 +100,6 @@ class AttendanceActivity : AppCompatActivity() {
         recyclerViewStudent.adapter = attendanceAdapter
         bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         bluetoothAdapter = bluetoothManager.adapter
-
 
         binding.startBluetoothAttendance.setOnClickListener {
             enableDisableBluetooth()
@@ -147,6 +147,8 @@ class AttendanceActivity : AppCompatActivity() {
             checkPermissions()
         }
 
+
+
         binding.seveAttendance.setOnClickListener {
             if (!studentAttendanceMap.isEmpty()) {
                 var dateTime: Long = System.currentTimeMillis()
@@ -155,12 +157,15 @@ class AttendanceActivity : AppCompatActivity() {
                 val attendanceId =
                     attendanceViewModel.insert(subjectId, dateTime, totalStudents, totalPresents)
                 for ((studentId, isPresent) in studentAttendanceMap) {
-                    Log.d("ausenteNulos", "${isPresent} -> ${totalStudents}")
-                    studentAttendanceViewModel.insert(attendanceId, subjectId, studentId, isPresent)
+                    if(bluetoothDevicesFound.contains(studentWithDeviceMap[studentId])){
+                        Log.d("presentedfshjfdhskfjd", "${studentWithDeviceMap[studentId]}")
+                        studentAttendanceViewModel.insert(attendanceId, subjectId, studentId, true)
+                    }else{
+                        studentAttendanceViewModel.insert(attendanceId, subjectId, studentId, isPresent)
+                    }
                 }
                 finish()
             }
-
         }
 
         val listener = object : OnAttendanceListener {

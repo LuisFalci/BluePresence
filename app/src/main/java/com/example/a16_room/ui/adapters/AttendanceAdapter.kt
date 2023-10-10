@@ -38,12 +38,13 @@ class AttendanceAdapter(
         val student = studentList[position]
         holder.studentName.text = student.name
 
-
         holder.studentPresent.setOnCheckedChangeListener(null)
         holder.studentAbsent.setOnCheckedChangeListener(null)
 
-        // Defina o estado inicial dos radio buttons com base nos dispositivos Bluetooth encontrados.
         val isPresent = studentRadioButtonStateMap.getOrDefault(student.studentId, false)
+        if (bluetoothDevicesFound.contains(student.macAddress)) {
+            studentRadioButtonStateMap[student.studentId] = true
+        }
         holder.studentPresent.isChecked = isPresent
         holder.studentAbsent.isChecked = !isPresent
 
