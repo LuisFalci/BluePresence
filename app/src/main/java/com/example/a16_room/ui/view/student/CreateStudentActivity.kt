@@ -11,6 +11,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
@@ -87,6 +88,9 @@ class CreateStudentActivity : AppCompatActivity() {
 
         binding.btDiscoverDevices.setOnClickListener {
             enableDisableBluetooth()
+            if (!isGpsEnabled()) {
+                Toast.makeText(this, "Ative a localização no dispositivo", Toast.LENGTH_LONG).show()
+            }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 when (ContextCompat.checkSelfPermission(
@@ -136,6 +140,10 @@ class CreateStudentActivity : AppCompatActivity() {
         registerReceiver(bondStateChangedReceiver, bondStateFilter)
 
         checkPermissions()
+    }
+    private fun isGpsEnabled(): Boolean {
+        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
 
     private fun validateForm(): Boolean {

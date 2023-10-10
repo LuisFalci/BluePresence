@@ -12,6 +12,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
@@ -113,46 +114,51 @@ class AttendanceActivity : AppCompatActivity() {
 
         binding.startBluetoothAttendance.setOnClickListener {
             enableDisableBluetooth()
-            if (isButtonClicked) {
-                binding.startBluetoothAttendance.setBackgroundColor(Color.rgb(80, 163, 237))
-                binding.startBluetoothAttendance.text = "Ativar Chamada"
-                isButtonClicked = false
-            } else {
-                binding.startBluetoothAttendance.setBackgroundColor(Color.rgb(239, 27, 44))
-                binding.startBluetoothAttendance.text = "Desativar Chamada"
-                isButtonClicked = true
+            if (isGpsEnabled()) {
+                if (isButtonClicked) {
+                    binding.startBluetoothAttendance.setBackgroundColor(Color.rgb(80, 163, 237))
+                    binding.startBluetoothAttendance.text = "Ativar Chamada"
+                    isButtonClicked = false
+                } else {
+                    binding.startBluetoothAttendance.setBackgroundColor(Color.rgb(239, 27, 44))
+                    binding.startBluetoothAttendance.text = "Desativar Chamada"
+                    isButtonClicked = true
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    when (ContextCompat.checkSelfPermission(
-                        baseContext, Manifest.permission.ACCESS_COARSE_LOCATION
-                    )) {
-                        PackageManager.PERMISSION_DENIED -> AlertDialog.Builder(
-                            this
-                        )
-                            .setTitle("Runtime Permission")
-                            .setMessage("Give Permission")
-                            .setNeutralButton(
-                                "Okay",
-                                DialogInterface.OnClickListener { dialog, which ->
-                                    if (ContextCompat.checkSelfPermission(
-                                            baseContext,
-                                            Manifest.permission.ACCESS_COARSE_LOCATION
-                                        ) !=
-                                        PackageManager.PERMISSION_GRANTED
-                                    ) {
-                                        ActivityCompat.requestPermissions(
-                                            this,
-                                            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                                            REQUEST_ACCESS_COARSE_LOCATION
-                                        )
-                                    }
-                                })
-                            .show()
-                            .findViewById<TextView>(androidx.appcompat.R.id.message)!!.movementMethod =
-                            LinkMovementMethod.getInstance()
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        when (ContextCompat.checkSelfPermission(
+                            baseContext, Manifest.permission.ACCESS_COARSE_LOCATION
+                        )) {
+                            PackageManager.PERMISSION_DENIED -> AlertDialog.Builder(
+                                this
+                            )
+                                .setTitle("Runtime Permission")
+                                .setMessage("Give Permission")
+                                .setNeutralButton(
+                                    "Okay",
+                                    DialogInterface.OnClickListener { dialog, which ->
+                                        if (ContextCompat.checkSelfPermission(
+                                                baseContext,
+                                                Manifest.permission.ACCESS_COARSE_LOCATION
+                                            ) !=
+                                            PackageManager.PERMISSION_GRANTED
+                                        ) {
+                                            ActivityCompat.requestPermissions(
+                                                this,
+                                                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                                                REQUEST_ACCESS_COARSE_LOCATION
+                                            )
+                                        }
+                                    })
+                                .show()
+                                .findViewById<TextView>(androidx.appcompat.R.id.message)!!.movementMethod =
+                                LinkMovementMethod.getInstance()
+                        }
                     }
+                    discoverDevices()
                 }
-                discoverDevices()
+            } else {
+                Toast.makeText(this, "Ative a localização no dispositivo", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
             }
             checkPermissions()
         }
@@ -188,6 +194,11 @@ class AttendanceActivity : AppCompatActivity() {
             }
         }
         attendanceAdapter.attachListener(listener)
+    }
+
+    private fun isGpsEnabled(): Boolean {
+        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
 
     private fun calculateTotalStudentsPresent(): Int {
@@ -256,7 +267,6 @@ class AttendanceActivity : AppCompatActivity() {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             btActivityResultLauncher.launch(enableBtIntent)
             isButtonClicked = true
-            Log.d("discoverDevices", "enableDisableBluetooth ${isButtonClicked}")
         }
 
     }
@@ -265,7 +275,7 @@ class AttendanceActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (it.resultCode == RESULT_OK) {
-            Toast.makeText(this, "Bluetooth Conectado", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Bluetooth Conectado", Toast.LENGTH_SHORT).show()
         }
     }
 
