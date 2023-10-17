@@ -21,6 +21,6 @@ interface ScheduleDAO {
     @Query("SELECT * FROM Schedule WHERE scheduleId = :scheduleId")
     fun get(scheduleId: Long): ScheduleModel
 
-    @Query("SELECT * FROM Schedule WHERE subjectId = :subjectId")
+    @Query("SELECT * FROM Schedule WHERE subject_id = :subjectId")
     fun getAllSchedulesForSubject(subjectId: Long): List<ScheduleModel>
 }

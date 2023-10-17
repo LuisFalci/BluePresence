@@ -24,6 +24,8 @@ class ViewStudentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        var action = supportActionBar
+        action!!.title = "Alunos"
 
         subjectViewModel = ViewModelProvider(this)[SubjectViewModel::class.java]
 

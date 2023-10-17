@@ -21,7 +21,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-
             android:src="@drawable/ic_student" />
 
         <TextView
@@ -31,9 +30,17 @@
             android:layout_weight="7"
             android:padding="10dp"
             android:text="Student"
-            android:textColor="@color/lavender"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
+        <ImageView
+            android:id="@+id/button_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_edit"
+            android:padding="8dp"
+            android:textColor="@color/black" />
         <ImageView
             android:id="@+id/button_remove"
             android:layout_width="wrap_content"
@@ -41,7 +48,7 @@
             android:layout_weight="1"
             android:src="@drawable/ic_trash"
             android:padding="8dp"
-            android:textColor="@color/lavender" />
+            android:textColor="@color/black" />
 
     </LinearLayout>
 

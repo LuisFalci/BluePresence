@@ -1,4 +1,4 @@
-package com.example.a16_room.data.models.relations
+package com.example.a16_room.data.models.relations.studentsubject
 
 import androidx.room.Embedded
 import androidx.room.Junction
@@ -12,7 +12,7 @@ class SubjectWithStudents {
 
     @Relation(
         parentColumn = "subjectId",
-        entityColumn = "id",
+        entityColumn = "studentId",
         associateBy = Junction(StudentSubjectCrossRef::class)
     )
     lateinit var student: List<StudentModel>

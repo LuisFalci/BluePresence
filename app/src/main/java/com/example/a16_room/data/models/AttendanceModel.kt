@@ -1,18 +1,21 @@
 package com.example.a16_room.data.models
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Attendance")
-class AttendanceModel {
+@Entity(tableName = "Attendance",
+    foreignKeys = [
+        ForeignKey(entity = SubjectModel::class,
+            parentColumns = ["subjectId"],
+            childColumns = ["subjectId"],
+            onDelete = ForeignKey.CASCADE) // Adicione esta linha para realizar a exclusão em cascata
+    ])
+class AttendanceModel() {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
     var attendanceId: Long = 0
-
-    @ColumnInfo(name = "attendance")
-    var presence: Boolean = false
-
-    @ColumnInfo(name = "attendanceTimestamp")
-    var attendanceTimestamp: String = ""
+    var subjectId: Long = 0
+    var dateTime: Long = 0
+    var totalStudents: Int = 0
+    var totalPresents: Int = 0
 }

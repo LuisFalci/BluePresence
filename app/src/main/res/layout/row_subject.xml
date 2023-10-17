@@ -17,42 +17,15 @@
         android:orientation="horizontal"
         android:padding="20dp">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/text_subject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="7"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/text_subject"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:padding="10dp"
-                android:text="Turma"
-                android:textColor="@color/lavender"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/text_schedules"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:padding="10dp"
-                android:text="Horários:"
-                android:textColor="@color/lavender"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/text_week"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:padding="10dp"
-                android:text="10:30 - 12:15"
-                android:textColor="@color/lavender"
-                android:textSize="15sp" />
-        </LinearLayout>
+            android:padding="10dp"
+            android:text="Turma"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/button_remove"
@@ -61,9 +34,7 @@
             android:layout_weight="1"
             android:padding="8dp"
             android:src="@drawable/ic_popup_menu"
-            android:textColor="@color/lavender" />
+            android:textColor="@color/black" />
 
     </LinearLayout>
-
-
 </androidx.cardview.widget.CardView>

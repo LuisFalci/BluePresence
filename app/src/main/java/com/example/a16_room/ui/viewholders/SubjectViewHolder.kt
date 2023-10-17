@@ -1,14 +1,13 @@
 package com.example.a16_room.ui.viewholders
 
+import android.app.AlertDialog
 import android.view.View
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a16_room.R
 import com.example.a16_room.data.models.SubjectModel
-import com.example.a16_room.databinding.RowStudentBinding
 import com.example.a16_room.databinding.RowSubjectBinding
 import com.example.a16_room.ui.listeners.ClickSourceSubject
-import com.example.a16_room.ui.listeners.OnStudentListener
 import com.example.a16_room.ui.listeners.OnSubjectListener
 
 class SubjectViewHolder(
@@ -38,8 +37,17 @@ class SubjectViewHolder(
                 }
 
                 R.id.popup_delete -> {
-                    listener.OnClick(subject.subjectId, ClickSourceSubject.OPTION_REMOVE)
+                    AlertDialog.Builder(itemView.context)
+                        .setTitle("Remover Turma ${subject.subjectName}")
+                        .setMessage("Tem certeza que deseja remover?")
+                        .setPositiveButton("Sim") { dialog, which ->
+                            listener.OnClick(subject.subjectId, ClickSourceSubject.OPTION_REMOVE)
+                        }
+                        .setNegativeButton("Não", null)
+                        .create()
+                        .show()
                     true
+
                 }
 
                 else -> false

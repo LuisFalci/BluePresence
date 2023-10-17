@@ -41,7 +41,7 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
     ) {
         val model = ScheduleModel().apply {
             this.scheduleId = scheduleId
-            this.subjectId = subjectId
+            this.subject_id = subjectId
             this.startTime = startTime
             this.endTime = endTime
             this.dayOfWeek = dayOfWeek

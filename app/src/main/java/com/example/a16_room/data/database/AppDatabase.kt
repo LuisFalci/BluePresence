@@ -6,33 +6,40 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.a16_room.data.dao.AttendanceDAO
 import com.example.a16_room.data.dao.ScheduleDAO
+import com.example.a16_room.data.dao.StudentAttendanceDAO
 import com.example.a16_room.data.dao.StudentDAO
 import com.example.a16_room.data.dao.SubjectDAO
+import com.example.a16_room.data.models.AttendanceModel
 import com.example.a16_room.data.models.ScheduleModel
 import com.example.a16_room.data.models.StudentModel
 import com.example.a16_room.data.models.SubjectModel
-import com.example.a16_room.data.models.relations.StudentSubjectCrossRef
+import com.example.a16_room.data.models.relations.studentattendance.StudentAttendanceCrossRef
+import com.example.a16_room.data.models.relations.studentsubject.StudentSubjectCrossRef
 
-@Database(entities = [StudentModel::class, SubjectModel::class, StudentSubjectCrossRef::class, ScheduleModel::class], version = 3)
-abstract class StudentDatabase : RoomDatabase() {
+@Database(
+    entities = [StudentModel::class, SubjectModel::class, StudentSubjectCrossRef::class, ScheduleModel::class, AttendanceModel::class, StudentAttendanceCrossRef::class],
+    version = 1
+)
+abstract class AppDatabase : RoomDatabase() {
 
-    //abstração da interface, temos o acesso via esta instância do banco
     abstract fun studentDAO(): StudentDAO
     abstract fun subjectDAO(): SubjectDAO
-
     abstract fun scheduleDAO(): ScheduleDAO
+    abstract fun attendanceDAO(): AttendanceDAO
+    abstract fun studentAttendance(): StudentAttendanceDAO
 
     //PADRÃO SINGLETON (impedimos instanciar mais de um banco)
     companion object {
-        private lateinit var INSTANCE: StudentDatabase
+        private lateinit var INSTANCE: AppDatabase
 
-        fun getDatabase(context: Context): StudentDatabase {
+        fun getDatabase(context: Context): AppDatabase {
             if (!Companion::INSTANCE.isInitialized) {
-                synchronized(StudentDatabase::class.java) {
+                synchronized(AppDatabase::class.java) {
                     INSTANCE =
-                        Room.databaseBuilder(context, StudentDatabase::class.java, "bluePresenceDB")
-                            .addMigrations(MIGRATION_1_2)
+                        Room.databaseBuilder(context, AppDatabase::class.java, "bluePresenceDB")
+                            .addMigrations(MIGRATION)
                             .allowMainThreadQueries()
                             .build()
                 }
@@ -40,7 +47,7 @@ abstract class StudentDatabase : RoomDatabase() {
             return INSTANCE
         }
 
-        private val MIGRATION_1_2: Migration = object : Migration(1, 2) {
+        private val MIGRATION: Migration = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 //IMPLEMENTAR O NECESSÁRIO
             }

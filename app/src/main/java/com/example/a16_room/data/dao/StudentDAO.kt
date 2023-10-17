@@ -18,7 +18,7 @@ interface StudentDAO {
     @Delete
     fun delete(student: StudentModel): Int
 
-    @Query("SELECT * FROM Student WHERE id = :id")
+    @Query("SELECT * FROM Student WHERE studentId = :id")
     fun get(id: Long): StudentModel
 
     @Query("SELECT * FROM Student")
@@ -26,7 +26,7 @@ interface StudentDAO {
 
     @Query(
         "SELECT Student.* FROM Student " +
-                "INNER JOIN StudentSubjectCrossRef ON Student.id = StudentSubjectCrossRef.id " +
+                "INNER JOIN StudentSubjectCrossRef ON Student.studentId = StudentSubjectCrossRef.studentId " +
                 "WHERE StudentSubjectCrossRef.subjectId = :subjectId"
     )
     fun getAllStudentsInSubject(subjectId: Long): List<StudentModel>

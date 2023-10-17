@@ -7,7 +7,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.a16_room.data.models.StudentModel
 import com.example.a16_room.data.models.SubjectModel
-import com.example.a16_room.data.models.relations.StudentSubjectCrossRef
+import com.example.a16_room.data.models.relations.studentsubject.StudentSubjectCrossRef
 
 @Dao
 interface SubjectDAO {
@@ -23,7 +23,7 @@ interface SubjectDAO {
     @Delete
     fun delete(subject: SubjectModel): Int
 
-    @Query("SELECT * FROM Subject WHERE subject_id = :id")
+    @Query("SELECT * FROM Subject WHERE subjectId = :id")
     fun get(id: Long): SubjectModel
 
     @Query("SELECT * FROM Subject")
@@ -31,7 +31,7 @@ interface SubjectDAO {
 
     @Query(
         "SELECT Student.* FROM Student " +
-                "INNER JOIN StudentSubjectCrossRef ON Student.id = StudentSubjectCrossRef.id " +
+                "INNER JOIN StudentSubjectCrossRef ON Student.studentId = StudentSubjectCrossRef.studentId " +
                 "WHERE StudentSubjectCrossRef.subjectId = :subjectId"
     )
     fun getAllStudentsInSubject(subjectId: Long): List<StudentModel>
