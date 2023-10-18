@@ -4,7 +4,7 @@
 Tela inicial:
 
 
-![image](https://github.com/LuisFalci/App-Chamada-Bluetooth-TCC-II/assets/78694561/47324973-083d-4d7b-87af-345ced09565a)
+![image](https://github.com/LuisFalci/App-Chamada-Bluetooth-TCC-II/assets/78694561/56e5f923-19fa-4755-b171-85a47423c493)
 
 
 Tela da turma:
