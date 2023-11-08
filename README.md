@@ -1,17 +1,18 @@
-**Guia de utilização do App:**
+**BluePresence**
 
+Este é um aplicativo feito utilizando a linguagem kotlin e a biblioteca room para manipulação do banco de dados SQLite.
+
+O aplicativo utiliza a tecnologia bluetooth para realizar chamadas acadêmicas de forma automatizada.
+
+**Guia de Utilização:**
 
 
 Tela inicial:
 
 
-![image](https://github.com/LuisFalci/App-Chamada-Bluetooth-TCC-II/assets/78694561/56e5f923-19fa-4755-b171-85a47423c493)
-
 
 Tela da turma:
-
-
-![image](https://github.com/LuisFalci/App-Chamada-Bluetooth-TCC-II/assets/78694561/eb23931c-e517-4802-b3dd-f9a8217bd0a3)
+![Screenshot_20231016_161248_BluePresence](https://github.com/LuisFalci/BluePresence/assets/78694561/c552d2d8-1044-4cd7-be48-0bdc9c1fe0f8)
 
 
 Tela de Alunos
