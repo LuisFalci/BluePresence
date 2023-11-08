@@ -44,6 +44,11 @@ Tela de Relatório
 Planilha Gerada (Externo ao App)
 <br>
 ![Screenshot_20231016_161943_Microsoft 365 (Office)](https://github.com/LuisFalci/BluePresence/assets/78694561/55fe5127-bd43-4f6e-843f-3deccf367473)
+<br>
+<br>
+<br>
+**Keywords**: 
+Kotlin+Bluetooth+Classic+Room+Sqlite+App+android+studio+attendance+chamada+contagem+presença+presence+turma+class+escola+automática
 
 
 
