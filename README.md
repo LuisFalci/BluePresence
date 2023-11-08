@@ -10,14 +10,18 @@ Tela da turma:
 ![Screenshot_20231016_161248_BluePresence](https://github.com/LuisFalci/BluePresence/assets/78694561/e9c061b4-0cd1-492d-85a3-4da083c899ef)
 
 
-
-Tela de Alunos
+<p>
+  Tela de Alunos
 ![Screenshot_20231016_161626_BluePresence](https://github.com/LuisFalci/BluePresence/assets/78694561/3b7bd2d5-7cda-47de-98f8-eff7029ce6b8)
+</p>
 
-
-
-Tela de Criar Aluno (lista de dispositivos)
+<p>
+  Tela de Criar Aluno (lista de dispositivos)
 ![Screenshot_20231016_161543_BluePresence](https://github.com/LuisFalci/BluePresence/assets/78694561/97c0ce32-082a-4bd2-b235-476d5d597b3f)
+</p>
+
+
+
 
 
 
