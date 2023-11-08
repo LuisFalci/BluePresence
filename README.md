@@ -6,8 +6,10 @@ O aplicativo utiliza a tecnologia bluetooth para realizar chamadas acadêmicas d
 
 **Guia de Utilização:**
 
-Tela da turma:
+<p>
+  Tela da turma:
 ![Screenshot_20231016_161248_BluePresence](https://github.com/LuisFalci/BluePresence/assets/78694561/e9c061b4-0cd1-492d-85a3-4da083c899ef)
+</p>
 
 
 <p>
