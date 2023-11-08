@@ -46,6 +46,10 @@ Planilha Gerada (Externo ao App)
 ![Screenshot_20231016_161943_Microsoft 365 (Office)](https://github.com/LuisFalci/BluePresence/assets/78694561/55fe5127-bd43-4f6e-843f-3deccf367473)
 <br>
 <br>
+Download do APK:
+<br>
+https://drive.google.com/drive/folders/1Rm1lEgv88jFiHsJkn_-nyMgLF-EgEomn?usp=sharing
+<br>
 <br>
 **Keywords**: 
 Kotlin+Bluetooth+Classic+Room+Sqlite+App+android+studio+attendance+chamada+contagem+presença+presence+turma+class+escola+automática
