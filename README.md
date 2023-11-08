@@ -4,7 +4,8 @@ Este é um aplicativo feito utilizando a linguagem kotlin e a biblioteca room pa
 
 O aplicativo utiliza a tecnologia bluetooth para realizar chamadas acadêmicas de forma automatizada.
 
-**Guia de Utilização:**
+**Telas do Aplicativo:**
+<br>
 <br>
 Tela da turma:
 <br>
