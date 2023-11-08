@@ -12,7 +12,7 @@ Tela inicial:
 
 
 Tela da turma:
-![Screenshot_20231016_161248_BluePresence](https://github.com/LuisFalci/BluePresence/assets/78694561/c552d2d8-1044-4cd7-be48-0bdc9c1fe0f8)
+![Turmas](https://github.com/LuisFalci/BluePresence/assets/78694561/5ab45e6c-f3f6-409f-8e6f-b7229b69bd23)
 
 
 Tela de Alunos
