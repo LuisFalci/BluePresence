@@ -1,4 +1,8 @@
+**Código fonte do aplicativo BluePresence**
+<br>
+<br>
 **BluePresence**
+
 
 Este é um aplicativo feito utilizando a linguagem kotlin e a biblioteca room para manipulação do banco de dados SQLite.
 
