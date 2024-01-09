@@ -58,6 +58,10 @@ https://drive.google.com/drive/folders/1Rm1lEgv88jFiHsJkn_-nyMgLF-EgEomn?usp=sha
 **Keywords**: 
 Kotlin+Bluetooth+Classic+Room+Sqlite+App+android+studio+attendance+chamada+contagem+presença+presence+turma+class+escola+automática
 
+<br>
+<br>
+**App Demo YouTube:**: 
+https://youtu.be/zl88CaAxSoc
 
 
 
