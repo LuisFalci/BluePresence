@@ -60,7 +60,7 @@ Kotlin+Bluetooth+Classic+Room+Sqlite+App+android+studio+attendance+chamada+conta
 
 <br>
 <br>
-**App Demo YouTube:**: 
+**App Demo YouTube**: 
 https://youtu.be/zl88CaAxSoc
 
 
